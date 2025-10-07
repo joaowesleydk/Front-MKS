@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { LoadingSpinner } from '../components/LoadingSpinner';
 
 // Componentes reutilizáveis
 import { Navbar } from '../components/Navbar';
@@ -43,7 +44,7 @@ const PublicRoute = ({ children }) => {
 
     return (
         <div className="min-h-screen">
-            <PublicNavbar /> {/* Navbar pública */}
+            <Navbar /> {/* Navbar pública */}
             <main className=" mx-auto ">
                 {children} {/* Conteúdo da página pública */}
             </main>
