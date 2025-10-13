@@ -7,6 +7,7 @@ import { Navbar } from '../components/Navbar';
 
 // Páginas públicas
 import { Home } from '../pages/Home';
+import { Login } from '../pages/Login';
 
 // Páginas protegidas (apenas para usuários autenticados)
 
@@ -65,6 +66,12 @@ export const AppRoutes = () => {
                         <Home />
                     </PublicRoute>
                 } />
+                <Route path="/login" element={
+                    <PublicRoute>
+                        <Login />
+                    </PublicRoute>
+                } />
+
 
 
             </Routes>
