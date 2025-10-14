@@ -1,98 +1,131 @@
-import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
-import { Input } from "../components/Input";
-import { Button } from "../components/Button";
-import { Card } from "../components/Card";
-import toast from "react-hot-toast";
+
+import React, { useState } from "react";
+import { FcGoogle } from "react-icons/fc";
+import { FaFacebook } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
+
 
 export const Login = () => {
-  const [formData, setFormData] = useState({ email: '', password: '', confirmPassword: '' });
-  const [loading, setLoading] = useState(false);
-  const { login } = useAuth();
   const navigate = useNavigate();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-  const handleSubmit = async (e) => {
+  const handleLogin = (e) => {
     e.preventDefault();
-    setLoading(true);
-
-    // Verifica se a confirmação de senha é igual
-    if (formData.password !== formData.confirmPassword) {
-      toast.error("As senhas não coincidem.");
-      setLoading(false);
-      return;
-    }
-
-    try {
-      const { user, token } = await mockApi.login(formData.email, formData.password);
-      login(user, token);
-      toast.success('Login realizado com sucesso!');
-      navigate('/dashboard');
-    } catch (error) {
-      toast.error(error.message);
-    } finally {
-      setLoading(false);
-    }
+    const user = { email };
+    localStorage.setItem("user", JSON.stringify(user));
+    navigate("/");
   };
 
   return (
-    <div
-      className="flex items-center p-8 py-12 space-y-16 relative min-h-screen justify-center text-center bg-cover bg-center"
-      style={{ backgroundImage: "url('/Fundologin.png')" }}
-    >
-      <Card className="px-20 max-w-wd bg-white">
-        {/* Cabeçalho */}
-        <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-black mb-2">Entrar</h1>
-          <p className="text-black">Acesse a sua conta </p>
+    <>
+
+
+      <div className="flex flex-col items-center justify-center min-h-screen bg-white p-4
+      bg-[url('/Fundologin.png')] bg-cover bg-center bg-no-repeat"
+      >
+      
+        <h1 className="text-4xl font-bold text-[#1C1C1C] mb-2 text-center">
+          Entre ou Cadastre-se
+        </h1>
+        <p className="text-[#1C1C1C] text-base mb-6 text-center">
+          Para começar, digite seu email e senha no campo abaixo
+        </p>
+
+        <div className="bg-[#F2F2F2] shadow-md rounded-xl px-10 pt-5 pb-5 mb-6 w-full max-w-md">
+          <form onSubmit={handleLogin}>
+            <div className="mb-4">
+              <label className="block text-[#1C1C1C] text-sm font-semibold mb-2" htmlFor="email">
+                Email
+              </label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                placeholder="Digite seu email"
+                className="bg-white border border-gray-300 rounded w-full py-2 px-3 text-[#1C1C1C] leading-tight focus:outline-none focus:ring-2 "
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
+            </div>
+
+            <div className="mb-6">
+              <label className="block text-[#1C1C1C] text-sm font-semibold mb-2" htmlFor="password">
+                Senha
+              </label>
+              <input
+                type="password"
+                id="password"
+                name="password"
+                placeholder="Digite sua senha"
+                className="bg-white border border-gray-300 rounded w-full py-2 px-3 text-[#1C1C1C] leading-tight focus:outline-none focus:ring-2 focus:ring-[#FF6B00]"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+            </div>
+
+            <div className="flex justify-center mb-4">
+              <button
+                type="submit"
+                className="bg-black hover:bg-rose-600 text-white font-bold py-2 px-20 rounded transition duration-200"
+              >
+                Continuar
+              </button>
+            </div>
+
+            <div className="text-center text-[#1C1C1C] mb-4 font-medium">ou</div>
+
+            <div className="flex flex-col gap-3">
+              <button
+                type="button"
+                className="flex items-center justify-center gap-2 bg-white text-[#1C1C1C] font-semibold py-2 px-4 rounded hover:bg-[#F2F2F2] transition-colors"
+                onClick={() => window.location.href = "https://accounts.google.com"}
+              >
+                <FcGoogle size={20} />
+                Entrar com Google
+              </button>
+
+              <button
+                type="button"
+                className="flex items-center justify-center gap-2 bg-[#1877F2] text-white font-semibold py-2 px-4 rounded hover:bg-[#1558c0] transition-colors"
+                onClick={() => window.location.href = "https://www.facebook.com"}
+              >
+                <FaFacebook size={20} />
+                Entrar com Facebook
+              </button>
+            </div>
+
+            <div className="text-center mt-4">
+              <span className="text-[#1C1C1C] mr-2">Não tem uma conta?</span>
+              <button
+                type="button"
+                className="text-[#FF6B00] underline font-semibold hover:text-orange-600 transition-colors"
+                onClick={() => navigate("/cadastro")}
+              >
+                Cadastre-se
+              </button>
+            </div>
+          </form>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-6">
-          {/* Campo de email */}
-          <Input
-            label="E-mail"
-            type="email"
-            value={formData.email}
-            onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-            placeholder="seu@email.com"
-            required
-          />
-
-          {/* Campo de senha */}
-          <Input
-            label="Senha"
-            type="password"
-            value={formData.password}
-            onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-            placeholder="Sua senha"
-            required
-          />
-
-          {/* Botão de login */}
-          <Button
-            type="submit"
-            loading={loading}
-            className="w-full text-black"
+        <div className="bg-[#F2F2F2] px-6 py-4 rounded-xl shadow w-full max-w-md text-center">
+          <span className="block text-[#1C1C1C] font-medium mb-2">
+            Tenho um problema de segurança
+          </span>
+          <button
+            type="button"
+            className="bg-[#FF6B00] text-white px-4 py-2 rounded hover:bg-orange-600 transition-colors"
+            onClick={() => alert("Redirecionando para suporte...")}
           >
-            Entrar
-          </Button>
-        </form>
-
-        {/* Links adicionais */}
-        <div className="mt-6 text-center space-y-2">
-          <p className="text-black">
-            Não tem uma conta?{' '}
-            <Link to="/register" className="text-blue-500 hover:text-blue-300 font-medium">
-              Criar conta
-            </Link>
-          </p>
-          <p className="text-black">
-            <Link to="/home" className="text-black hover:text-gray-300 font-medium">
-              ← Voltar ao início
-            </Link>
-          </p>
+            <a href="/reportar">Reportar</a>
+          </button>
         </div>
-      </Card>
-    </div>
+      </div>
+
+
+    </>
   );
 };
+
