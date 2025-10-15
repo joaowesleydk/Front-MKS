@@ -68,17 +68,17 @@ export const Navbar = () => {
 
   return (
     <nav className="bg-black text-white px-6 py-4 shadow-md relative z-50">
-      <div className="flex justify-between items-center">
+      <div className="flex justify-between items-center relative z-20">
         {/* Logo */}
         <Link to="/" className="flex items-center">
           <img
             src={Image}
             alt="Logo MKS"
-            className="h-16 w-auto object-contain scale-300 mt-8 ml-10"
+            className="h-16 w-auto object-contain mt-8 ml-4"
           />
         </Link>
-
-        {/* Barra de pesquisa */}
+  
+        {/* Barra de pesquisa - apenas desktop */}
         <div className="hidden md:flex flex-1 justify-center items-center max-w-xl">
           <div className="flex items-center bg-white rounded-full overflow-hidden w-full">
             <HiOutlineSearch className="text-gray-500 text-xl ml-3" />
@@ -89,26 +89,26 @@ export const Navbar = () => {
             />
           </div>
         </div>
-
-        {/* Ícones à direita */}
-        <div className=" items-center gap-5 text-2xl">
-          <Link to="/carrinho" className="hover:text-gray-300 transition">
+  
+        {/* Ícones à direita - apenas desktop */}
+        <div className="hidden md:flex items-center gap-5 text-2xl">
+          <Link to="/sacola" className="hover:text-gray-300 transition">
             <HiOutlineShoppingBag />
           </Link>
           <Link to="/login" className="hover:text-gray-300 transition">
             <HiOutlineUser />
           </Link>
         </div>
-
+  
         {/* Botão Mobile */}
         <button
-          className="md:hidden text-3xl"
+          className="md:hidden text-3xl absolute right-4 top-1/2 transform -translate-y-1/2 z-40"
           onClick={() => setIsMenuOpen(!isMenuOpen)}
         >
           {isMenuOpen ? <HiX /> : <HiMenu />}
         </button>
       </div>
-
+  
       {/* Links centrais - DESKTOP */}
       <ul className="hidden md:flex justify-center gap-10 mt-4 font-medium relative">
         {navLinks.map((link) => (
@@ -122,7 +122,7 @@ export const Navbar = () => {
               {link.icon}
               {link.label}
             </Link>
-
+  
             {/* Subcategorias */}
             {link.sub && (
               <ul
@@ -145,10 +145,10 @@ export const Navbar = () => {
           </li>
         ))}
       </ul>
-
+  
       {/* Menu Mobile */}
       {isMenuOpen && (
-        <ul className="md:hidden mt-4 flex flex-col items-center gap-3 text-lg font-medium bg-black pb-4 rounded-lg">
+        <ul className="md:hidden mt-4 flex flex-col items-center gap-3 text-lg font-medium bg-black pb-4 rounded-lg relative z-10">
           {navLinks.map((link) => (
             <li key={link.to} className="w-full text-center">
               <details className="group border-b border-gray-700 py-2">
@@ -157,7 +157,7 @@ export const Navbar = () => {
                   <span>{link.label}</span>
                   <span className="text-sm text-gray-400 group-open:rotate-180 transition-transform">▼</span>
                 </summary>
-
+  
                 {link.sub && (
                   <ul
                     className="mt-2 space-y-1 overflow-hidden transition-all duration-500 ease-in-out 
@@ -179,8 +179,26 @@ export const Navbar = () => {
               </details>
             </li>
           ))}
+  
+          {/* ÍCONES — só no MOBILE */}
+          <li className="flex justify-center gap-6 mt-4 text-3xl border-t border-gray-700 pt-4">
+            <Link
+              to="/sacola"
+              className="hover:text-gray-300 transition"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              <HiOutlineShoppingBag />
+            </Link>
+            <Link
+              to="/login"
+              className="hover:text-gray-300 transition"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              <HiOutlineUser />
+            </Link>
+          </li>
         </ul>
       )}
     </nav>
-  );
-};
+  )
+}  
