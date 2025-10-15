@@ -1,186 +1,124 @@
-import { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
-import { HiOutlineSearch, HiMenu, HiX } from "react-icons/hi";
-import {
-  HiOutlineShoppingBag,
-  HiOutlineUser,
-  HiOutlineSparkles,
-  HiOutlineTag,
-  HiOutlineGift,
-  HiOutlineHeart,
-  HiOutlineCube,
-  HiOutlineBeaker
-} from "react-icons/hi2";
-import Image from "../assets/logo.png";
+import React, { useState } from "react";
+import { FcGoogle } from "react-icons/fc";
+import { FaFacebook } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
-export const Navbar = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const location = useLocation();
+export const Login = () => {
+  const navigate = useNavigate();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-  const navLinks = [
-    {
-      to: "/feminina",
-      label: "Feminina",
-      icon: <HiOutlineSparkles className="inline-block mr-2 text-pink-400 text-lg" />,
-      sub: [
-        { to: "/feminina/vestidos", label: "Vestidos" },
-        { to: "/feminina/saias", label: "Saias" },
-        { to: "/feminina/blusas", label: "Blusas" },
-        { to: "/feminina/calcas", label: "Calças" },
-        { to: "/feminina/shorts", label: "Shorts" },
-        { to: "/feminina/jeans", label: "Jeans" },
-        { to: "/feminina/langerie", label: "Lingerie" },
-      ],
-    },
-    {
-      to: "/masculina",
-      label: "Masculina",
-      icon: <HiOutlineTag className="inline-block mr-2 text-blue-400 text-lg" />,
-      sub: [{ to: "/masculina/bermudas", label: "Bermudas" }],
-    },
-    {
-      to: "/infantil",
-      label: "Infantil",
-      icon: <HiOutlineGift className="inline-block mr-2 text-yellow-400 text-lg" />,
-      sub: [{ to: "/infantil/bermudas", label: "Bermudas" }],
-    },
-    {
-      to: "/acessorios",
-      label: "Acessórios",
-      icon: <HiOutlineHeart className="inline-block mr-2 text-green-400 text-lg" />,
-      sub: [{ to: "/acessorios/relogio", label: "Relógio" }],
-    },
-    {
-      to: "/cosmeticos",
-      label: "Cosméticos e Beleza",
-      icon: <HiOutlineBeaker className="inline-block mr-2 text-purple-400 text-lg" />,
-      sub: [{ to: "/cosmeticos/cuidados", label: "Cuidados com a Pele" }],
-    },
-    {
-      to: "/bijuterias",
-      label: "Bijuterias",
-      icon: <HiOutlineCube className="inline-block mr-2 text-amber-400 text-lg" />,
-      sub: [{ to: "/bijuterias/aneis", label: "Anéis" }],
-    },
-  ];
-
-  const isActive = (path) => location.pathname === path;
+  const handleLogin = (e) => {
+    e.preventDefault();
+    const user = { email };
+    localStorage.setItem("user", JSON.stringify(user));
+    navigate("/");
+  };
 
   return (
-    <nav className="bg-black text-white px-6 py-4 shadow-md relative z-50">
-      <div className="flex justify-between items-center">
-        {/* Logo */}
-        <Link to="/home" className="flex items-center">
-          <img
-            src={Image}
-            alt="Logo MKS"
-            className="h-16 w-auto object-contain scale-300 mt-8 ml-10"
-          />
-        </Link>
+    <div
+      className="relative flex flex-col items-center justify-center min-h-screen bg-[url('/Fundologin.png')] 
+      bg-cover bg-center bg-no-repeat p-4"
+    >
+      {/* camada escura para contraste no texto */}
+      <div className="absolute inset-0 bg-black/50"></div>
 
-        {/* Barra de pesquisa */}
-        <div className="hidden md:flex flex-1 justify-center items-center max-w-xl">
-          <div className="flex items-center bg-white rounded-full overflow-hidden w-full">
-            <HiOutlineSearch className="text-gray-500 text-xl ml-3" />
+      <div className="relative z-10 w-full max-w-md bg-white/90 rounded-2xl shadow-lg px-8 py-6 sm:px-10 sm:py-8 backdrop-blur-md">
+        <h1 className="text-3xl sm:text-4xl font-bold text-[#1C1C1C] mb-3 text-center">
+          Entre ou Cadastre-se
+        </h1>
+
+        <p className="text-[#1C1C1C] text-sm sm:text-base mb-6 text-center">
+          Para começar, digite seu email e senha no campo abaixo
+        </p>
+
+        <form onSubmit={handleLogin}>
+          <div className="mb-4">
+            <label className="block text-[#1C1C1C] text-sm font-semibold mb-2" htmlFor="email">
+              Email
+            </label>
             <input
-              type="text"
-              placeholder="O que você procura?..."
-              className="flex-1 px-3 py-2 text-gray-700 focus:outline-none"
+              type="email"
+              id="email"
+              placeholder="Digite seu email"
+              className="bg-white border border-gray-300 rounded-lg w-full py-2 px-3 text-[#1C1C1C] focus:outline-none focus:ring-2 focus:ring-[#FF6B00]"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
             />
           </div>
-        </div>
 
-        {/* Ícones à direita */}
-        <div className="hidden md:flex items-center gap-5 text-2xl">
-          <Link to="/carrinho" className="hover:text-gray-300 transition">
-            <HiOutlineShoppingBag />
-          </Link>
-          <Link to="/login" className="hover:text-gray-300 transition">
-            <HiOutlineUser />
-          </Link>
-        </div>
+          <div className="mb-6">
+            <label className="block text-[#1C1C1C] text-sm font-semibold mb-2" htmlFor="password">
+              Senha
+            </label>
+            <input
+              type="password"
+              id="password"
+              placeholder="Digite sua senha"
+              className="bg-white border border-gray-300 rounded-lg w-full py-2 px-3 text-[#1C1C1C] focus:outline-none focus:ring-2 focus:ring-[#FF6B00]"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </div>
 
-        {/* Botão Mobile */}
-        <button
-          className="md:hidden text-3xl"
-          onClick={() => setIsMenuOpen(!isMenuOpen)}
-        >
-          {isMenuOpen ? <HiX /> : <HiMenu />}
-        </button>
+          <div className="flex justify-center mb-5">
+            <button
+              type="submit"
+              className="bg-[#FF6B00] hover:bg-orange-600 text-white font-bold py-2 px-20 rounded-lg transition duration-300 w-full sm:w-auto"
+            >
+              Continuar
+            </button>
+          </div>
+
+          <div className="text-center text-[#1C1C1C] mb-4 font-medium">ou</div>
+
+          <div className="flex flex-col gap-3">
+            <button
+              type="button"
+              className="flex items-center justify-center gap-2 bg-white text-[#1C1C1C] font-semibold py-2 px-4 rounded-lg hover:bg-gray-100 transition-colors"
+              onClick={() => window.location.href = "https://accounts.google.com"}
+            >
+              <FcGoogle size={20} />
+              Entrar com Google
+            </button>
+
+            <button
+              type="button"
+              className="flex items-center justify-center gap-2 bg-[#1877F2] text-white font-semibold py-2 px-4 rounded-lg hover:bg-[#1558c0] transition-colors"
+              onClick={() => window.location.href = "https://www.facebook.com"}
+            >
+              <FaFacebook size={20} />
+              Entrar com Facebook
+            </button>
+          </div>
+
+          <div className="text-center mt-5">
+            <span className="text-[#1C1C1C] mr-2 text-sm sm:text-base">Não tem uma conta?</span>
+            <button
+              type="button"
+              className="text-[#FF6B00] underline font-semibold hover:text-orange-600 transition-colors text-sm sm:text-base"
+              onClick={() => navigate("/cadastro")}
+            >
+              Cadastre-se
+            </button>
+          </div>
+        </form>
       </div>
 
-      {/* Links centrais - DESKTOP */}
-      <ul className="hidden md:flex justify-center gap-10 mt-4 font-medium relative">
-        {navLinks.map((link) => (
-          <li key={link.to} className="group relative">
-            <Link
-              to={link.to}
-              className={`hover:text-gray-300 flex items-center transition ${
-                isActive(link.to) ? "text-gray-300" : ""
-              }`}
-            >
-              {link.icon}
-              {link.label}
-            </Link>
-
-            {/* Subcategorias */}
-            {link.sub && (
-              <ul
-                className="absolute left-0 mt-2 bg-white text-black rounded-lg shadow-lg opacity-0 invisible 
-                group-hover:opacity-100 group-hover:visible transition-all duration-300 ease-in-out transform 
-                translate-y-2 group-hover:translate-y-0 overflow-hidden min-w-[160px]"
-              >
-                {link.sub.map((subLink) => (
-                  <li key={subLink.to}>
-                    <Link
-                      to={subLink.to}
-                      className="block px-4 py-2 hover:bg-gray-100"
-                    >
-                      {subLink.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            )}
-          </li>
-        ))}
-      </ul>
-
-      {/* Menu Mobile */}
-      {isMenuOpen && (
-        <ul className="md:hidden mt-4 flex flex-col items-center gap-3 text-lg font-medium bg-black pb-4 rounded-lg">
-          {navLinks.map((link) => (
-            <li key={link.to} className="w-full text-center">
-              <details className="group border-b border-gray-700 py-2">
-                <summary className="cursor-pointer hover:text-gray-300 flex items-center justify-center gap-2">
-                  {link.icon}
-                  <span>{link.label}</span>
-                  <span className="text-sm text-gray-400 group-open:rotate-180 transition-transform">▼</span>
-                </summary>
-
-                {link.sub && (
-                  <ul
-                    className="mt-2 space-y-1 overflow-hidden transition-all duration-500 ease-in-out 
-                    max-h-0 group-open:max-h-40"
-                  >
-                    {link.sub.map((subLink) => (
-                      <li key={subLink.to}>
-                        <Link
-                          to={subLink.to}
-                          className="block text-sm text-gray-400 hover:text-white"
-                          onClick={() => setIsMenuOpen(false)}
-                        >
-                          {subLink.label}
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                )}
-              </details>
-            </li>
-          ))}
-        </ul>
-      )}
-    </nav>
+      <div className="relative z-10 bg-white/90 backdrop-blur-md px-6 py-4 mt-6 rounded-xl shadow w-full max-w-md text-center">
+        <span className="block text-[#1C1C1C] font-medium mb-2 text-sm sm:text-base">
+          Tenho um problema de segurança
+        </span>
+        <button
+          type="button"
+          className="bg-[#FF6B00] text-white px-4 py-2 rounded-lg hover:bg-orange-600 transition-colors w-full sm:w-auto"
+          onClick={() => alert('Redirecionando para suporte...')}
+        >
+          <a href="/reportar">Reportar</a>
+        </button>
+      </div>
+    </div>
   );
 };
