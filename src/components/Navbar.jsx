@@ -68,13 +68,13 @@ export const Navbar = () => {
 
   return (
     <nav className="bg-black text-white px-6 py-4 shadow-md relative z-50">
-      <div className="flex justify-between items-center relative z-20">
+       <div className="flex justify-between items-center">
         {/* Logo */}
         <Link to="/" className="flex items-center">
           <img
             src={Image}
             alt="Logo MKS"
-            className="h-16 w-auto object-contain mt-8 ml-4"
+            className="h-16 w-auto object-contain scale-300 mt-8 ml-10"
           />
         </Link>
   
@@ -200,5 +200,5 @@ export const Navbar = () => {
         </ul>
       )}
     </nav>
-  )
-}  
+  );
+                    }  
