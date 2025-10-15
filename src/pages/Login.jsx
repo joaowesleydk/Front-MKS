@@ -25,17 +25,17 @@ export const Login = () => {
       bg-[url('/Fundologin.png')] bg-cover bg-center bg-no-repeat"
       >
       
-        <h1 className="text-4xl font-bold text-[#1C1C1C] mb-2 text-center">
+        <h1 className="text-4xl font-bold text-white mb-2 text-center">
           Entre ou Cadastre-se
         </h1>
-        <p className="text-[#1C1C1C] text-base mb-6 text-center">
+        <p className="text-white text-base mb-6 text-center">
           Para começar, digite seu email e senha no campo abaixo
         </p>
 
-        <div className="bg-[#F2F2F2] shadow-md rounded-xl px-10 pt-5 pb-5 mb-6 w-full max-w-md">
+        <div className="bg-white shadow-md rounded-xl px-10 pt-5 pb-5 mb-6 w-full max-w-md">
           <form onSubmit={handleLogin}>
             <div className="mb-4">
-              <label className="block text-[#1C1C1C] text-sm font-semibold mb-2" htmlFor="email">
+              <label className="block text-black text-sm font-semibold mb-2" htmlFor="email">
                 Email
               </label>
               <input
@@ -69,7 +69,7 @@ export const Login = () => {
             <div className="flex justify-center mb-4">
               <button
                 type="submit"
-                className="bg-black hover:bg-rose-600 text-white font-bold py-2 px-20 rounded transition duration-200"
+                className="bg-black  text-white font-bold py-2 px-20 rounded transition duration-200"
               >
                 Continuar
               </button>
@@ -80,7 +80,7 @@ export const Login = () => {
             <div className="flex flex-col gap-3">
               <button
                 type="button"
-                className="flex items-center justify-center gap-2 bg-white text-[#1C1C1C] font-semibold py-2 px-4 rounded hover:bg-[#F2F2F2] transition-colors"
+                className="flex items-center justify-center gap-2 bg-gray-200 text-[#1C1C1C] font-semibold py-2 px-4 rounded hover:bg-gray-300 transition-colors"
                 onClick={() => window.location.href = "https://accounts.google.com"}
               >
                 <FcGoogle size={20} />
@@ -89,7 +89,7 @@ export const Login = () => {
 
               <button
                 type="button"
-                className="flex items-center justify-center gap-2 bg-[#1877F2] text-white font-semibold py-2 px-4 rounded hover:bg-[#1558c0] transition-colors"
+                className="flex items-center justify-center gap-2 bg-blue-600 text-white font-semibold py-2 px-4 rounded hover:bg-blue-700 transition-colors"
                 onClick={() => window.location.href = "https://www.facebook.com"}
               >
                 <FaFacebook size={20} />
@@ -101,7 +101,7 @@ export const Login = () => {
               <span className="text-[#1C1C1C] mr-2">Não tem uma conta?</span>
               <button
                 type="button"
-                className="text-[#FF6B00] underline font-semibold hover:text-orange-600 transition-colors"
+                className="text-black underline font-semibold hover:text-gray-700 transition-colors"
                 onClick={() => navigate("/cadastro")}
               >
                 Cadastre-se
@@ -116,7 +116,7 @@ export const Login = () => {
           </span>
           <button
             type="button"
-            className="bg-[#FF6B00] text-white px-4 py-2 rounded hover:bg-orange-600 transition-colors"
+            className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 transition-colors"
             onClick={() => alert("Redirecionando para suporte...")}
           >
             <a href="/reportar">Reportar</a>
