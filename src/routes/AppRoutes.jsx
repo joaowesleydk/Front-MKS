@@ -9,8 +9,10 @@ import { Navbar } from '../components/Navbar';
 import { Home } from '../pages/Home';
 import { Login } from '../pages/Login';
 
-// Páginas protegidas (apenas para usuários autenticados)
 
+// Páginas protegidas (apenas para usuários autenticados)
+import { Sacola } from '../pages/Sacola';
+import { Cadastro } from '../pages/Cadastro';
 
 
 
@@ -60,7 +62,12 @@ const PublicRoute = ({ children }) => {
 export const AppRoutes = () => {
     return (
         <Router>
-            <Routes>
+            <Routes>  
+
+        {/* ==============================
+           Rotas Públicas
+           ============================== */}
+
                 <Route path="/" element={
                     <PublicRoute>
                         <Home />
@@ -71,6 +78,22 @@ export const AppRoutes = () => {
                         <Login />
                     </PublicRoute>
                 } />
+                <Route path="/cadastro" element={
+                    <PublicRoute>
+                        <Cadastro />
+                    </PublicRoute>
+                } />
+                
+
+          {/* ==============================
+           Rotas Protegidas
+           ============================== */}
+           
+        <Route path="/sacola" element={
+          <ProtectedRoute>
+            < Sacola/> 
+          </ProtectedRoute>
+        } />
 
 
 
