@@ -47,7 +47,7 @@ const Hero = () => {
       {/* Ofertas do Dia */}
       <div className="px-6 md:px-12 lg:px-20">
         <h1 className="text-center font-bold text-2xl md:text-3xl text-white pt-16 mb-8">
-          Ofertas do Dia!
+          Vai Corinthians
         </h1>
 
         {/* Linha divisória */}
