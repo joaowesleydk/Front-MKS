@@ -83,17 +83,18 @@ export const AppRoutes = () => {
                         <Cadastro />
                     </PublicRoute>
                 } />
+                   <Route path="/sacola" element={
+                    <PublicRoute>
+                        <Sacola />
+                    </PublicRoute>
+                } />
                 
 
           {/* ==============================
            Rotas Protegidas
            ============================== */}
            
-        <Route path="/sacola" element={
-          <ProtectedRoute>
-            < Sacola/> 
-          </ProtectedRoute>
-        } />
+       
 
 
 

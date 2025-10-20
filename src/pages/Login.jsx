@@ -92,19 +92,7 @@ export const Login = () => {
           </button>
         </div>
 
-        {/* Reportar problema */}
-        <div className="mt-8 text-center">
-          <span className="block text-sm text-gray-300 mb-2">
-            Tenho um problema de segurança
-          </span>
-          <button
-            type="button"
-            className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 transition"
-            onClick={() => alert('Redirecionando para suporte...')}
-          >
-            <a href="/reportar">Reportar</a>
-          </button>
-        </div>
+       
       </div>
     </div>
   );
