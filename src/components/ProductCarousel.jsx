@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import Slider from "react-slick";
-
 import { ChevronRight, ChevronLeft } from "lucide-react";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -28,9 +27,10 @@ const products = [
   {
     id: 1,
     name: "Tênis Esportivo",
-    description: "Conforto e estilo para o seu dia a dia.",
+    description: "Conforto e estilo para o seu dia a dia sem pagar caro.",
     price: "R$ 199,90",
-    image: "https://static.zattini.com.br/produtos/tenis-nike-air-max-excee-masculino/72/HZM-3176-172/HZM-3176-172_zoom1.jpg?ts=1579864861&"
+    image:
+      "https://static.zattini.com.br/produtos/tenis-nike-air-max-excee-masculino/72/HZM-3176-172/HZM-3176-172_zoom1.jpg?ts=1579864861&",
   },
   {
     id: 2,
@@ -45,9 +45,9 @@ const products = [
     name: "Galaxy Buds FE",
     description: "Bateria duradoura com carregamento USB-C.",
     price: "R$ 299,90",
-    image: "https://sm.pcmag.com/t/pcmag_au/review/s/samsung-ga/samsung-galaxy-buds-fe_pxam.1200.jpg"
+    image:
+      "https://sm.pcmag.com/t/pcmag_au/review/s/samsung-ga/samsung-galaxy-buds-fe_pxam.1200.jpg",
   },
- 
 ];
 
 const ProductCarousel = () => {
@@ -71,14 +71,12 @@ const ProductCarousel = () => {
   };
 
   return (
-    <section className=" py-12">
+    <section className="py-12">
       <div className="max-w-7xl mx-auto px-6 relative flex flex-col items-center">
-        {/* Título */}
         <h2 className="text-3xl font-extrabold text-center mb-10 text-white">
           🎉 Ofertas Diárias!
         </h2>
 
-        {/* Mostrar carrossel ou grid */}
         {!showAll ? (
           <Slider {...settings} className="w-full">
             {products.map((product) => (
@@ -137,7 +135,6 @@ const ProductCarousel = () => {
           </div>
         )}
 
-        {/* Botão para alternar */}
         <button
           onClick={() => setShowAll(!showAll)}
           className="mt-10 px-6 py-3 bg-[#FF6B00] text-white rounded-md font-semibold hover:bg-[#e65a00] transition-colors duration-300"
@@ -145,7 +142,7 @@ const ProductCarousel = () => {
           {showAll ? "Voltar ao Carrossel" : "Ver todos os itens"}
         </button>
 
-        {/* Estilo dots */}
+        {/* Estilo dos dots do carrossel */}
         <style>{`
           .slick-dots {
             bottom: -35px;
