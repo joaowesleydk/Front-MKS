@@ -1,5 +1,5 @@
 import React from "react";
-import productCarousel from "./productCarousel";
+import ProductCarousel from "./ProductCarousel";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Navigation, Pagination } from "swiper/modules";
 import "swiper/css";
@@ -8,9 +8,18 @@ import "swiper/css/pagination";
 
 const Hero = () => {
   const slides = [
-    { img: "https://sm.pcmag.com/t/pcmag_au/review/s/samsung-ga/samsung-galaxy-buds-fe_pxam.1200.jpg", gradient: "linear-gradient(to bottom, #ADD8E6, #fff)" },
-    { img: "https://sm.pcmag.com/t/pcmag_au/review/s/samsung-ga/samsung-galaxy-buds-fe_pxam.1200.jpg", gradient: "linear-gradient(to bottom, #FFB6C1, #fff)" },
-    { img: "https://sm.pcmag.com/t/pcmag_au/review/s/samsung-ga/samsung-galaxy-buds-fe_pxam.1200.jpg", gradient: "linear-gradient(to bottom, #FFC896, #fff)" },
+    {
+      img: "https://sm.pcmag.com/t/pcmag_au/review/s/samsung-ga/samsung-galaxy-buds-fe_pxam.1200.jpg",
+      gradient: "linear-gradient(to bottom, #ADD8E6, #fff)",
+    },
+    {
+      img: "https://sm.pcmag.com/t/pcmag_au/review/s/samsung-ga/samsung-galaxy-buds-fe_pxam.1200.jpg",
+      gradient: "linear-gradient(to bottom, #FFB6C1, #fff)",
+    },
+    {
+      img: "https://sm.pcmag.com/t/pcmag_au/review/s/samsung-ga/samsung-galaxy-buds-fe_pxam.1200.jpg",
+      gradient: "linear-gradient(to bottom, #FFC896, #fff)",
+    },
   ];
 
   return (
@@ -53,13 +62,8 @@ const Hero = () => {
           <div className="flex-grow border-t-2 border-gray-300 max-w-sm"></div>
         </div>
 
-        <productCarousel />
+        <ProductCarousel />
       </div>
-
-     
-
-         
-      
     </div>
   );
 };
