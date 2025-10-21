@@ -27,7 +27,7 @@ const products = [
   {
     id: 1,
     name: "Tênis Esportivo",
-    description: "Conforto e estilo para o seu dia a dia.",
+    description: "Conforto e estilo para o seu dia a dia sem pagar caro.",
     price: "R$ 199,90",
     image:
       "https://static.zattini.com.br/produtos/tenis-nike-air-max-excee-masculino/72/HZM-3176-172/HZM-3176-172_zoom1.jpg?ts=1579864861&",
