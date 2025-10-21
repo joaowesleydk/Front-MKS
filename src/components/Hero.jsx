@@ -10,15 +10,15 @@ const Hero = () => {
   const slides = [
     {
       img: "https://sm.pcmag.com/t/pcmag_au/review/s/samsung-ga/samsung-galaxy-buds-fe_pxam.1200.jpg",
-      gradient: "linear-gradient(to bottom, #ADD8E6, #fff)",
+      gradient: "",
+    },
+    {
+      img: "https://tse1.mm.bing.net/th/id/OIP.K-XecRdnGTL7BOYDbsBBdQHaHa?cb=12ucfimg=1&rs=1&pid=ImgDetMain&o=7&rm=3",
+      gradient: "",
     },
     {
       img: "https://sm.pcmag.com/t/pcmag_au/review/s/samsung-ga/samsung-galaxy-buds-fe_pxam.1200.jpg",
-      gradient: "linear-gradient(to bottom, #FFB6C1, #fff)",
-    },
-    {
-      img: "https://sm.pcmag.com/t/pcmag_au/review/s/samsung-ga/samsung-galaxy-buds-fe_pxam.1200.jpg",
-      gradient: "linear-gradient(to bottom, #FFC896, #fff)",
+      
     },
   ];
 
@@ -54,7 +54,7 @@ const Hero = () => {
       {/* Ofertas do Dia */}
       <div className="px-6 md:px-12 lg:px-20">
         <h1 className="text-center font-bold text-2xl md:text-3xl text-white pt-16 mb-8">
-          Vai Corinthians
+         Ofertas do dia
         </h1>
 
         {/* Linha divisória */}

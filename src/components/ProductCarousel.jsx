@@ -8,7 +8,7 @@ import "slick-carousel/slick/slick-theme.css";
 const NextArrow = ({ onClick }) => (
   <div
     onClick={onClick}
-    className="absolute top-1/2 -translate-y-1/2 right-[-30px] z-10 cursor-pointer bg-[#FF6B00] hover:bg-[#e65a00] text-white p-2 rounded-full shadow-md transition"
+    className="absolute top-1/2 -translate-y-1/2 right-[-30px] z-10 cursor-pointer bg-black hover:bg-gray-800 text-white p-2 rounded-full shadow-md transition"
   >
     <ChevronRight size={20} />
   </div>
@@ -17,7 +17,7 @@ const NextArrow = ({ onClick }) => (
 const PrevArrow = ({ onClick }) => (
   <div
     onClick={onClick}
-    className="absolute top-1/2 -translate-y-1/2 left-[-30px] z-10 cursor-pointer bg-[#FF6B00] hover:bg-[#e65a00] text-white p-2 rounded-full shadow-md transition"
+    className="absolute top-1/2 -translate-y-1/2 left-[-30px] z-10 cursor-pointer bg-black hover:bg-gray-800 text-white p-2 rounded-full shadow-md transition"
   >
     <ChevronLeft size={20} />
   </div>
@@ -42,6 +42,70 @@ const products = [
   },
   {
     id: 3,
+    name: "Galaxy Buds FE",
+    description: "Bateria duradoura com carregamento USB-C.",
+    price: "R$ 299,90",
+    image:
+      "https://sm.pcmag.com/t/pcmag_au/review/s/samsung-ga/samsung-galaxy-buds-fe_pxam.1200.jpg",
+  },
+  {
+    id: 4,
+    name: "Galaxy Buds FE",
+    description: "Bateria duradoura com carregamento USB-C.",
+    price: "R$ 299,90",
+    image:
+      "https://sm.pcmag.com/t/pcmag_au/review/s/samsung-ga/samsung-galaxy-buds-fe_pxam.1200.jpg",
+  },
+  {
+    id: 5,
+    name: "Galaxy Buds FE",
+    description: "Bateria duradoura com carregamento USB-C.",
+    price: "R$ 299,90",
+    image:
+      "https://sm.pcmag.com/t/pcmag_au/review/s/samsung-ga/samsung-galaxy-buds-fe_pxam.1200.jpg",
+  },
+  {
+    id: 6,
+    name: "Galaxy Buds FE",
+    description: "Bateria duradoura com carregamento USB-C.",
+    price: "R$ 299,90",
+    image:
+      "https://sm.pcmag.com/t/pcmag_au/review/s/samsung-ga/samsung-galaxy-buds-fe_pxam.1200.jpg",
+  },
+  {
+    id: 7,
+    name: "Galaxy Buds FE",
+    description: "Bateria duradoura com carregamento USB-C.",
+    price: "R$ 299,90",
+    image:
+      "https://sm.pcmag.com/t/pcmag_au/review/s/samsung-ga/samsung-galaxy-buds-fe_pxam.1200.jpg",
+  },
+  {
+    id: 8,
+    name: "Galaxy Buds FE",
+    description: "Bateria duradoura com carregamento USB-C.",
+    price: "R$ 299,90",
+    image:
+      "https://sm.pcmag.com/t/pcmag_au/review/s/samsung-ga/samsung-galaxy-buds-fe_pxam.1200.jpg",
+  },
+  {
+    id: 9,
+    name: "Galaxy Buds FE",
+    description: "Bateria duradoura com carregamento USB-C.",
+    price: "R$ 299,90",
+    image:
+      "https://sm.pcmag.com/t/pcmag_au/review/s/samsung-ga/samsung-galaxy-buds-fe_pxam.1200.jpg",
+  },
+  {
+    id: 10,
+    name: "Galaxy Buds FE",
+    description: "Bateria duradoura com carregamento USB-C.",
+    price: "R$ 299,90",
+    image:
+      "https://sm.pcmag.com/t/pcmag_au/review/s/samsung-ga/samsung-galaxy-buds-fe_pxam.1200.jpg",
+  },
+  {
+    id: 11,
     name: "Galaxy Buds FE",
     description: "Bateria duradoura com carregamento USB-C.",
     price: "R$ 299,90",
@@ -99,7 +163,7 @@ const ProductCarousel = () => {
                   <p className="font-bold text-xl text-[#1C1C1C] mb-4">
                     {product.price}
                   </p>
-                  <button className="mt-auto px-5 py-2 bg-[#FF6B00] text-white rounded-md font-semibold shadow-md hover:bg-[#e65a00] transition">
+                  <button className="mt-auto px-5 py-2 bg-black text-white rounded-md font-semibold shadow-md hover:bg-gray-800 transition">
                     Comprar Agora
                   </button>
                 </div>
@@ -127,7 +191,7 @@ const ProductCarousel = () => {
                 <p className="font-bold text-xl text-[#1C1C1C] mb-4">
                   {product.price}
                 </p>
-                <button className="mt-auto px-5 py-2 bg-[#FF6B00] text-white rounded-md font-semibold shadow-md hover:bg-[#e65a00] transition">
+                <button className="mt-auto px-5 py-2 bg-black text-white rounded-md font-semibold shadow-md  transition">
                   Comprar Agora
                 </button>
               </div>
@@ -137,7 +201,7 @@ const ProductCarousel = () => {
 
         <button
           onClick={() => setShowAll(!showAll)}
-          className="mt-10 px-6 py-3 bg-[#FF6B00] text-white rounded-md font-semibold hover:bg-[#e65a00] transition-colors duration-300"
+          className="mt-10 px-6 py-3 bg-black text-white rounded-md font-semibold hover:bg- transition-colors duration-300"
         >
           {showAll ? "Voltar ao Carrossel" : "Ver todos os itens"}
         </button>
@@ -153,7 +217,7 @@ const ProductCarousel = () => {
             opacity: 0.7;
           }
           .slick-dots li.slick-active button:before {
-            color: #FF6B00;
+            color: #FFFFFF;
             opacity: 1;
           }
         `}</style>
