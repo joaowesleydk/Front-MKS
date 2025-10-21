@@ -1,5 +1,5 @@
 import React from "react";
-import ProductCarousel from "./ProductCarousel";
+import productCarousel from "./productCarousel";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Navigation, Pagination } from "swiper/modules";
 import "swiper/css";
@@ -53,7 +53,7 @@ const Hero = () => {
           <div className="flex-grow border-t-2 border-gray-300 max-w-sm"></div>
         </div>
 
-        <ProductCarousel />
+        <productCarousel />
       </div>
 
      

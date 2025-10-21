@@ -50,7 +50,7 @@ const products = [
  
 ];
 
-const ProductCarousel = () => {
+export const productCarousel = () => {
   const [showAll, setShowAll] = useState(false);
 
   const settings = {
@@ -165,4 +165,3 @@ const ProductCarousel = () => {
   );
 };
 
-export default ProductCarousel;
