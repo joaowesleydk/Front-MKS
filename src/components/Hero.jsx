@@ -1,6 +1,4 @@
 import React from "react";
-
-
 import ProductCarousel from "./ProductCarousel";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Navigation, Pagination } from "swiper/modules";
