@@ -36,31 +36,73 @@ export const Navbar = () => {
       to: "/masculina",
       label: "Masculina",
       icon: <HiOutlineTag className="inline-block mr-2 text-blue-400 text-lg" />,
-      sub: [{ to: "/masculina/bermudas", label: "Bermudas" }],
+      sub: [
+        { to: "/masculina/bermudas", label: "Bermudas" },
+        { to: "/masculina/calças", label: "Calças" },
+        { to: "/masculina/camisetas", label: "Camisetas" },
+        { to: "/masculina/camisas", label: "Camisas" },
+        { to: "/masculina/blazers", label: "Blazers" },
+        { to: "/masculina/jaquetas", label: "Jaquetas" },
+      ]
+      ,
     },
     {
       to: "/infantil",
       label: "Infantil",
       icon: <HiOutlineGift className="inline-block mr-2 text-yellow-400 text-lg" />,
-      sub: [{ to: "/infantil/bermudas", label: "Bermudas" }],
+      sub: [
+        { to: "/infantil/casacos", label: "Casacos" },
+        { to: "/infantil/bori", label: "Bori" },
+        { to: "/infantil/new born", label: "New Born" },
+        { to: "/infantil/fantasias", label: "Fantasias" },
+        { to: "/infantil/conjuntos", label: "Conjuntos" },
+        { to: "/infantil/fantasias", label: "Fantasias" },
+
+      ],
     },
     {
       to: "/acessorios",
       label: "Acessórios",
       icon: <HiOutlineHeart className="inline-block mr-2 text-green-400 text-lg" />,
-      sub: [{ to: "/acessorios/relogio", label: "Relógio" }],
+      sub: [
+        { to: "/acessorios/relogio", label: "Relógios" },
+        { to: "/acessorios/lacos", label: "Laços" },
+        { to: "/acessorios/oculos", label: "Óculos de Sol" },
+        { to: "/acessorios/cintos", label: "Cintos" },
+        { to: "/acessorios/bolsas", label: "Bolsas" },
+        { to: "/acessorios/chapéus", label: "Chapéus" },
+        
+      ],
     },
     {
       to: "/cosmeticos",
       label: "Cosméticos e Beleza",
       icon: <HiOutlineBeaker className="inline-block mr-2 text-purple-400 text-lg" />,
-      sub: [{ to: "/cosmeticos/cuidados", label: "Cuidados com a Pele" }],
+      sub: [
+        { to: "/cosmeticos/cuidados", label: "Cuidados com a Pele" },
+        { to: "/cosmeticos/hidratantes", label: "Hidratantes" },
+        { to: "/cosmeticos/perfumes", label: "Perfumes e Body Splash" },
+        { to: "/cosmeticos/maquiagem", label: "Maquiagem" },
+        { to: "/cosmeticos/labios", label: "Cuidados com os Lábios" },
+        { to: "/cosmeticos/cabelos", label: "Cabelos" },
+        { to: "/cosmeticos/banho", label: "Sabonetes e Banho" },
+
+      ],
     },
     {
       to: "/bijuterias",
       label: "Bijuterias",
       icon: <HiOutlineCube className="inline-block mr-2 text-amber-400 text-lg" />,
-      sub: [{ to: "/bijuterias/aneis", label: "Anéis" }],
+      sub: [
+        { to: "/bijuterias/aneis", label: "Anéis" },
+        { to: "/bijuterias/brincos", label: "Brincos" },
+        { to: "/bijuterias/pulseiras", label: "Pulseiras" },
+        { to: "/bijuterias/colares", label: "Colares" },
+        { to: "/bijuterias/tornozeleiras", label: "Tornozeleiras" },
+        { to: "/bijuterias/piercings", label: "Piercings" },
+        { to: "/bijuterias/conjuntos", label: "Conjuntos" },
+
+      ],
     },
   ];
 
@@ -68,7 +110,7 @@ export const Navbar = () => {
 
   return (
     <nav className="bg-black text-white px-6 py-4 shadow-md relative z-50">
-       <div className="flex justify-between items-center">
+      <div className="flex justify-between items-center">
         {/* Logo */}
         <Link to="/" className="flex items-center">
           <img
@@ -77,7 +119,7 @@ export const Navbar = () => {
             className="h-16 w-auto object-contain scale-300 mt-8 ml-10"
           />
         </Link>
-  
+
         {/* Barra de pesquisa - apenas desktop */}
         <div className="hidden md:flex flex-1 justify-center items-center max-w-xl">
           <div className="flex items-center bg-white rounded-full overflow-hidden w-full">
@@ -89,7 +131,7 @@ export const Navbar = () => {
             />
           </div>
         </div>
-  
+
         {/* Ícones à direita - apenas desktop */}
         <div className="hidden md:flex items-center gap-5 text-2xl">
           <Link to="/sacola" className="hover:text-gray-300 transition">
@@ -99,7 +141,7 @@ export const Navbar = () => {
             <HiOutlineUser />
           </Link>
         </div>
-  
+
         {/* Botão Mobile */}
         <button
           className="md:hidden text-3xl absolute right-4 top-1/2 transform -translate-y-1/2 z-40"
@@ -108,21 +150,20 @@ export const Navbar = () => {
           {isMenuOpen ? <HiX /> : <HiMenu />}
         </button>
       </div>
-  
+
       {/* Links centrais - DESKTOP */}
       <ul className="hidden md:flex justify-center gap-10 mt-4 font-medium relative">
         {navLinks.map((link) => (
           <li key={link.to} className="group relative">
             <Link
               to={link.to}
-              className={`hover:text-gray-300 flex items-center transition ${
-                isActive(link.to) ? "text-gray-300" : ""
-              }`}
+              className={`hover:text-gray-300 flex items-center transition ${isActive(link.to) ? "text-gray-300" : ""
+                }`}
             >
               {link.icon}
               {link.label}
             </Link>
-  
+
             {/* Subcategorias */}
             {link.sub && (
               <ul
@@ -145,7 +186,7 @@ export const Navbar = () => {
           </li>
         ))}
       </ul>
-  
+
       {/* Menu Mobile */}
       {isMenuOpen && (
         <ul className="md:hidden mt-4 flex flex-col items-center gap-3 text-lg font-medium bg-black pb-4 rounded-lg relative z-10">
@@ -157,7 +198,7 @@ export const Navbar = () => {
                   <span>{link.label}</span>
                   <span className="text-sm text-gray-400 group-open:rotate-180 transition-transform">▼</span>
                 </summary>
-  
+
                 {link.sub && (
                   <ul
                     className="mt-2 space-y-1 overflow-hidden transition-all duration-500 ease-in-out 
@@ -179,7 +220,7 @@ export const Navbar = () => {
               </details>
             </li>
           ))}
-  
+
           {/* ÍCONES — só no MOBILE */}
           <li className="flex justify-center gap-6 mt-4 text-3xl border-t border-gray-700 pt-4">
             <Link
@@ -201,4 +242,4 @@ export const Navbar = () => {
       )}
     </nav>
   );
-                    }  
+}  
