@@ -56,7 +56,7 @@ export const Navbar = () => {
         { to: "/infantil/new born", label: "New Born" },
         { to: "/infantil/fantasias", label: "Fantasias" },
         { to: "/infantil/conjuntos", label: "Conjuntos" },
-        { to: "/infantil/fantasias", label: "Fantasias" },
+   
 
       ],
     },

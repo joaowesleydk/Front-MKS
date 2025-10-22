@@ -1,0 +1,164 @@
+{
+    "promocoes": [
+      {
+        "id": 1,
+        "nome": "Creme Facial Hidratante",
+        "preco": 49.9,
+        "descricao": "Hidrata e suaviza a pele",
+        "imagem": "https://picsum.photos/300/300?random=1"
+      },
+      {
+        "id": 2,
+        "nome": "Perfume Fresh",
+        "preco": 129.9,
+        "descricao": "Fragrância leve e duradoura",
+        "imagem": "https://picsum.photos/300/300?random=2"
+      },
+      {
+        "id": 3,
+        "nome": "Batom Vermelho",
+        "preco": 39.9,
+        "descricao": "Batom de longa duração",
+        "imagem": "https://picsum.photos/300/300?random=3"
+      },
+      {
+        "id": 4,
+        "nome": "Batom Vermelho",
+        "preco": 39.9,
+        "descricao": "Batom de longa duração",
+        "imagem": "https://picsum.photos/300/300?random=4"
+      },
+      {
+        "id": 5,
+        "nome": "Batom Vermelho",
+        "preco": 39.9,
+        "descricao": "Batom de longa duração",
+        "imagem": "https://picsum.photos/300/300?random=5"
+      },
+      {
+        "id": 6,
+        "nome": "Creme Facial Hidratante",
+        "preco": 49.9,
+        "descricao": "Hidrata e suaviza a pele",
+        "imagem": "https://picsum.photos/300/300?random=1"
+      },
+      {
+        "id": 7,
+        "nome": "Creme Facial Hidratante",
+        "preco": 49.9,
+        "descricao": "Hidrata e suaviza a pele",
+        "imagem": "https://picsum.photos/300/300?random=1"
+      },
+      {
+        "id": 8,
+        "nome": "Creme Facial Hidratante",
+        "preco": 49.9,
+        "descricao": "Hidrata e suaviza a pele",
+        "imagem": "https://picsum.photos/300/300?random=1"
+      }
+    ],
+    "cosmeticos": [
+      {
+        "id": 1,
+        "nome": "Máscara Facial",
+        "preco": 59.9,
+        "descricao": "Máscara nutritiva para todos os tipos de pele",
+        "imagem": "https://picsum.photos/300/300?random=80"
+      },
+      {
+        "id": 2,
+        "nome": "Hidratante Corporal",
+        "preco": 79.9,
+        "descricao": "Hidratação profunda e duradoura",
+        "imagem": "https://picsum.photos/300/300?random=5"
+      },
+      {
+        "id": 3,
+        "nome": "Perfume Floral",
+        "preco": 149.9,
+        "descricao": "Fragrância marcante para todas as ocasiões",
+        "imagem": "https://picsum.photos/300/300?random=6"
+      }
+    ],
+    "feminina": [
+      {
+        "id": 1,
+        "nome": "Vestido Floral",
+        "preco": 149.9,
+        "descricao": "Vestido leve e confortável",
+        "imagem": "https://picsum.photos/300/300?random=7"
+      },
+      {
+        "id": 2,
+        "nome": "Blusa Casual",
+        "preco": 79.9,
+        "descricao": "Blusa de algodão",
+        "imagem": "https://picsum.photos/300/300?random=8"
+      }
+    ],
+    "masculina": [
+      {
+        "id": 1,
+        "nome": "Camiseta Polo",
+        "preco": 99.9,
+        "descricao": "Camiseta elegante e confortável",
+        "imagem": "https://picsum.photos/300/300?random=9"
+      },
+      {
+        "id": 2,
+        "nome": "Bermuda Jeans",
+        "preco": 129.9,
+        "descricao": "Bermuda casual",
+        "imagem": "https://picsum.photos/300/300?random=10"
+      }
+    ],
+    "infantil": [
+      {
+        "id": 1,
+        "nome": "Casaco Infantil",
+        "preco": 99.9,
+        "descricao": "Casaco quentinho para crianças",
+        "imagem": "https://picsum.photos/300/300?random=11"
+      },
+      {
+        "id": 2,
+        "nome": "Conjunto New Born",
+        "preco": 79.9,
+        "descricao": "Conjunto confortável para recém-nascidos",
+        "imagem": "https://picsum.photos/300/300?random=12"
+      }
+    ],
+    "acessorios": [
+      {
+        "id": 1,
+        "nome": "Relógio Casual",
+        "preco": 199.9,
+        "descricao": "Relógio elegante para o dia a dia",
+        "imagem": "https://picsum.photos/300/300?random=13"
+      },
+      {
+        "id": 2,
+        "nome": "Bolsa Feminina",
+        "preco": 149.9,
+        "descricao": "Bolsa prática e estilosa",
+        "imagem": "https://picsum.photos/300/300?random=14"
+      }
+    ],
+    "bijuterias": [
+      {
+        "id": 1,
+        "nome": "Anel Dourado",
+        "preco": 49.9,
+        "descricao": "Anel delicado em metal dourado",
+        "imagem": "https://picsum.photos/300/300?random=15"
+      },
+      {
+        "id": 2,
+        "nome": "Brincos Estilo",
+        "preco": 59.9,
+        "descricao": "Brincos modernos e elegantes",
+        "imagem": "https://picsum.photos/300/300?random=16"
+      }
+    ]
+  }
+  
