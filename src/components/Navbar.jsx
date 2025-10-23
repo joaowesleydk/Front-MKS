@@ -21,7 +21,7 @@ export const Navbar = () => {
     {
       to: "/feminina",
       label: "Feminina",
-      icon: <HiOutlineSparkles className="inline-block mr-2 text-pink-400 text-lg" />,
+      icon: <HiOutlineSparkles className="inline-block mr-2 text-pink-400 text-lg " />,
       sub: [
         { to: "/feminina/vestidos", label: "Vestidos" },
         { to: "/feminina/saias", label: "Saias" },

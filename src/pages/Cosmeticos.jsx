@@ -55,7 +55,7 @@ export const Cosmeticos = () => {
             imagem: "https://cdn.awsli.com.br/600x1000/2603/2603033/produto/228237339/whatsapp-image-2023-08-04-at-15-39-58-epiwgh62zb.jpeg",
         },
         {
-            nome: "Gel Para Sobrancelhas Melu",
+            nome: "GEL PARA SOBRANCELHA MELU RUBY ROSE",
             preco: "11,00",
             imagem: "https://images.tcdn.com.br/img/img_prod/1074276/gel_para_sobrancelhas_melu_rrf518_ruby_rose_10g_551_1_c7283f0aaf46220358ac0f7f4e53a2e8.png",
         },
@@ -68,16 +68,19 @@ export const Cosmeticos = () => {
 
     return (
         <div className="bg-gray-50 min-h-screen p-10">
+            {/* Título */}
             <h1 className="text-3xl font-bold text-center mb-8 text-gray-800">
             </h1>
 
-            {/* GRID DE PRODUTOS */}
+            {/* Grid de produtos */}
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 max-w-7xl mx-auto">
                 {produtos.map((item, index) => (
                     <div
                         key={index}
-                        className="bg-white rounded-2xl shadow-md p-6 flex flex-col items-center text-center hover:shadow-lg transition"
+                        className="bg-white rounded-2xl shadow-md p-6 flex flex-col items-center text-center 
+                               hover:shadow-lg transform hover:scale-110 duration-300 transition h-full"
                     >
+
                         <img
                             src={item.imagem}
                             alt={item.nome}
@@ -86,14 +89,15 @@ export const Cosmeticos = () => {
                         <h2 className="text-sm font-medium text-gray-800 mb-2">{item.nome}</h2>
                         <p className="text-lg font-bold text-gray-900">{item.preco}</p>
 
-                        <button
-                            onClick={() => navigate("/sacola")}
-                            className="border border-purple-800 text-gray-800 rounded-full px-6 py-2 hover:bg-purple-800 hover:text-white transition"
-                        >
-                            adicionar à sacola
-                        </button>
-
-
+                        {/* Botão sempre na parte de baixo */}
+                        <div className="mt-auto">
+                            <button
+                                onClick={() => navigate("/sacola")}
+                                className="border border-purple-800 text-gray-800 rounded-full px-6 py-2 hover:bg-purple-800 hover:text-white transition"
+                            >
+                                adicionar à sacola
+                            </button>
+                        </div>
                     </div>
                 ))}
             </div>
