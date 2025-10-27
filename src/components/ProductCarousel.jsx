@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Slider from "react-slick";
 import { ChevronRight, ChevronLeft } from "lucide-react";
 import "slick-carousel/slick/slick.css";
@@ -8,7 +8,7 @@ import "slick-carousel/slick/slick-theme.css";
 const NextArrow = ({ onClick }) => (
   <div
     onClick={onClick}
-    className="absolute top-1/2 -translate-y-1/2 right-[-30px] z-10 cursor-pointer bg-[#FF6B00] hover:bg-[#e65a00] text-white p-2 rounded-full shadow-md transition"
+    className="absolute top-1/2 -translate-y-1/2 right-[-30px] z-10 cursor-pointer bg-black hover:bg-gray-800 text-white p-2 rounded-full shadow-md transition"
   >
     <ChevronRight size={20} />
   </div>
@@ -17,41 +17,22 @@ const NextArrow = ({ onClick }) => (
 const PrevArrow = ({ onClick }) => (
   <div
     onClick={onClick}
-    className="absolute top-1/2 -translate-y-1/2 left-[-30px] z-10 cursor-pointer bg-[#FF6B00] hover:bg-[#e65a00] text-white p-2 rounded-full shadow-md transition"
+    className="absolute top-1/2 -translate-y-1/2 left-[-30px] z-10 cursor-pointer bg-black hover:bg-gray-800 text-white p-2 rounded-full shadow-md transition"
   >
     <ChevronLeft size={20} />
   </div>
 );
 
-const products = [
-  {
-    id: 1,
-    name: "Tênis Esportivo",
-    description: "Conforto e estilo para o seu dia a dia sem pagar caro.",
-    price: "R$ 199,90",
-    image:
-      "https://static.zattini.com.br/produtos/tenis-nike-air-max-excee-masculino/72/HZM-3176-172/HZM-3176-172_zoom1.jpg?ts=1579864861&",
-  },
-  {
-    id: 2,
-    name: "Teclado Mecânico",
-    description: "RGB e switches azuis para máxima performance.",
-    price: "R$ 299,90",
-    image:
-      "https://http2.mlstatic.com/D_NQ_NP_676608-MLA87478169161_072025-O.webp",
-  },
-  {
-    id: 3,
-    name: "Galaxy Buds FE",
-    description: "Bateria duradoura com carregamento USB-C.",
-    price: "R$ 299,90",
-    image:
-      "https://sm.pcmag.com/t/pcmag_au/review/s/samsung-ga/samsung-galaxy-buds-fe_pxam.1200.jpg",
-  },
-];
-
-const ProductCarousel = () => {
+const ProductCarousel = ({ categoria = "promocoes" }) => {
+  const [products, setProducts] = useState([]);
   const [showAll, setShowAll] = useState(false);
+
+  useEffect(() => {
+    fetch(`http://localhost:3001/${categoria}`)
+      .then((res) => res.json())
+      .then((data) => setProducts(data))
+      .catch((err) => console.error("Erro ao buscar produtos:", err));
+  }, [categoria]);
 
   const settings = {
     dots: true,
@@ -73,8 +54,8 @@ const ProductCarousel = () => {
   return (
     <section className="py-12">
       <div className="max-w-7xl mx-auto px-6 relative flex flex-col items-center">
-        <h2 className="text-3xl font-extrabold text-center mb-10 text-white">
-          🎉 Ofertas Diárias!
+        <h2 className="text-7xl font-extrabold text-center mb-10 text-white">
+           {categoria.charAt(0).toUpperCase() + categoria.slice(1)}!
         </h2>
 
         {!showAll ? (
@@ -86,20 +67,20 @@ const ProductCarousel = () => {
               >
                 <div className="bg-[#F2F2F2] rounded-xl shadow-md flex flex-col items-center justify-between w-full h-[460px] p-5">
                   <img
-                    src={product.image}
-                    alt={product.name}
+                    src={product.imagem}
+                    alt={product.nome}
                     className="w-full h-40 object-contain mb-4"
                   />
                   <h3 className="font-bold text-lg text-[#1C1C1C] mb-1">
-                    {product.name}
+                    {product.nome}
                   </h3>
                   <p className="text-sm text-gray-600 mb-3 text-center">
-                    {product.description}
+                    {product.descricao}
                   </p>
                   <p className="font-bold text-xl text-[#1C1C1C] mb-4">
-                    {product.price}
+                    R$ {product.preco.toFixed(2)}
                   </p>
-                  <button className="mt-auto px-5 py-2 bg-[#FF6B00] text-white rounded-md font-semibold shadow-md hover:bg-[#e65a00] transition">
+                  <button className="mt-auto px-5 py-2 bg-black text-white rounded-md font-semibold shadow-md hover:bg-gray-800 transition">
                     Comprar Agora
                   </button>
                 </div>
@@ -114,33 +95,26 @@ const ProductCarousel = () => {
                 className="bg-[#F2F2F2] rounded-xl shadow-md flex flex-col items-center justify-between h-[460px] p-5 transition-transform duration-300 hover:scale-[1.02]"
               >
                 <img
-                  src={product.image}
-                  alt={product.name}
+                  src={product.imagem}
+                  alt={product.nome}
                   className="w-full h-40 object-contain mb-4"
                 />
                 <h3 className="font-bold text-lg text-[#1C1C1C] mb-1">
-                  {product.name}
+                  {product.nome}
                 </h3>
                 <p className="text-sm text-gray-600 mb-3 text-center">
-                  {product.description}
+                  {product.descricao}
                 </p>
                 <p className="font-bold text-xl text-[#1C1C1C] mb-4">
-                  {product.price}
+                  R$ {product.preco.toFixed(2)}
                 </p>
-                <button className="mt-auto px-5 py-2 bg-[#FF6B00] text-white rounded-md font-semibold shadow-md hover:bg-[#e65a00] transition">
+                <button className="mt-auto px-5 py-2 bg-black text-white rounded-md font-semibold shadow-md hover:bg-gray-800 transition">
                   Comprar Agora
                 </button>
               </div>
             ))}
           </div>
         )}
-
-        <button
-          onClick={() => setShowAll(!showAll)}
-          className="mt-10 px-6 py-3 bg-[#FF6B00] text-white rounded-md font-semibold hover:bg-[#e65a00] transition-colors duration-300"
-        >
-          {showAll ? "Voltar ao Carrossel" : "Ver todos os itens"}
-        </button>
 
         {/* Estilo dos dots do carrossel */}
         <style>{`
@@ -153,7 +127,7 @@ const ProductCarousel = () => {
             opacity: 0.7;
           }
           .slick-dots li.slick-active button:before {
-            color: #FF6B00;
+            color: #FFFFFF;
             opacity: 1;
           }
         `}</style>
