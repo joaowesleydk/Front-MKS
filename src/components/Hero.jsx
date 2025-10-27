@@ -1,8 +1,8 @@
 import React from "react";
 
-import Promocao1 from "../assets/Promocao1.png";
-import Promocao2 from "../assets/Promocao2.png";
-import Promocao3 from "../assets/Promocao3.png";
+import Promocao1 from "../assets/imagens/Promocao1.png"
+import Promocao2 from "../assets/imagens/Promocao2.png"
+import Promocao3 from "../assets/imagens/Promocao3.png"
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Navigation, Pagination } from "swiper/modules";
@@ -14,9 +14,9 @@ import { Card } from "./Card";
 
 const Hero = () => {
   const slides = [
-    { img: Promocao1 },
-    { img: Promocao2 },
-    { img: Promocao3 },
+    { img: Promocao1, gradient: "linear-gradient(to bottom, #ADD8E6, #fff)" },
+    { img: Promocao2, gradient: "linear-gradient(to bottom, #FFB6C1, #fff)" },
+    { img: Promocao3, gradient: "linear-gradient(to bottom, #FFC896, #fff)" },
   ];
 
   return (
@@ -25,7 +25,7 @@ const Hero = () => {
       <div className="relative">
         <Swiper
           modules={[Autoplay, Navigation, Pagination]}
-          autoplay={{ delay: 1000 }}
+          autoplay={{ delay: 3000 }}
           loop={true}
           navigation={true}
           pagination={{ clickable: true }}
@@ -33,11 +33,12 @@ const Hero = () => {
         >
           {slides.map((slide, index) => (
             <SwiperSlide key={index}>
-              <div className="w-full h-full flex items-center justify-center bg-gray-50">
+              <div className="w-full h-full flex items-center justify-center bg-gray-50"
+             style={{ background: slide.gradient }}>
                 <img
                   src={slide.img}
                   alt={`Promoção ${index + 1}`}
-                  className="w-full h-full object-cover"
+                  className="max-h-[85%] max-w-[90%] object-contain drop-shadow-md"
                 />
               </div>
             </SwiperSlide>
