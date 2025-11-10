@@ -11,7 +11,7 @@ import { Home } from '../pages/Home';
 import { Login } from '../pages/Login';
 import { Cadastro } from '../pages/Cadastro';
 import { Sacola } from '../pages/Sacola';
-import { Cosmeticos } from '../pages/Cosmeticos'; // <-- adicionada aqui
+import { Cuidados } from '../pages/Cuidados';
 
 
 /* ==============================
@@ -55,7 +55,7 @@ export const AppRoutes = () => {
                 <Route path="/login" element={<PublicRoute><Login /></PublicRoute>} />
                 <Route path="/cadastro" element={<PublicRoute><Cadastro /></PublicRoute>} />
                 <Route path="/sacola" element={<PublicRoute><Sacola /></PublicRoute>} />
-                <Route path="/cosmeticos" element={<PublicRoute><Cosmeticos /></PublicRoute>} /> {/* <-- adicionada aqui */}
+                <Route path="/cosmeticos/cuidados" element={<PublicRoute><Cuidados /></PublicRoute>} /> {/* <-- adicionada aqui */}
 
                 {/* Rotas Protegidas */}
                 {/* Exemplo:

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useEffect} from "react";
 import { Link, useLocation } from "react-router-dom";
 import { HiOutlineSearch, HiMenu, HiX } from "react-icons/hi";
 import {
@@ -15,7 +15,17 @@ import Image from "../assets/logo.png";
 
 export const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [navbarHeight, setNavbarHeight] = useState(0); 
   const location = useLocation();
+  const navRef = useRef(null);
+
+   // Mede a altura real da navbar
+   useEffect(() => {
+    if (navRef.current) {
+      setNavbarHeight(navRef.current.offsetHeight);
+    }
+  }, [setNavbarHeight]);
+
 
   const navLinks = [
     {
@@ -108,8 +118,12 @@ export const Navbar = () => {
 
   const isActive = (path) => location.pathname === path;
 
-  return (
-    <nav className="bg-black text-white px-6 py-4 shadow-md relative z-50">
+
+return (
+  <nav
+      ref={navRef}
+      className="bg-black text-white px-6 py-4 shadow-md fixed top-0 left-0 w-full z-50"
+    >
       <div className="flex justify-between items-center">
         {/* Logo */}
         <Link to="/" className="flex items-center">
