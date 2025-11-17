@@ -75,7 +75,6 @@ export const Navbar = () => {
       label: "Acessórios",
       icon: <HiOutlineHeart className="inline-block mr-2 text-green-400 text-lg" />,
       sub: [
-        { to: "/acessorios/relogio", label: "Relógios" },
         { to: "/acessorios/lacos", label: "Laços" },
         { to: "/acessorios/oculos", label: "Óculos de Sol" },
         { to: "/acessorios/cintos", label: "Cintos" },
@@ -93,7 +92,6 @@ export const Navbar = () => {
         { to: "/cosmeticos/hidratantes", label: "Hidratantes" },
         { to: "/cosmeticos/perfumes", label: "Perfumes e Body Splash" },
         { to: "/cosmeticos/maquiagem", label: "Maquiagem" },
-        { to: "/cosmeticos/labios", label: "Cuidados com os Lábios" },
         { to: "/cosmeticos/cabelos", label: "Cabelos" },
         { to: "/cosmeticos/banho", label: "Sabonetes e Banho" },
 
@@ -108,9 +106,8 @@ export const Navbar = () => {
         { to: "/bijuterias/brincos", label: "Brincos" },
         { to: "/bijuterias/pulseiras", label: "Pulseiras" },
         { to: "/bijuterias/colares", label: "Colares" },
-        { to: "/bijuterias/tornozeleiras", label: "Tornozeleiras" },
         { to: "/bijuterias/piercings", label: "Piercings" },
-        { to: "/bijuterias/conjuntos", label: "Conjuntos" },
+        
 
       ],
     },
