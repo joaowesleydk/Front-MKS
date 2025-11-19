@@ -1,99 +1,94 @@
 import React, { useState } from "react";
+import api from "../services/api"; // ou ajuste o caminho
 import { FcGoogle } from "react-icons/fc";
 import { useNavigate } from "react-router-dom";
+import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google";
 
 export const Login = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const GOOGLE_CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID || "SEU_CLIENT_ID_GOOGLE_AQUI";
 
-  const handleLogin = (e) => {
+
+  const handleLogin = async (e) => {
     e.preventDefault();
-    const user = { email };
-    localStorage.setItem("user", JSON.stringify(user));
-    navigate("/");
+    try {
+      const res = await api.post("/auth/login", { email, password });
+      const token = res.data.access_token;
+      const user = res.data.user;
+      localStorage.setItem("token", token);
+      localStorage.setItem("user", JSON.stringify(user));
+      navigate("/");
+    } catch (err) {
+      alert("Erro ao logar: verifique suas credenciais.");
+    }
+  };
+
+  const handleGoogleSuccess = async (credentialResponse) => {
+    try {
+      const credential = credentialResponse.credential;
+      const res = await api.post("/auth/google", { credential });
+      const token = res.data.access_token;
+      const user = res.data.user;
+      localStorage.setItem("token", token);
+      localStorage.setItem("user", JSON.stringify(user));
+      navigate("/");
+    } catch (err) {
+      alert("Erro no login com Google.");
+    }
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-[url('/Fundologin.png')] bg-cover bg-center bg-no-repeat">
-      {/* Painel translúcido */}
-      <div className="bg-black/60 backdrop-blur-md p-8 rounded-3xl shadow-lg w-full max-w-md text-white">
-        {/* Título */}
-        <h1 className="text-3xl font-bold text-center mb-3">Login</h1>
-        <p className="text-center text-sm mb-6 text-gray-200">
-          Entre com seus dados para continuar
-        </p>
+    <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
+      <div className="flex items-center justify-center min-h-screen bg-[url('/Fundologin.png')] bg-cover bg-center bg-no-repeat">
+        <div className="bg-black/60 backdrop-blur-md p-8 rounded-3xl shadow-lg w-full max-w-md text-white">
+          <h1 className="text-3xl font-bold text-center mb-3">Login</h1>
+          <form onSubmit={handleLogin} className="space-y-4">
+            <div>
+              <label className="block text-sm mb-1 font-medium">E-mail</label>
+              <input
+                type="email"
+                placeholder="Digite seu e-mail"
+                className="w-full bg-transparent border border-white/80 p-2 rounded-md"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
+            </div>
+            <div>
+              <label className="block text-sm mb-1 font-medium">Senha</label>
+              <input
+                type="password"
+                placeholder="Digite sua senha"
+                className="w-full bg-transparent border border-white/80 p-2 rounded-md"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+            </div>
+            <button type="submit" className="w-full bg-white text-black font-semibold py-2 rounded-md">
+              Continuar
+            </button>
+          </form>
 
-        {/* Formulário */}
-        <form onSubmit={handleLogin} className="space-y-4">
-          {/* Campo de email */}
-          <div>
-            <label className="block text-sm mb-1 font-medium">E-mail</label>
-            <input
-              type="email"
-              id="email"
-              placeholder="Digite seu e-mail"
-              className="w-full bg-transparent border border-white/80 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-white text-white placeholder-gray-300 text-sm"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
+          <div className="text-center text-sm mt-4 mb-3">ou</div>
+
+          <div className="flex flex-col gap-3">
+            <GoogleLogin
+              onSuccess={handleGoogleSuccess}
+              onError={() => alert("Erro ao logar com Google")}
             />
           </div>
 
-          {/* Campo de senha */}
-          <div>
-            <label className="block text-sm mb-1 font-medium">Senha</label>
-            <input
-              type="password"
-              id="password"
-              placeholder="Digite sua senha"
-              className="w-full bg-transparent border border-white/80 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-white text-white placeholder-gray-300 text-sm"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
+          <div className="text-center mt-6">
+            <span className="text-gray-200 mr-1">Não tem uma conta?</span>
+            <button onClick={() => navigate("/cadastro")} className="text-orange-400 underline font-semibold">
+              Cadastre-se
+            </button>
           </div>
-
-          {/* Botão principal */}
-          <button
-            type="submit"
-            className="w-full bg-white text-black font-semibold py-2 rounded-md hover:bg-gray-200 transition"
-          >
-            Continuar
-          </button>
-        </form>
-
-        {/* Separador */}
-        <div className="text-center text-sm mt-4 mb-3 text-gray-200">ou</div>
-
-        {/* Login com Google */}
-        <div className="flex flex-col gap-3">
-          <button
-            type="button"
-            className="flex items-center justify-center gap-2 bg-white text-black font-semibold py-2 px-4 rounded hover:bg-gray-200 transition"
-            onClick={() =>
-              window.location.href = "https://accounts.google.com"
-            }
-          >
-            <FcGoogle size={20} />
-            Entrar com Google
-          </button>
         </div>
-
-        {/* Link para cadastro */}
-        <div className="text-center mt-6">
-          <span className="text-gray-200 mr-1">Não tem uma conta?</span>
-          <button
-            type="button"
-            className="text-orange-400 underline font-semibold hover:text-orange-300 transition"
-            onClick={() => navigate("/cadastro")}
-          >
-            Cadastre-se
-          </button>
-        </div>
-
-       
       </div>
-    </div>
+    </GoogleOAuthProvider>
   );
 };
