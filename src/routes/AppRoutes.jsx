@@ -11,6 +11,7 @@ import { Home } from '../pages/Home';
 import { Login } from '../pages/Login';
 import { Cadastro } from '../pages/Cadastro';
 import { Sacola } from '../pages/Sacola';
+
 import { Cuidados } from '../pages/CosmeticosBeleza/Cuidados';
 import { Hidratantes } from '../pages/CosmeticosBeleza/Hidratantes';
 import { Maquiagem } from '../pages/CosmeticosBeleza/Maquiagem';
@@ -21,6 +22,9 @@ import { Masculina } from '../pages/Masculina/Bermudas';
 import { Infantil } from '../pages/Infantil/Casacos';
 import { Lacos } from '../pages/Acessorios/Lacos';
 import { Aneis } from '../pages/Bijuterias/Aneis';
+
+
+import { Cuidados } from '../pages/Cuidados';
 
 
 
@@ -65,6 +69,7 @@ export const AppRoutes = () => {
                 <Route path="/login" element={<PublicRoute><Login /></PublicRoute>} />
                 <Route path="/cadastro" element={<PublicRoute><Cadastro /></PublicRoute>} />
                 <Route path="/sacola" element={<PublicRoute><Sacola /></PublicRoute>} />
+
                 <Route path="/cosmeticos/cuidados" element={<PublicRoute><Cuidados /></PublicRoute>} />
                 <Route path="/cosmeticos/cuidados/hidratantes" element={<PublicRoute><Hidratantes /></PublicRoute>} />
                 <Route path="/cosmeticos/cuidados/maquiagem" element={<PublicRoute><Maquiagem /></PublicRoute>} />
@@ -81,6 +86,8 @@ export const AppRoutes = () => {
                 <Route path="/bijuterias/piercings" element={<PublicRoute><Piercings /></PublicRoute>} />
                 <Route path="/bijuterias/pulseras" element={<PublicRoute><Pulseras /></PublicRoute>} />
 
+
+                <Route path="/cosmeticos/cuidados" element={<PublicRoute><Cuidados /></PublicRoute>} /> {/* <-- adicionada aqui */}
 
                 {/* Rotas Protegidas */}
                 {/* Exemplo:

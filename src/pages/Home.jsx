@@ -20,7 +20,7 @@ export const Home = () => {
     ];
 
     return (
-        <div className="flex flex-col pt-46">
+        <div className="flex flex-col pt-36">
             {/* Swiper Banner */}
             <div className="relative">
                 <Swiper
