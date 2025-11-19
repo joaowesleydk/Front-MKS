@@ -1,7 +1,7 @@
 
 import { useNavigate } from "react-router-dom";
 
-export const Cuidados = () => {
+export const Sabonetes = () => {
     const navigate = useNavigate();
 
     const produtos = [
