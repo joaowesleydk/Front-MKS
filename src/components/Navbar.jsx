@@ -85,7 +85,7 @@ export const Navbar = () => {
       ],
     },
     {
-      to: "/cosmeticos",
+      to: "",
       label: "Cosméticos e Beleza",
       icon: <HiOutlineBeaker className="inline-block mr-2 text-purple-400 text-lg" />,
       sub: [

@@ -14,6 +14,11 @@ import { Sacola } from '../pages/Sacola';
 import { Cuidados } from '../pages/Cuidados';
 
 
+// Páginas protegidas
+import { Perfil } from '../pages/Perfil';
+
+
+
 /* ==============================
    Componente de rota protegida
    ============================== */
@@ -61,6 +66,8 @@ export const AppRoutes = () => {
                 {/* Exemplo:
                 <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} /> 
                 */}
+
+                <Route path="/perfil" element={<ProductedRoute><Perfil /></ProductedRoute>} />
             </Routes>
         </Router>
     );
