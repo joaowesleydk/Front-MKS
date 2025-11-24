@@ -71,7 +71,7 @@ export const Navbar = () => {
       ],
     },
     {
-      to: "/acessorios",
+      to: "/",
       label: "Acessórios",
       icon: <HiOutlineHeart className="inline-block mr-2 text-green-400 text-lg" />,
       sub: [
@@ -85,11 +85,10 @@ export const Navbar = () => {
       ],
     },
     {
-      to: "/cosmeticos",
+      to: "/",
       label: "Cosméticos e Beleza",
       icon: <HiOutlineBeaker className="inline-block mr-2 text-purple-400 text-lg" />,
       sub: [
-        { to: "/cosmeticos/cuidados", label: "Cuidados com a Pele" },
         { to: "/cosmeticos/hidratantes", label: "Hidratantes" },
         { to: "/cosmeticos/perfumes", label: "Perfumes e Body Splash" },
         { to: "/cosmeticos/maquiagem", label: "Maquiagem" },
