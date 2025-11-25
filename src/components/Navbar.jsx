@@ -29,7 +29,7 @@ export const Navbar = () => {
 
   const navLinks = [
     {
-      to: "/feminina",
+      to: "/",
       label: "Feminina",
       icon: <HiOutlineSparkles className="inline-block mr-2 text-pink-400 text-lg " />,
       sub: [
@@ -43,7 +43,7 @@ export const Navbar = () => {
       ],
     },
     {
-      to: "/masculina",
+      to: "/",
       label: "Masculina",
       icon: <HiOutlineTag className="inline-block mr-2 text-blue-400 text-lg" />,
       sub: [
@@ -57,7 +57,7 @@ export const Navbar = () => {
       ,
     },
     {
-      to: "/infantil",
+      to: "/",
       label: "Infantil",
       icon: <HiOutlineGift className="inline-block mr-2 text-yellow-400 text-lg" />,
       sub: [
@@ -103,7 +103,7 @@ export const Navbar = () => {
       ],
     },
     {
-      to: "/bijuterias",
+      to: "/",
       label: "Bijuterias",
       icon: <HiOutlineCube className="inline-block mr-2 text-amber-400 text-lg" />,
       sub: [

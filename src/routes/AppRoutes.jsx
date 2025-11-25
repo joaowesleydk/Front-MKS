@@ -26,7 +26,7 @@ import { Aneis } from '../pages/Bijuterias/Aneis';
 
 
 // Páginas protegidas
-import { Perfil } from '../pages/Perfil';
+import Perfil from '../pages/Perfil';
 
 
 
@@ -88,8 +88,6 @@ export const AppRoutes = () => {
                 {/* Exemplo:
                 <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} /> 
                 */}
-
-                <Route path="/perfil" element={<ProductedRoute><Perfil /></ProductedRoute>} />
             </Routes>
         </Router>
     );
