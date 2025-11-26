@@ -19,6 +19,44 @@ export const Home = () => {
         { img: Promocao3, gradient: "linear-gradient(to bottom, #FFC896, #fff)" },
     ];
 
+    const produtos = [
+        {
+            nome: "", preco: "", imagem: ""
+        },
+
+        {
+            nome: "", preco: "", imagem: ""
+        },
+
+        {
+            nome: "", preco: "", imagem: ""
+        },
+
+        {
+            nome: "", preco: "", imagem: ""
+        },
+
+        {
+            nome: "", preco: "", imagem: ""
+        },
+
+        {
+            nome: "", preco: "", imagem: ""
+        },
+
+        {
+            nome: "", preco: "", imagem: ""
+        },
+
+        {
+            nome: "", preco: "", imagem: ""
+        },
+
+    ];
+
+
+
+
     return (
         <div className="flex flex-col pt-36">
             {/* Swiper Banner */}
@@ -46,7 +84,7 @@ export const Home = () => {
                 </Swiper>
             </div>
 
-            <Card />
+            <Card produtos={produtos} />:
         </div>
     );
 };

@@ -1,12 +1,61 @@
-import React from "react";
+import { Card } from "../../components/Card";
+import { useNavigate } from "react-router-dom";
 
-export const Feminina = () => {
+export const Vestidos = () => {
+    const navigate = useNavigate();
+
+    const produtos = [
+        {
+            nome: "", preco: "", imagem: ""
+        },
+
+        {
+            nome: "", preco: "", imagem: ""
+        },
+
+        {
+            nome: "", preco: "", imagem: ""
+        },
+
+        {
+            nome: "", preco: "", imagem: ""
+        },
+
+        {
+            nome: "", preco: "", imagem: ""
+        },
+
+        {
+            nome: "", preco: "", imagem: ""
+        },
+
+        {
+            nome: "", preco: "", imagem: ""
+        },
+
+        {
+            nome: "", preco: "", imagem: ""
+        },
+
+        {
+            nome: "", preco: "", imagem: ""
+        },
+
+        {
+            nome: "", preco: "", imagem: ""
+        },
+    ];
+
+
     return (
-        <div className="bg-gray-50 min-h-screen p-10">
-            <h1 className="text-3xl font-bold text-center mb-8 text-gray-800">Feminina</h1>
-            <p className="text-center text-gray-600">Página de femininos — escolha uma categoria.</p>
+        <div className="bg-gray-50 min-h-screen p-10 pt-42  ">
+            {/* Título */}
+            <h1 className="text-3xl font-bold text-center mb-8 text-gray-800">
+            </h1>
+
+
+            <Card produtos={produtos} />:
         </div>
     );
 };
 
-export default Feminina;

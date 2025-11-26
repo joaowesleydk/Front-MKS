@@ -17,7 +17,7 @@ import { Hidratantes } from '../pages/CosmeticosBeleza/Hidratantes';
 import { Maquiagem } from '../pages/CosmeticosBeleza/Maquiagem';
 import { Perfumes } from '../pages/CosmeticosBeleza/Perfumes';
 import { Sabonetes } from '../pages/CosmeticosBeleza/Sabonetes';
-import { Feminina } from '../pages/Feminina/Vestidos';
+import { Vestidos } from '../pages/Feminina/Vestidos';
 
 
 import { Aneis } from '../pages/Bijuterias/Aneis';
@@ -77,7 +77,7 @@ export const AppRoutes = () => {
                 <Route path="/cosmeticos/maquiagem" element={<PublicRoute><Maquiagem /></PublicRoute>} />
                 <Route path="/cosmeticos/perfumes" element={<PublicRoute><Perfumes /></PublicRoute>} />
                 <Route path="/cosmeticos/sabonetes" element={<PublicRoute><Sabonetes /></PublicRoute>} />
-                <Route path="/feminina/*" element={<PublicRoute><Feminina /></PublicRoute>} />
+                <Route path="/feminina/vestidos" element={<PublicRoute><Vestidos /></PublicRoute>} />
 
                 
                 <Route path="/bijuterias/aneis" element={<PublicRoute><Aneis /></PublicRoute>} />
