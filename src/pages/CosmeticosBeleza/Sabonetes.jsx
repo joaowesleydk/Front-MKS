@@ -1,6 +1,7 @@
 import { Card } from "../../components/Card";
 import { useNavigate } from "react-router-dom";
 
+
 export const Sabonetes = () => {
     const navigate = useNavigate();
 
@@ -46,15 +47,18 @@ export const Sabonetes = () => {
         },
     ];
 
+
     return (
         <div className="bg-gray-50 min-h-screen p-10 pt-42  ">
             {/* Título */}
             <h1 className="text-3xl font-bold text-center mb-8 text-gray-800">
             </h1>
 
-           
-            <Card produtos={produtos}/>:
+
+            <Card produtos={produtos} />:
         </div>
     );
 };
+
+
 

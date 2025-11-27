@@ -99,8 +99,6 @@ export const Navbar = () => {
         { to: "/cosmeticos/hidratantes", label: "Hidratantes" },
         { to: "/cosmeticos/perfumes", label: "Perfumes e Body Splash" },
         { to: "/cosmeticos/maquiagem", label: "Maquiagem" },
-        { to: "/cosmeticos/labios", label: "Cuidados com os Lábios" },
-        { to: "/cosmeticos/cabelos", label: "Cabelos" },
         { to: "/cosmeticos/banho", label: "Sabonetes e Banho" },
 
       ],

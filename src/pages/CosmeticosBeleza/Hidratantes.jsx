@@ -37,34 +37,9 @@ export const Hidratantes = () => {
             imagem: "https://down-br.img.susercontent.com/file/sg-11134201-7rasm-ma3bmebon5smb4",
         },
         {
-            nome: "Splash Tododia Frutas Rojas de Natura 200ml",
-            preco: "R$ 38,90",
-            imagem: "https://resources.claroshop.com/medios-plazavip/mkt/64dbf0304bcc8_bodyfrutosjpg.jpg?scale=500&qlty=75",
-        },
-        {
             nome: "Kit Tododia Natura Frutas Vermelhas",
             preco: "R$ 79,90",
             imagem: "https://http2.mlstatic.com/D_NQ_NP_890372-MLA45874147372_052021-O.webp",
-        },
-        {
-            nome: "Sérum Glow Dazzle Drops 35Ml- Luluca By Melu",
-            preco: "17,90",
-            imagem: "https://cdn.awsli.com.br/2500x2500/2752/2752602/produto/375787283/655064-0-oe18jaimfl.jpg",
-        },
-        {
-            nome: "Creme Facial Hidratante Pêssego - Melu 40g",
-            preco: "12,66",
-            imagem: "https://cdn.awsli.com.br/600x1000/2603/2603033/produto/228237339/whatsapp-image-2023-08-04-at-15-39-58-epiwgh62zb.jpeg",
-        },
-        {
-            nome: "GEL PARA SOBRANCELHA MELU RUBY ROSE",
-            preco: "11,00",
-            imagem: "https://images.tcdn.com.br/img/img_prod/1074276/gel_para_sobrancelhas_melu_rrf518_ruby_rose_10g_551_1_c7283f0aaf46220358ac0f7f4e53a2e8.png",
-        },
-        {
-            nome: "Pó Compacto Melu - C10",
-            preco: "14,99",
-            imagem: "https://down-br.img.susercontent.com/file/br-11134207-7r98o-lmytjds16vpo65",
         },
     ];
 

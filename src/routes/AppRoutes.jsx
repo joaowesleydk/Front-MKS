@@ -21,6 +21,7 @@ import { Vestidos } from '../pages/Feminina/Vestidos';
 
 
 import { Aneis } from '../pages/Bijuterias/Aneis';
+import { Brincos } from '../pages/Bijuterias/Brincos';
 
 
 
@@ -77,10 +78,11 @@ export const AppRoutes = () => {
                 <Route path="/cosmeticos/maquiagem" element={<PublicRoute><Maquiagem /></PublicRoute>} />
                 <Route path="/cosmeticos/perfumes" element={<PublicRoute><Perfumes /></PublicRoute>} />
                 <Route path="/cosmeticos/sabonetes" element={<PublicRoute><Sabonetes /></PublicRoute>} />
+
                 <Route path="/feminina/vestidos" element={<PublicRoute><Vestidos /></PublicRoute>} />
 
-                
                 <Route path="/bijuterias/aneis" element={<PublicRoute><Aneis /></PublicRoute>} />
+                <Route path='/bijuterias/brincos' element={<PublicRoute><Brincos /></PublicRoute>} />
               
               
 
