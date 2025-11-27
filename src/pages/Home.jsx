@@ -58,7 +58,7 @@ export const Home = () => {
 
 
     return (
-        <div className="flex flex-col pt-36">
+        <div className="flex flex-col pt-42 ">
             {/* Swiper Banner */}
             <div className="relative">
                 <Swiper
@@ -71,7 +71,7 @@ export const Home = () => {
                 >
                     {slides.map((slide, index) => (
                         <SwiperSlide key={index}>
-                            <div className="w-full h-full flex items-center justify-center overflow-hidden">
+                            <div className="w-full h-full flex items-center justify-center overflow-hidden bg-gray-800">
                                 <img
                                     src={slide.img}
                                     alt={`Promoção ${index + 1}`}
@@ -88,5 +88,3 @@ export const Home = () => {
         </div>
     );
 };
-
-

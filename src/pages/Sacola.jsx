@@ -32,7 +32,7 @@ export const Sacola = () => {
       <div className="flex flex-col items-center justify-center h-screen text-center p-6">
         <button className=" text-2xl font-semibold mb-4">Seu carrinho está vazio 😢</button>
         <Link
-          to="/compras"
+          to="/"
           className="bg-black text-white px-6 py-3 rounded hover:scale-105 transition-transform"
         >
           Voltar às compras
