@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect} from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useCart } from "../context/CartContext";
 import { HiOutlineSearch, HiMenu, HiX } from "react-icons/hi";
 import {
   HiOutlineShoppingBag,
@@ -20,6 +21,7 @@ export const Navbar = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const navRef = useRef(null);
+  const { getItemCount } = useCart();
 
    // Mede a altura real da navbar
    useEffect(() => {
@@ -166,8 +168,13 @@ return (
 
         {/* Ícones à direita - apenas desktop */}
         <div className="hidden md:flex items-center gap-5 text-2xl">
-          <Link to="/sacola" className="hover:text-gray-300 transition">
+          <Link to="/sacola" className="hover:text-gray-300 transition relative">
             <HiOutlineShoppingBag />
+            {getItemCount() > 0 && (
+              <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+                {getItemCount()}
+              </span>
+            )}
           </Link>
           <Link to={localStorage.getItem('token') ? '/perfil' : '/login'} className="hover:text-gray-300 transition">
             <HiOutlineUser />
@@ -262,10 +269,15 @@ return (
           <li className="flex justify-center gap-6 mt-4 text-3xl border-t border-gray-700 pt-4">
             <Link
               to="/sacola"
-              className="hover:text-gray-300 transition"
+              className="hover:text-gray-300 transition relative"
               onClick={() => setIsMenuOpen(false)}
             >
               <HiOutlineShoppingBag />
+              {getItemCount() > 0 && (
+                <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+                  {getItemCount()}
+                </span>
+              )}
             </Link>
             <Link
               to={localStorage.getItem('token') ? '/perfil' : '/login'}

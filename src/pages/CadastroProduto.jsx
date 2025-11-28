@@ -15,8 +15,14 @@ export const CadastroProduto = () => {
   const [loading, setLoading] = useState(false);
 
   const categorias = [
+    // Cosméticos e Beleza
     'maquiagem', 'hidratantes', 'perfumes', 'sabonetes',
-    'aneis', 'brincos', 'vestidos'
+    // Feminina
+    'vestidos', 'saias', 'blusas', 'calcas', 'shorts', 'jeans', 'lingerie',
+    // Masculina
+    'bermudas', 'calcas-masculinas', 'camisetas', 'camisas', 'blazers', 'jaquetas',
+    // Bijuterias
+    'aneis', 'brincos', 'pulseiras', 'colares'
   ];
 
   const handleSubmit = async (e) => {

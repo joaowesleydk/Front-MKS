@@ -37,18 +37,34 @@ export const Pesquisa = () => {
   if (error) return <div className="text-center text-red-500 p-10">{error}</div>;
 
   return (
-    <div className="bg-gray-50 min-h-screen p-10 pt-42">
-      <h1 className="text-3xl font-bold text-center mb-8 text-gray-800">
-        {query ? `Resultados para "${query}"` : 'Pesquisa'}
-      </h1>
-      
-      {produtos.length === 0 ? (
-        <div className="text-center py-12">
-          <p className="text-gray-500 text-lg">Nenhum produto encontrado</p>
-        </div>
-      ) : (
-        <Card produtos={produtos} />
-      )}
+    <div className="bg-gray-50 min-h-screen py-8 px-4 pt-32">
+      <div className="max-w-7xl mx-auto">
+        <h1 className="text-4xl font-bold text-center mb-4 text-gray-800">
+          {query ? 'Resultados da Pesquisa' : 'Pesquisa'}
+        </h1>
+        {query && (
+          <p className="text-center text-gray-600 mb-12">
+            Mostrando resultados para: <span className="font-semibold text-purple-600">"{query}"</span>
+          </p>
+        )}
+        
+        {produtos.length === 0 ? (
+          <div className="text-center py-16">
+            <div className="bg-purple-100 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6">
+              <span className="text-3xl">🔍</span>
+            </div>
+            <h3 className="text-xl font-semibold text-gray-800 mb-2">Nenhum produto encontrado</h3>
+            <p className="text-gray-500">Tente pesquisar com outras palavras-chave</p>
+          </div>
+        ) : (
+          <>
+            <p className="text-center text-gray-600 mb-8">
+              {produtos.length} produto{produtos.length !== 1 ? 's' : ''} encontrado{produtos.length !== 1 ? 's' : ''}
+            </p>
+            <Card produtos={produtos} />
+          </>
+        )}
+      </div>
     </div>
   );
 };

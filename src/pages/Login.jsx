@@ -81,6 +81,20 @@ export const Login = () => {
             />
           </div>
 
+          {/* Login rápido para desenvolvimento */}
+          <button 
+            onClick={() => {
+              const fakeUser = { name: 'Admin Teste', email: 'admin@teste.com', role: 'admin' };
+              const fakeToken = 'fake-token-123';
+              localStorage.setItem('token', fakeToken);
+              localStorage.setItem('user', JSON.stringify(fakeUser));
+              navigate('/');
+            }}
+            className="w-full bg-green-600 text-white font-semibold py-2 rounded-md mt-3"
+          >
+            Login Rápido (Admin)
+          </button>
+
           <div className="text-center mt-6">
             <span className="text-gray-200 mr-1">Não tem uma conta?</span>
             <button onClick={() => navigate("/cadastro")} className="text-orange-400 underline font-semibold">

@@ -1,13 +1,18 @@
 import { AuthProvider } from "./context/AuthContext";
+import { CartProvider } from "./context/CartContext";
 import { AppRoutes } from "./routes/AppRoutes";
+import { Toaster } from 'react-hot-toast';
 
 function App() {
  
   return (
     <>
       <AuthProvider>
+        <CartProvider>
           <AppRoutes/>
-        </AuthProvider>
+          <Toaster position="top-right" />
+        </CartProvider>
+      </AuthProvider>
     </>
   )
 }

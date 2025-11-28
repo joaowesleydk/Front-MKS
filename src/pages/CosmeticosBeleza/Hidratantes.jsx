@@ -11,11 +11,13 @@ export const Hidratantes = () => {
     if (error) return <div className="text-center text-red-500 p-10">{error}</div>;
 
     return (
-        <div className="bg-gray-50 min-h-screen p-10 pt-42">
-            <h1 className="text-3xl font-bold text-center mb-8 text-gray-800">
-                Hidratantes
-            </h1>
-            <Card produtos={produtos} />
+        <div className="bg-gray-50 min-h-screen py-8 px-4 pt-32">
+            <div className="max-w-7xl mx-auto">
+                <h1 className="text-4xl font-bold text-center mb-12 text-gray-800">
+                    Hidratantes
+                </h1>
+                <Card produtos={produtos} />
+            </div>
         </div>
     );
 };

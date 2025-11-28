@@ -3,9 +3,9 @@ import { useNavigate } from "react-router-dom";
 import { useProducts } from "../../hooks/useProducts";
 import { LoadingSpinner } from "../../components/LoadingSpinner";
 
-export const Perfumes = () => {
+export const Camisas = () => {
     const navigate = useNavigate();
-    const { produtos, loading, error } = useProducts('perfumes');
+    const { produtos, loading, error } = useProducts('camisas');
 
     if (loading) return <LoadingSpinner />;
     if (error) return <div className="text-center text-red-500 p-10">{error}</div>;
@@ -14,11 +14,10 @@ export const Perfumes = () => {
         <div className="bg-gray-50 min-h-screen py-8 px-4 pt-32">
             <div className="max-w-7xl mx-auto">
                 <h1 className="text-4xl font-bold text-center mb-12 text-gray-800">
-                    Perfumes
+                    Camisas
                 </h1>
                 <Card produtos={produtos} />
             </div>
         </div>
     );
 };
-

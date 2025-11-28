@@ -4,6 +4,7 @@ import { LoadingSpinner } from '../components/LoadingSpinner';
 
 // Componentes reutilizáveis
 import { Navbar } from '../components/Navbar';
+import { Footer } from '../components/Footer';
 
 
 // Páginas públicas
@@ -22,6 +23,23 @@ import { Vestidos } from '../pages/Feminina/Vestidos';
 
 import { Aneis } from '../pages/Bijuterias/Aneis';
 import { Brincos } from '../pages/Bijuterias/Brincos';
+import { Pulseiras } from '../pages/Bijuterias/Pulseiras';
+import { Colares } from '../pages/Bijuterias/Colares';
+
+import { Saias } from '../pages/Feminina/Saias';
+import { Blusas } from '../pages/Feminina/Blusas';
+import { Calcas } from '../pages/Feminina/Calcas';
+import { Shorts } from '../pages/Feminina/Shorts';
+import { Jeans } from '../pages/Feminina/Jeans';
+import { Lingerie } from '../pages/Feminina/Lingerie';
+
+import { Bermudas } from '../pages/Masculina/Bermudas';
+import { CalcasMasculinas } from '../pages/Masculina/CalcasMasculinas';
+import { Camisetas } from '../pages/Masculina/Camisetas';
+import { Camisas } from '../pages/Masculina/Camisas';
+import { Blazers } from '../pages/Masculina/Blazers';
+import { Jaquetas } from '../pages/Masculina/Jaquetas';
+
 import { Pesquisa } from '../pages/Pesquisa';
 
 
@@ -33,19 +51,6 @@ import { CadastroProduto } from '../pages/CadastroProduto';
 import { AdminRoute } from '../components/AdminRoute';
 import { ProtectedRoute } from '../components/ProtectedRoute';
 
-
-
-/* ==============================
-   Componente de rota protegida
-   ============================== */
-const ProtectedRoute = ({ children }) => {
-    const { user, loading } = useAuth();
-
-    if (loading) return <LoadingSpinner size="lg" />;
-    if (!user) return <Navigate to="/login" replace />;
-
-};
-
 /* ==============================
    Componente de rota pública
    ============================== */
@@ -55,11 +60,12 @@ const PublicRoute = ({ children }) => {
     if (loading) return <LoadingSpinner size="lg" />;
 
     return (
-        <div className="min-h-screen">
+        <div className="min-h-screen flex flex-col">
             <Navbar />
-            <main className="mx-auto">
+            <main className="flex-1">
                 {children}
             </main>
+            <Footer />
         </div>
     );
 };
@@ -91,8 +97,24 @@ export const AppRoutes = () => {
 
                 <Route path="/feminina/vestidos" element={<PublicRoute><Vestidos /></PublicRoute>} />
 
+                <Route path="/feminina/saias" element={<PublicRoute><Saias /></PublicRoute>} />
+                <Route path="/feminina/blusas" element={<PublicRoute><Blusas /></PublicRoute>} />
+                <Route path="/feminina/calcas" element={<PublicRoute><Calcas /></PublicRoute>} />
+                <Route path="/feminina/shorts" element={<PublicRoute><Shorts /></PublicRoute>} />
+                <Route path="/feminina/jeans" element={<PublicRoute><Jeans /></PublicRoute>} />
+                <Route path="/feminina/langerie" element={<PublicRoute><Lingerie /></PublicRoute>} />
+
+                <Route path="/masculina/bermudas" element={<PublicRoute><Bermudas /></PublicRoute>} />
+                <Route path="/masculina/calças" element={<PublicRoute><CalcasMasculinas /></PublicRoute>} />
+                <Route path="/masculina/camisetas" element={<PublicRoute><Camisetas /></PublicRoute>} />
+                <Route path="/masculina/camisas" element={<PublicRoute><Camisas /></PublicRoute>} />
+                <Route path="/masculina/blazers" element={<PublicRoute><Blazers /></PublicRoute>} />
+                <Route path="/masculina/jaquetas" element={<PublicRoute><Jaquetas /></PublicRoute>} />
+
                 <Route path="/bijuterias/aneis" element={<PublicRoute><Aneis /></PublicRoute>} />
                 <Route path='/bijuterias/brincos' element={<PublicRoute><Brincos /></PublicRoute>} />
+                <Route path="/bijuterias/pulseiras" element={<PublicRoute><Pulseiras /></PublicRoute>} />
+                <Route path="/bijuterias/colares" element={<PublicRoute><Colares /></PublicRoute>} />
                 
                 <Route path="/pesquisa" element={<PublicRoute><Pesquisa /></PublicRoute>} />
               
