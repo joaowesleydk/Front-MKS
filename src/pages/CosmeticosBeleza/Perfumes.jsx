@@ -1,58 +1,21 @@
 import { Card } from "../../components/Card";
 import { useNavigate } from "react-router-dom";
+import { useProducts } from "../../hooks/useProducts";
+import { LoadingSpinner } from "../../components/LoadingSpinner";
 
 export const Perfumes = () => {
     const navigate = useNavigate();
+    const { produtos, loading, error } = useProducts('perfumes');
 
-    const produtos = [
-        {
-            nome: "Splash Tododia Frutas Rojas de Natura 200ml",
-            preco: "R$ 38,90",
-            imagem: "https://resources.claroshop.com/medios-plazavip/mkt/64dbf0304bcc8_bodyfrutosjpg.jpg?scale=500&qlty=75",
-        },
-        {
-            nome: "Kit Tododia Natura Frutas Vermelhas",
-            preco: "R$ 79,90",
-            imagem: "https://http2.mlstatic.com/D_NQ_NP_890372-MLA45874147372_052021-O.webp",
-        },
-        {
-            nome: "", preco: "", imagem: ""
-        },
-
-        {
-            nome: "", preco: "", imagem: ""
-        },
-
-        {
-            nome: "", preco: "", imagem: ""
-        },
-
-        {
-            nome: "", preco: "", imagem: ""
-        },
-
-        {
-            nome: "", preco: "", imagem: ""
-        },
-
-        {
-            nome: "", preco: "", imagem: ""
-        },
-
-        {
-            nome: "", preco: "", imagem: ""
-        },
-    ];
-
+    if (loading) return <LoadingSpinner />;
+    if (error) return <div className="text-center text-red-500 p-10">{error}</div>;
 
     return (
-        <div className="bg-gray-50 min-h-screen p-10 pt-42  ">
-            {/* Título */}
+        <div className="bg-gray-50 min-h-screen p-10 pt-42">
             <h1 className="text-3xl font-bold text-center mb-8 text-gray-800">
+                Perfumes
             </h1>
-
-
-            <Card produtos={produtos} />:
+            <Card produtos={produtos} />
         </div>
     );
 };

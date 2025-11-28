@@ -22,12 +22,16 @@ import { Vestidos } from '../pages/Feminina/Vestidos';
 
 import { Aneis } from '../pages/Bijuterias/Aneis';
 import { Brincos } from '../pages/Bijuterias/Brincos';
+import { Pesquisa } from '../pages/Pesquisa';
 
 
 
 
 // Páginas protegidas
 import Perfil from '../pages/Perfil';
+import { CadastroProduto } from '../pages/CadastroProduto';
+import { AdminRoute } from '../components/AdminRoute';
+import { ProtectedRoute } from '../components/ProtectedRoute';
 
 
 
@@ -71,7 +75,13 @@ export const AppRoutes = () => {
                 <Route path="/" element={<PublicRoute><Home /></PublicRoute>} />
                 <Route path="/login" element={<PublicRoute><Login /></PublicRoute>} />
                 <Route path="/cadastro" element={<PublicRoute><Cadastro /></PublicRoute>} />
-                <Route path="/sacola" element={<PublicRoute><Sacola /></PublicRoute>} />
+                <Route path="/sacola" element={
+                    <ProtectedRoute>
+                        <PublicRoute>
+                            <Sacola />
+                        </PublicRoute>
+                    </ProtectedRoute>
+                } />
 
                
                 <Route path="/cosmeticos/hidratantes" element={<PublicRoute><Hidratantes /></PublicRoute>} />
@@ -83,13 +93,26 @@ export const AppRoutes = () => {
 
                 <Route path="/bijuterias/aneis" element={<PublicRoute><Aneis /></PublicRoute>} />
                 <Route path='/bijuterias/brincos' element={<PublicRoute><Brincos /></PublicRoute>} />
+                
+                <Route path="/pesquisa" element={<PublicRoute><Pesquisa /></PublicRoute>} />
               
               
 
                 {/* Rotas Protegidas */}
-                {/* Exemplo:
-                <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} /> 
-                */}
+                <Route path="/perfil" element={
+                    <ProtectedRoute>
+                        <PublicRoute>
+                            <Perfil />
+                        </PublicRoute>
+                    </ProtectedRoute>
+                } />
+                <Route path="/admin/produtos" element={
+                    <AdminRoute>
+                        <PublicRoute>
+                            <CadastroProduto />
+                        </PublicRoute>
+                    </AdminRoute>
+                } />
             </Routes>
         </Router>
     );

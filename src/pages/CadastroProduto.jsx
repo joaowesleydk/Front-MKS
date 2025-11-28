@@ -1,0 +1,119 @@
+import { useState } from 'react';
+import { productService } from '../services/productService';
+import { Button } from '../components/Button';
+import { Input } from '../components/Input';
+import toast from 'react-hot-toast';
+
+export const CadastroProduto = () => {
+  const [produto, setProduto] = useState({
+    nome: '',
+    preco: '',
+    categoria: '',
+    imagem: '',
+    descricao: ''
+  });
+  const [loading, setLoading] = useState(false);
+
+  const categorias = [
+    'maquiagem', 'hidratantes', 'perfumes', 'sabonetes',
+    'aneis', 'brincos', 'vestidos'
+  ];
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+
+    try {
+      await productService.create(produto);
+      toast.success('Produto cadastrado com sucesso!');
+      setProduto({
+        nome: '',
+        preco: '',
+        categoria: '',
+        imagem: '',
+        descricao: ''
+      });
+    } catch (error) {
+      toast.error('Erro ao cadastrar produto');
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleChange = (e) => {
+    setProduto({
+      ...produto,
+      [e.target.name]: e.target.value
+    });
+  };
+
+  return (
+    <div className="min-h-screen bg-gray-50 py-12 px-4">
+      <div className="max-w-md mx-auto bg-white rounded-lg shadow-md p-6">
+        <h1 className="text-2xl font-bold text-center mb-6">Cadastrar Produto</h1>
+        
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <Input
+            type="text"
+            name="nome"
+            placeholder="Nome do produto"
+            value={produto.nome}
+            onChange={handleChange}
+            required
+          />
+
+          <Input
+            type="number"
+            name="preco"
+            placeholder="Preço"
+            value={produto.preco}
+            onChange={handleChange}
+            step="0.01"
+            required
+          />
+
+          <select
+            name="categoria"
+            value={produto.categoria}
+            onChange={handleChange}
+            className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+            required
+          >
+            <option value="">Selecione uma categoria</option>
+            {categorias.map(cat => (
+              <option key={cat} value={cat}>
+                {cat.charAt(0).toUpperCase() + cat.slice(1)}
+              </option>
+            ))}
+          </select>
+
+          <Input
+            type="url"
+            name="imagem"
+            placeholder="URL da imagem"
+            value={produto.imagem}
+            onChange={handleChange}
+            required
+          />
+
+          <textarea
+            name="descricao"
+            placeholder="Descrição do produto"
+            value={produto.descricao}
+            onChange={handleChange}
+            className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 h-24 resize-none"
+          />
+
+          <Button
+            type="submit"
+            disabled={loading}
+            className="w-full"
+          >
+            {loading ? 'Cadastrando...' : 'Cadastrar Produto'}
+          </Button>
+        </form>
+      </div>
+    </div>
+  );
+};

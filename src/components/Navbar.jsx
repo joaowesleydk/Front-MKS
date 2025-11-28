@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect} from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { HiOutlineSearch, HiMenu, HiX } from "react-icons/hi";
 import {
   HiOutlineShoppingBag,
@@ -16,7 +16,9 @@ import Image from "../assets/logo.png";
 export const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [navbarHeight, setNavbarHeight] = useState(0); 
+  const [searchQuery, setSearchQuery] = useState('');
   const location = useLocation();
+  const navigate = useNavigate();
   const navRef = useRef(null);
 
    // Mede a altura real da navbar
@@ -123,6 +125,14 @@ export const Navbar = () => {
 
   const isActive = (path) => location.pathname === path;
 
+  const handleSearch = (e) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      navigate(`/pesquisa?q=${encodeURIComponent(searchQuery.trim())}`);
+      setSearchQuery('');
+    }
+  };
+
 
 return (
   <nav
@@ -141,14 +151,17 @@ return (
 
         {/* Barra de pesquisa - apenas desktop */}
         <div className="hidden md:flex flex-1 justify-center items-center max-w-xl">
-          <div className="flex items-center bg-white rounded-full overflow-hidden w-full">
+          <form onSubmit={handleSearch} className="flex items-center bg-white rounded-full overflow-hidden w-full">
             <HiOutlineSearch className="text-gray-500 text-xl ml-3" />
             <input
               type="text"
               placeholder="O que você procura?..."
               className="flex-1 px-3 py-2 text-gray-700 focus:outline-none"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
             />
-          </div>
+            <button type="submit" className="sr-only">Pesquisar</button>
+          </form>
         </div>
 
         {/* Ícones à direita - apenas desktop */}
@@ -156,9 +169,14 @@ return (
           <Link to="/sacola" className="hover:text-gray-300 transition">
             <HiOutlineShoppingBag />
           </Link>
-          <Link to="/login" className="hover:text-gray-300 transition">
+          <Link to={localStorage.getItem('token') ? '/perfil' : '/login'} className="hover:text-gray-300 transition">
             <HiOutlineUser />
           </Link>
+          {JSON.parse(localStorage.getItem('user') || '{}').role === 'admin' && (
+            <Link to="/admin/produtos" className="hover:text-gray-300 transition text-sm bg-red-600 px-2 py-1 rounded">
+              Admin
+            </Link>
+          )}
         </div>
 
         {/* Botão Mobile */}
@@ -250,12 +268,21 @@ return (
               <HiOutlineShoppingBag />
             </Link>
             <Link
-              to="/login"
+              to={localStorage.getItem('token') ? '/perfil' : '/login'}
               className="hover:text-gray-300 transition"
               onClick={() => setIsMenuOpen(false)}
             >
               <HiOutlineUser />
             </Link>
+            {JSON.parse(localStorage.getItem('user') || '{}').role === 'admin' && (
+              <Link
+                to="/admin/produtos"
+                className="hover:text-gray-300 transition text-sm bg-red-600 px-2 py-1 rounded"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Admin
+              </Link>
+            )}
           </li>
         </ul>
       )}

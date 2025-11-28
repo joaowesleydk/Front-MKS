@@ -30,9 +30,12 @@ export const Card = ({ produtos = [] }) => {
             className="bg-white rounded-2xl shadow-md p-6 flex flex-col items-center text-center hover:shadow-lg transition h-full"
           >
             <img
-              src={item.imagem}
+              src={item.imagem || 'https://via.placeholder.com/160x160?text=Sem+Imagem'}
               alt={item.nome}
               className="w-40 h-40 object-contain mb-4"
+              onError={(e) => {
+                e.target.src = 'https://via.placeholder.com/160x160?text=Sem+Imagem';
+              }}
             />
 
             <h2 className="text-sm font-medium text-gray-800 mb-2 line-clamp-2 min-h-[40px]">
