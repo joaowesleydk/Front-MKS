@@ -15,7 +15,7 @@ export const Cadastro = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await api.post("/auth/register", {
+      const response = await api.post("/api/users/register", {
         name: nome,
         email,
         password: senha,
@@ -30,7 +30,7 @@ export const Cadastro = () => {
   const handleGoogleSuccess = async (credentialResponse) => {
     try {
       const credential = credentialResponse.credential;
-      const response = await api.post("/auth/google", { credential });
+      const response = await api.post("/api/users/google", { credential });
       // retorna token e user — opcional: já logar automaticamente
       const token = response.data.access_token;
       const user = response.data.user;

@@ -37,28 +37,28 @@ export const Pesquisa = () => {
   if (error) return <div className="text-center text-red-500 p-10">{error}</div>;
 
   return (
-    <div className="bg-gray-50 min-h-screen py-8 px-4 pt-32">
+    <div className="bg-gray-50 min-h-screen py-4 sm:py-8 px-2 sm:px-4 pt-24 sm:pt-32">
       <div className="max-w-7xl mx-auto">
-        <h1 className="text-4xl font-bold text-center mb-4 text-gray-800">
+        <h1 className="text-2xl sm:text-4xl font-bold text-center mb-3 sm:mb-4 text-gray-800">
           {query ? 'Resultados da Pesquisa' : 'Pesquisa'}
         </h1>
         {query && (
-          <p className="text-center text-gray-600 mb-12">
-            Mostrando resultados para: <span className="font-semibold text-purple-600">"{query}"</span>
+          <p className="text-center text-gray-600 mb-8 sm:mb-12 text-sm sm:text-base px-4">
+            Mostrando resultados para: <span className="font-semibold text-gray-800">"{query}"</span>
           </p>
         )}
         
         {produtos.length === 0 ? (
-          <div className="text-center py-16">
-            <div className="bg-purple-100 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6">
-              <span className="text-3xl">🔍</span>
+          <div className="text-center py-12 sm:py-16 px-4">
+            <div className="bg-gray-100 w-16 h-16 sm:w-20 sm:h-20 rounded-full flex items-center justify-center mx-auto mb-4 sm:mb-6">
+              <span className="text-2xl sm:text-3xl">🔍</span>
             </div>
-            <h3 className="text-xl font-semibold text-gray-800 mb-2">Nenhum produto encontrado</h3>
-            <p className="text-gray-500">Tente pesquisar com outras palavras-chave</p>
+            <h3 className="text-lg sm:text-xl font-semibold text-gray-800 mb-2">Nenhum produto encontrado</h3>
+            <p className="text-gray-500 text-sm sm:text-base">Tente pesquisar com outras palavras-chave</p>
           </div>
         ) : (
           <>
-            <p className="text-center text-gray-600 mb-8">
+            <p className="text-center text-gray-600 mb-6 sm:mb-8 text-sm sm:text-base">
               {produtos.length} produto{produtos.length !== 1 ? 's' : ''} encontrado{produtos.length !== 1 ? 's' : ''}
             </p>
             <Card produtos={produtos} />

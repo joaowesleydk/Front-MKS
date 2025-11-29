@@ -14,21 +14,23 @@ export const Login = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const res = await api.post("/auth/login", { email, password });
+      const res = await api.post("/api/auth/login", { email, password });
       const token = res.data.access_token;
       const user = res.data.user;
       localStorage.setItem("token", token);
       localStorage.setItem("user", JSON.stringify(user));
       navigate("/");
     } catch (err) {
-      alert("Erro ao logar: verifique suas credenciais.");
+      console.error('Erro no login:', err.response?.data || err.message);
+      const errorMsg = err.response?.data?.detail || err.response?.data?.message || 'Erro ao fazer login';
+      alert(`Erro: ${errorMsg}`);
     }
   };
 
   const handleGoogleSuccess = async (credentialResponse) => {
     try {
       const credential = credentialResponse.credential;
-      const res = await api.post("/auth/google", { credential });
+      const res = await api.post("/api/auth/google", { credential });
       const token = res.data.access_token;
       const user = res.data.user;
       localStorage.setItem("token", token);

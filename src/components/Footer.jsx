@@ -11,14 +11,14 @@ export const Footer = () => {
     <footer className="bg-black text-white">
       {/* Barra retrátil */}
       <div className="border-b border-gray-700">
-        <div className="max-w-7xl mx-auto px-6">
+        <div className="max-w-7xl mx-auto px-4 lg:px-6">
           <button
             onClick={() => setIsExpanded(!isExpanded)}
-            className="w-full py-4 flex items-center justify-between hover:bg-gray-900 transition-colors"
+            className="w-full py-3 lg:py-4 flex items-center justify-between hover:bg-gray-900 transition-colors"
           >
-            <div className="flex items-center space-x-4">
-              <h3 className="text-xl font-bold">MKS Store</h3>
-              <span className="text-gray-400 text-sm">Informações e contato</span>
+            <div className="flex flex-col lg:flex-row lg:items-center lg:space-x-4">
+              <h3 className="text-lg lg:text-xl font-bold">MKS Store</h3>
+              <span className="text-gray-400 text-xs lg:text-sm">Informações e contato</span>
             </div>
             {isExpanded ? (
               <HiChevronDown className="text-2xl text-gray-400" />
@@ -33,8 +33,8 @@ export const Footer = () => {
       <div className={`transition-all duration-300 overflow-hidden ${
         isExpanded ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
       }`}>
-        <div className="max-w-7xl mx-auto px-6 py-8">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="max-w-7xl mx-auto px-4 lg:px-6 py-6 lg:py-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
             
             {/* Links rápidos */}
             <div>
@@ -86,9 +86,9 @@ export const Footer = () => {
       </div>
 
       {/* Copyright sempre visível */}
-      <div className="border-t border-gray-700 py-4">
-        <div className="max-w-7xl mx-auto px-6 text-center">
-          <p className="text-gray-400 text-sm">
+      <div className="border-t border-gray-700 py-3 lg:py-4">
+        <div className="max-w-7xl mx-auto px-4 lg:px-6 text-center">
+          <p className="text-gray-400 text-xs lg:text-sm">
             © 2025 MKS Store. Todos os direitos reservados.
           </p>
         </div>

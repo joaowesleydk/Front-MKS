@@ -50,47 +50,50 @@ export const Sacola = () => {
           </Button>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 lg:gap-8">
           
           {/* Lista de produtos */}
-          <div className="lg:col-span-2 space-y-4">
+          <div className="lg:col-span-2 space-y-3 lg:space-y-4">
             {items.map((item) => {
               const preco = parseFloat(item.preco.replace('R$', '').replace(',', '.'));
               return (
-                <div key={item.id} className="bg-white rounded-2xl shadow-lg p-6">
-                  <div className="flex items-center gap-4">
+                <div key={item.id} className="bg-white rounded-xl lg:rounded-2xl shadow-lg p-4 lg:p-6">
+                  <div className="flex items-center gap-3 lg:gap-4">
                     <img
                       src={item.imagem || 'https://via.placeholder.com/80x80'}
                       alt={item.nome}
-                      className="w-20 h-20 object-contain rounded-lg"
+                      className="w-16 h-16 lg:w-20 lg:h-20 object-contain rounded-lg"
                     />
                     <div className="flex-1">
-                      <h3 className="text-lg font-semibold text-gray-800 mb-1">{item.nome}</h3>
-                      <p className="text-purple-600 font-bold">{item.preco}</p>
+                      <h3 className="text-sm lg:text-lg font-semibold text-gray-800 mb-1 line-clamp-2">{item.nome}</h3>
+                      <p className="text-gray-800 font-bold text-sm lg:text-base">{item.preco}</p>
                     </div>
                     
-                    <div className="flex items-center gap-3">
+                    <div className="flex flex-col lg:flex-row items-center gap-2 lg:gap-3">
+                      <div className="flex items-center gap-2">
+                        <button
+                          onClick={() => updateQuantity(item.id, item.quantidade - 1)}
+                          className="w-7 h-7 lg:w-8 lg:h-8 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center"
+                        >
+                          <HiOutlineMinus className="text-xs lg:text-sm" />
+                        </button>
+                        <span className="w-6 lg:w-8 text-center font-semibold text-sm lg:text-base">{item.quantidade}</span>
+                        <button
+                          onClick={() => updateQuantity(item.id, item.quantidade + 1)}
+                          className="w-7 h-7 lg:w-8 lg:h-8 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center"
+                        >
+                          <HiOutlinePlus className="text-xs lg:text-sm" />
+                        </button>
+                      </div>
+                      
                       <button
-                        onClick={() => updateQuantity(item.id, item.quantidade - 1)}
-                        className="w-8 h-8 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center"
+                        onClick={() => handleRemove(item.id, item.nome)}
+                        className="text-red-500 hover:text-red-700 p-1 lg:p-2"
                       >
-                        <HiOutlineMinus className="text-sm" />
-                      </button>
-                      <span className="w-8 text-center font-semibold">{item.quantidade}</span>
-                      <button
-                        onClick={() => updateQuantity(item.id, item.quantidade + 1)}
-                        className="w-8 h-8 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center"
-                      >
-                        <HiOutlinePlus className="text-sm" />
+                        <HiOutlineTrash className="text-lg lg:text-xl" />
                       </button>
                     </div>
-                    
-                    <button
-                      onClick={() => handleRemove(item.id, item.nome)}
-                      className="text-red-500 hover:text-red-700 p-2"
-                    >
-                      <HiOutlineTrash className="text-xl" />
-                    </button>
+
                   </div>
                 </div>
               );
