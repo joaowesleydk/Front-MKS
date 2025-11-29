@@ -31,7 +31,7 @@ export const CadastroProduto = () => {
 
     try {
       await productService.create(produto);
-      toast.success('Produto cadastrado com sucesso!');
+      toast.success('Produto cadastrado com sucesso! Recarregando página...');
       setProduto({
         nome: '',
         preco: '',
@@ -39,6 +39,11 @@ export const CadastroProduto = () => {
         imagem: '',
         descricao: ''
       });
+      
+      // Recarregar a página após 2 segundos
+      setTimeout(() => {
+        window.location.reload();
+      }, 2000);
     } catch (error) {
       toast.error('Erro ao cadastrar produto');
       console.error(error);
@@ -114,7 +119,7 @@ export const CadastroProduto = () => {
           <Button
             type="submit"
             disabled={loading}
-            className="w-full"
+            className="w-full bg-green-600 hover:bg-green-700"
           >
             {loading ? 'Cadastrando...' : 'Cadastrar Produto'}
           </Button>
