@@ -23,7 +23,11 @@ export const Cadastro = () => {
       alert(`Usuário ${response.data.name} cadastrado com sucesso!`);
       navigate("/login");
     } catch (error) {
-      alert("Erro ao cadastrar usuário: talvez e-mail já exista.");
+      console.error('Erro completo:', error);
+      console.error('URL tentada:', `${import.meta.env.VITE_API_URL}/api/users/register`);
+      console.error('Dados enviados:', { name: nome, email, password: senha });
+      const errorMsg = error.response?.data?.detail || error.response?.data?.message || error.message || 'Erro desconhecido';
+      alert(`Erro: ${errorMsg}`);
     }
   };
 

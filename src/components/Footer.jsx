@@ -66,8 +66,8 @@ export const Footer = () => {
               </div>
             </div>
 
-            {/* Links */}
-            <div>
+            {/* Links - apenas desktop */}
+            <div className="hidden md:block">
               <h4 className="text-lg font-semibold mb-4 text-white">Links Úteis</h4>
               <ul className="space-y-2">
                 <li><Link to="/" className="text-gray-300 hover:text-white transition-colors text-sm">Home</Link></li>
