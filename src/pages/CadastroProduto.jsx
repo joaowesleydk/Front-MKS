@@ -60,7 +60,7 @@ export const CadastroProduto = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 py-12 px-4">
+    <div className="min-h-screen bg-gray-50 py-50 px-4">
       <div className="max-w-md mx-auto bg-white rounded-lg shadow-md p-6">
         <h1 className="text-2xl font-bold text-center mb-6">Cadastrar Produto</h1>
         

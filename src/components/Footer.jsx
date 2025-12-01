@@ -54,7 +54,7 @@ export const Footer = () => {
                 Sua loja online de confiança. Oferecemos moda, beleza e acessórios com qualidade e preços incríveis para toda a família.
               </p>
               <div className="flex space-x-4">
-                <a href="#" className="text-pink-400 hover:text-pink-300 text-2xl transition-all duration-300 hover:scale-110">
+                <a href="https://www.instagram.com/kaarinamodas_?igsh=NW53YmhuaDZrazlv" className="text-pink-400 hover:text-pink-300 text-2xl transition-all duration-300 hover:scale-110">
                   <FaInstagram />
                 </a>
                 <a href="#" className="text-blue-400 hover:text-blue-300 text-2xl transition-all duration-300 hover:scale-110">
