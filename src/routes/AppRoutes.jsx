@@ -41,6 +41,9 @@ import { Blazers } from '../pages/Masculina/Blazers';
 import { Jaquetas } from '../pages/Masculina/Jaquetas';
 
 import { Pesquisa } from '../pages/Pesquisa';
+import { Pagamento } from '../pages/Pagamento';
+import { PagamentoSucesso } from '../pages/PagamentoSucesso';
+import { PagamentoErro } from '../pages/PagamentoErro';
 
 
 
@@ -117,6 +120,16 @@ export const AppRoutes = () => {
                 <Route path="/bijuterias/colares" element={<PublicRoute><Colares /></PublicRoute>} />
                 
                 <Route path="/pesquisa" element={<PublicRoute><Pesquisa /></PublicRoute>} />
+                
+                <Route path="/pagamento" element={
+                    <ProtectedRoute>
+                        <PublicRoute>
+                            <Pagamento />
+                        </PublicRoute>
+                    </ProtectedRoute>
+                } />
+                <Route path="/pagamento/sucesso" element={<PublicRoute><PagamentoSucesso /></PublicRoute>} />
+                <Route path="/pagamento/erro" element={<PublicRoute><PagamentoErro /></PublicRoute>} />
               
               
 

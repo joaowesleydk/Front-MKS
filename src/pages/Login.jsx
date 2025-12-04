@@ -1,14 +1,25 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import api from "../services/api"; // ou ajuste o caminho
 import { FcGoogle } from "react-icons/fc";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google";
+import { useAuth } from "../context/AuthContext";
 
 export const Login = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const { login } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showMessage, setShowMessage] = useState(false);
   const GOOGLE_CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID || "SEU_CLIENT_ID_GOOGLE_AQUI";
+
+  useEffect(() => {
+    // Verifica se foi redirecionado por tentativa de compra/carrinho
+    if (location.state?.from === 'cart' || location.state?.from === 'buy') {
+      setShowMessage(true);
+    }
+  }, [location]);
 
 
   const handleLogin = async (e) => {
@@ -17,9 +28,12 @@ export const Login = () => {
       const res = await api.post("/api/auth/login", { email, password });
       const token = res.data.access_token;
       const user = res.data.user;
-      localStorage.setItem("token", token);
-      localStorage.setItem("user", JSON.stringify(user));
-      navigate("/");
+      login(user, token);
+      
+      // Redirecionar para onde o usuário estava tentando ir ou para home
+      const redirectTo = location.state?.from === 'cart' ? '/sacola' : 
+                        location.state?.from === 'buy' ? '/' : '/';
+      navigate(redirectTo);
     } catch (err) {
       console.error('Erro no login:', err.response?.data || err.message);
       const errorMsg = err.response?.data?.detail || err.response?.data?.message || 'Erro ao fazer login';
@@ -33,9 +47,12 @@ export const Login = () => {
       const res = await api.post("/api/auth/google", { credential });
       const token = res.data.access_token;
       const user = res.data.user;
-      localStorage.setItem("token", token);
-      localStorage.setItem("user", JSON.stringify(user));
-      navigate("/");
+      login(user, token);
+      
+      // Redirecionar para onde o usuário estava tentando ir ou para home
+      const redirectTo = location.state?.from === 'cart' ? '/sacola' : 
+                        location.state?.from === 'buy' ? '/' : '/';
+      navigate(redirectTo);
     } catch (err) {
       alert("Erro no login com Google.");
     }
@@ -46,6 +63,15 @@ export const Login = () => {
       <div className="flex items-center justify-center min-h-screen bg-[url('/Fundologin.png')] bg-cover bg-center bg-no-repeat">
         <div className="bg-black/60 backdrop-blur-md p-8 rounded-3xl shadow-lg w-full max-w-md text-white">
           <h1 className="text-3xl font-bold text-center mb-3">Login</h1>
+          
+          {showMessage && (
+            <div className="bg-orange-500/20 border border-orange-400 rounded-lg p-3 mb-4 text-center">
+              <p className="text-sm text-orange-200">
+                🛒 Para comprar ou adicionar produtos à sacola, você precisa estar logado!
+              </p>
+            </div>
+          )}
+          
           <form onSubmit={handleLogin} className="space-y-4">
             <div>
               <label className="block text-sm mb-1 font-medium">E-mail</label>
@@ -88,8 +114,7 @@ export const Login = () => {
             onClick={() => {
               const fakeUser = { name: 'Admin Teste', email: 'admin@teste.com', role: 'admin' };
               const fakeToken = 'fake-token-123';
-              localStorage.setItem('token', fakeToken);
-              localStorage.setItem('user', JSON.stringify(fakeUser));
+              login(fakeUser, fakeToken);
               navigate('/');
             }}
             className="w-full bg-green-600 text-white font-semibold py-2 rounded-md mt-3"

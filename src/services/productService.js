@@ -17,13 +17,23 @@ export const productService = {
   create: async (produto) => {
     const token = localStorage.getItem('token');
     
+    // Converter campos para o formato esperado pelo backend
+    const produtoFormatado = {
+      name: produto.nome,
+      price: parseFloat(produto.preco),
+      category: produto.categoria,
+      image: produto.imagem,
+      description: produto.descricao,
+      promocao: produto.promocao
+    };
+    
     const response = await fetch(`${import.meta.env.VITE_API_URL}/api/products/frontend-create`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${token}`
       },
-      body: JSON.stringify(produto)
+      body: JSON.stringify(produtoFormatado)
     });
     
     if (!response.ok) {

@@ -13,7 +13,10 @@ export const useProducts = (categoria = null) => {
         const response = categoria 
           ? await productService.getByCategory(categoria)
           : await productService.getAll();
-        setProdutos(response.data);
+        
+        // Garantir que sempre seja um array
+        const data = response.data || response || [];
+        setProdutos(Array.isArray(data) ? data : []);
       } catch (err) {
         setError('Erro ao carregar produtos');
         console.error(err);

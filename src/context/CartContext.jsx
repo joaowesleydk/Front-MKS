@@ -12,21 +12,34 @@ export const useCart = () => {
 
 export const CartProvider = ({ children }) => {
   const [items, setItems] = useState([]);
+  
+  const isLoggedIn = () => {
+    return localStorage.getItem('token') && localStorage.getItem('user');
+  };
 
-  // Carregar carrinho do localStorage
+  // Carregar sacola do localStorage
   useEffect(() => {
-    const savedCart = localStorage.getItem('cart');
-    if (savedCart) {
-      setItems(JSON.parse(savedCart));
+    if (isLoggedIn()) {
+      const savedCart = localStorage.getItem('cart');
+      if (savedCart) {
+        setItems(JSON.parse(savedCart));
+      }
+    } else {
+      setItems([]);
     }
   }, []);
 
-  // Salvar carrinho no localStorage
+  // Salvar sacola no localStorage
   useEffect(() => {
-    localStorage.setItem('cart', JSON.stringify(items));
+    if (isLoggedIn()) {
+      localStorage.setItem('cart', JSON.stringify(items));
+    }
   }, [items]);
 
   const addItem = (produto) => {
+    if (!isLoggedIn()) {
+      return false;
+    }
     setItems(prev => {
       const existingItem = prev.find(item => item.id === produto.id);
       if (existingItem) {
@@ -38,6 +51,7 @@ export const CartProvider = ({ children }) => {
       }
       return [...prev, { ...produto, quantidade: 1 }];
     });
+    return true;
   };
 
   const removeItem = (id) => {
@@ -68,6 +82,9 @@ export const CartProvider = ({ children }) => {
   };
 
   const getItemCount = () => {
+    if (!isLoggedIn()) {
+      return 0;
+    }
     return items.reduce((count, item) => count + item.quantidade, 0);
   };
 

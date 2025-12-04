@@ -10,7 +10,8 @@ export const CadastroProduto = () => {
     preco: '',
     categoria: '',
     imagem: '',
-    descricao: ''
+    descricao: '',
+    promocao: false
   });
   const [loading, setLoading] = useState(false);
 
@@ -37,7 +38,8 @@ export const CadastroProduto = () => {
         preco: '',
         categoria: '',
         imagem: '',
-        descricao: ''
+        descricao: '',
+        promocao: false
       });
       
       // Recarregar a página após 2 segundos
@@ -115,6 +117,24 @@ export const CadastroProduto = () => {
             onChange={handleChange}
             className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 h-24 resize-none"
           />
+
+          {/* Campo de Promoção */}
+          <div className="flex items-center gap-3 p-4 bg-orange-50 rounded-lg border border-orange-200">
+            <input
+              type="checkbox"
+              id="promocao"
+              name="promocao"
+              checked={produto.promocao}
+              onChange={(e) => setProduto({...produto, promocao: e.target.checked})}
+              className="w-5 h-5 text-orange-600 rounded focus:ring-orange-500"
+            />
+            <label htmlFor="promocao" className="flex-1">
+              <span className="font-medium text-orange-800">🔥 Produto em Promoção</span>
+              <p className="text-sm text-orange-600 mt-1">
+                Produtos marcados aparecerão na página inicial como destaque
+              </p>
+            </label>
+          </div>
 
           <Button
             type="submit"

@@ -2,6 +2,7 @@ import { useState, useRef, useEffect} from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useCart } from "../context/CartContext";
 import { HiOutlineSearch, HiMenu, HiX } from "react-icons/hi";
+import toast from 'react-hot-toast';
 import {
   HiOutlineShoppingBag,
   HiOutlineUser,
@@ -22,6 +23,18 @@ export const Navbar = () => {
   const navigate = useNavigate();
   const navRef = useRef(null);
   const { getItemCount } = useCart();
+
+  const isLoggedIn = () => {
+    return localStorage.getItem('token') && localStorage.getItem('user');
+  };
+
+  const handleCartClick = (e) => {
+    if (!isLoggedIn()) {
+      e.preventDefault();
+      toast.error('Você precisa estar logado para acessar a sacola!');
+      navigate('/login', { state: { from: 'cart' } });
+    }
+  };
 
    // Mede a altura real da navbar
    useEffect(() => {
@@ -168,7 +181,7 @@ return (
 
         {/* Ícones à direita - apenas desktop */}
         <div className="hidden md:flex items-center gap-5 text-2xl">
-          <Link to="/sacola" className="hover:text-gray-300 transition relative">
+          <Link to="/sacola" onClick={handleCartClick} className="hover:text-gray-300 transition relative">
             <HiOutlineShoppingBag />
             {getItemCount() > 0 && (
               <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
@@ -198,7 +211,7 @@ return (
       {/* Links centrais - DESKTOP */}
       <ul className="hidden md:flex justify-center gap-10 mt-4 font-medium relative">
         {navLinks.map((link) => (
-          <li key={link.to} className="group relative">
+          <li key={link.id} className="group relative">
             <Link
               to={link.to}
               className={`hover:text-gray-300 flex items-center transition ${isActive(link.to) ? "text-gray-300" : ""
@@ -235,7 +248,7 @@ return (
       {isMenuOpen && (
         <ul className="md:hidden mt-4 flex flex-col items-center gap-3 text-lg font-medium bg-black pb-4 rounded-lg relative z-10">
           {navLinks.map((link) => (
-            <li key={link.to} className="w-full text-center">
+            <li key={`mobile-${link.id}`} className="w-full text-center">
               <details className="group border-b border-gray-700 py-2">
                 <summary className="cursor-pointer hover:text-gray-300 flex items-center justify-center gap-2">
                   {link.icon}
@@ -270,7 +283,10 @@ return (
             <Link
               to="/sacola"
               className="hover:text-gray-300 transition relative"
-              onClick={() => setIsMenuOpen(false)}
+              onClick={(e) => {
+                handleCartClick(e);
+                setIsMenuOpen(false);
+              }}
             >
               <HiOutlineShoppingBag />
               {getItemCount() > 0 && (

@@ -1,10 +1,11 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useCart } from "../context/CartContext";
 import { HiOutlineTrash, HiOutlineMinus, HiOutlinePlus, HiOutlineShoppingBag } from "react-icons/hi2";
 import { Button } from "../components/Button";
 import toast from 'react-hot-toast';
 
 export const Sacola = () => {
+  const navigate = useNavigate();
   const { items, removeItem, updateQuantity, clearCart, getTotal } = useCart();
 
   const handleRemove = (id, nome) => {
@@ -122,7 +123,10 @@ export const Sacola = () => {
                 </div>
               </div>
               
-              <Button className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 mb-4">
+              <Button 
+                onClick={() => navigate('/pagamento')}
+                className="w-full bg-green-600 hover:bg-green-700 mb-4"
+              >
                 Finalizar Compra
               </Button>
               
