@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+  <!-- Home -->
+  <url>
+    <loc>https://modakarinastore.com.br/</loc>
+    <priority>1.0</priority>
+  </url>
+
+  <!-- Login -->
+  <url>
+    <loc>https://modakarinastore.com.br/login</loc>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Registro -->
+  <url>
+    <loc>https://modakarinastore.com.br/registro</loc>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Sacola / Carrinho -->
+  <url>
+    <loc>https://modakarinastore.com.br/sacola</loc>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Perfil -->
+  <url>
+    <loc>https://modakarinastore.com.br/perfil</loc>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Pagamento -->
+  <url>
+    <loc>https://modakarinastore.com.br/pagamento</loc>
+    <priority>0.7</priority>
+  </url>
+
+</urlset>
