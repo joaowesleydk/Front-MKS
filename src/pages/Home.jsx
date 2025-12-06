@@ -18,9 +18,48 @@ export const Home = () => {
     const { produtos, loading, error } = useProducts(); // Buscar todos os produtos
     
     const slides = [
-        { img: Promocao1, gradient: "linear-gradient(to bottom, #ADD8E6, #fff)" },
-        { img: Promocao2, gradient: "linear-gradient(to bottom, #FFB6C1, #fff)" },
-        { img: Promocao3, gradient: "linear-gradient(to bottom, #FFC896, #fff)" },
+        { 
+            img: "https://images.unsplash.com/photo-1445205170230-053b83016050?w=1200&h=600&fit=crop&q=80", 
+            gradient: "linear-gradient(to bottom, #DC2626, #fff)",
+            titulo: "Vestidos de Festa",
+            preco: "R$ 89,90",
+            desconto: "50% OFF"
+        },
+        { 
+            img: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=1200&h=600&fit=crop&q=80", 
+            gradient: "linear-gradient(to bottom, #059669, #fff)",
+            titulo: "Coleção Inverno",
+            preco: "R$ 129,90",
+            desconto: "40% OFF"
+        },
+        { 
+            img: "https://images.unsplash.com/photo-1472851294608-062f824d29cc?w=1200&h=600&fit=crop&q=80", 
+            gradient: "linear-gradient(to bottom, #B91C1C, #fff)",
+            titulo: "Acessórios Exclusivos",
+            preco: "R$ 49,90",
+            desconto: "60% OFF"
+        },
+        { 
+            img: "https://images.unsplash.com/photo-1434389677669-e08b4cac3105?w=1200&h=600&fit=crop&q=80", 
+            gradient: "linear-gradient(to bottom, #7C3AED, #fff)",
+            titulo: "Blusas Femininas",
+            preco: "R$ 69,90",
+            desconto: "45% OFF"
+        },
+        { 
+            img: "https://images.unsplash.com/photo-1483985988355-763728e1935b?w=1200&h=600&fit=crop&q=80", 
+            gradient: "linear-gradient(to bottom, #EA580C, #fff)",
+            titulo: "Jeans Premium",
+            preco: "R$ 159,90",
+            desconto: "35% OFF"
+        },
+        { 
+            img: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=1200&h=600&fit=crop&q=80", 
+            gradient: "linear-gradient(to bottom, #DB2777, #fff)",
+            titulo: "Bolsas e Carteiras",
+            preco: "R$ 79,90",
+            desconto: "45% OFF"
+        }
     ];
 
     // Garantir que produtos seja sempre um array válido
@@ -50,14 +89,31 @@ export const Home = () => {
                 >
                     {slides.map((slide, index) => (
                         <SwiperSlide key={index}>
-                            <div className="w-full h-full flex items-center justify-center overflow-hidden bg-gray-800">
+                            <div className="w-full h-full flex items-center justify-center overflow-hidden bg-gray-800 relative">
                                 <img
                                     src={slide.img}
-                                    alt={`Promoção ${index + 1}`}
-                                    className="w-full h-full object-cover md:object-contain transition-transform duration-700 hover:scale-105"
+                                    alt={slide.titulo}
+                                    className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
                                 />
+                                
+                                {/* Overlay com informações do produto */}
+                                <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
+                                    <div className="text-center text-white p-6">
+                                        <div className="bg-red-600 text-white px-4 py-2 rounded-full text-sm font-bold mb-4 inline-block">
+                                            🎄 {slide.desconto} - NATAL
+                                        </div>
+                                        <h2 className="text-3xl md:text-5xl font-bold mb-4 drop-shadow-lg">
+                                            {slide.titulo}
+                                        </h2>
+                                        <div className="text-2xl md:text-4xl font-bold mb-4">
+                                            <span className="text-yellow-400">{slide.preco}</span>
+                                        </div>
+                                        <button className="bg-white text-black px-8 py-3 rounded-full font-bold text-lg hover:bg-gray-100 transition-colors">
+                                            COMPRAR AGORA
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
-
                         </SwiperSlide>
                     ))}
                 </Swiper>

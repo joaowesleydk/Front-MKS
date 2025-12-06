@@ -88,7 +88,7 @@ export const Footer = () => {
                 </div>
                 <div className="flex items-center space-x-2">
                   <HiOutlineMail className="text-red-400" />
-                  <span className="text-gray-300 text-sm">contato@mksstore.com</span>
+                  <span className="text-gray-300 text-sm">karinamodastore@gmail.com</span>
                 </div>
                 <div className="flex items-center space-x-2">
                   <HiOutlineMapPin className="text-green-400" />
@@ -98,10 +98,10 @@ export const Footer = () => {
               
               {/* Links legais */}
               <div className="space-y-1">
-                <a href="#" className="block text-gray-400 hover:text-white transition-colors text-xs">Termos de Uso</a>
-                <a href="#" className="block text-gray-400 hover:text-white transition-colors text-xs">Política de Privacidade</a>
-                <a href="#" className="block text-gray-400 hover:text-white transition-colors text-xs">Política de Troca</a>
-                <a href="#" className="block text-gray-400 hover:text-white transition-colors text-xs">FAQ</a>
+                <Link to="/termos-uso" className="block text-gray-400 hover:text-white transition-colors text-xs">Termos de Uso</Link>
+                <Link to="/politica-privacidade" className="block text-gray-400 hover:text-white transition-colors text-xs">Política de Privacidade</Link>
+                <Link to="/politica-troca" className="block text-gray-400 hover:text-white transition-colors text-xs">Política de Troca</Link>
+                <Link to="/contato" className="block text-gray-400 hover:text-white transition-colors text-xs">Contato</Link>
               </div>
             </div>
           </div>

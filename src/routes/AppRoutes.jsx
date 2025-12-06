@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { ScrollToTop } from '../components/ScrollToTop';
 import { useAuth } from '../context/AuthContext';
 import { LoadingSpinner } from '../components/LoadingSpinner';
 
@@ -45,7 +46,12 @@ import { Pagamento } from '../pages/Pagamento';
 import { PagamentoSucesso } from '../pages/PagamentoSucesso';
 import { PagamentoErro } from '../pages/PagamentoErro';
 
-
+// Páginas legais
+import { TermosUso } from '../pages/TermosUso';
+import { PoliticaPrivacidade } from '../pages/PoliticaPrivacidade';
+import { PoliticaTroca } from '../pages/PoliticaTroca';
+import { Contato } from '../pages/Contato';
+import { TesteEmail } from '../pages/TesteEmail';
 
 
 // Páginas protegidas
@@ -79,6 +85,7 @@ const PublicRoute = ({ children }) => {
 export const AppRoutes = () => {
     return (
         <Router>
+            <ScrollToTop />
             <Routes>
                 {/* Rotas Públicas */}
                 <Route path="/" element={<PublicRoute><Home /></PublicRoute>} />
@@ -131,7 +138,13 @@ export const AppRoutes = () => {
                 <Route path="/pagamento/sucesso" element={<PublicRoute><PagamentoSucesso /></PublicRoute>} />
                 <Route path="/pagamento/erro" element={<PublicRoute><PagamentoErro /></PublicRoute>} />
               
-              
+                {/* Páginas Legais */}
+                <Route path="/termos-uso" element={<PublicRoute><TermosUso /></PublicRoute>} />
+                <Route path="/politica-privacidade" element={<PublicRoute><PoliticaPrivacidade /></PublicRoute>} />
+                <Route path="/politica-troca" element={<PublicRoute><PoliticaTroca /></PublicRoute>} />
+                <Route path="/contato" element={<PublicRoute><Contato /></PublicRoute>} />
+                <Route path="/teste-email" element={<PublicRoute><TesteEmail /></PublicRoute>} />
+
 
                 {/* Rotas Protegidas */}
                 <Route path="/perfil" element={

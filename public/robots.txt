@@ -1,0 +1,24 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://karinamodastore.com.br/sitemap.xml
+
+# Páginas importantes
+Allow: /feminina/
+Allow: /masculina/
+Allow: /cosmeticos/
+Allow: /bijuterias/
+
+# Páginas administrativas (bloquear)
+Disallow: /admin/
+Disallow: /login
+Disallow: /cadastro
+Disallow: /perfil
+Disallow: /sacola
+Disallow: /pagamento
+
+# Arquivos técnicos
+Disallow: /*.json$
+Disallow: /*.js$
+Disallow: /*.css$

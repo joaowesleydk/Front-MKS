@@ -206,6 +206,31 @@ export const ProvadorVirtual = ({ produto, isOpen, onClose }) => {
                   <Button 
                     onClick={() => {
                       if (!isLoggedIn()) {
+                        toast.error('Você precisa estar logado para salvar no closet!');
+                        navigate('/login');
+                        return;
+                      }
+                      
+                      const closetImages = JSON.parse(localStorage.getItem('closetImages') || '[]');
+                      const newItem = {
+                        image: resultImage,
+                        productName: produto.nome,
+                        productPrice: produto.preco,
+                        productId: produto.id,
+                        savedAt: new Date().toISOString()
+                      };
+                      
+                      closetImages.push(newItem);
+                      localStorage.setItem('closetImages', JSON.stringify(closetImages));
+                      toast.success('✨ Look salvo no seu closet!');
+                    }}
+                    className="w-full bg-yellow-600 hover:bg-yellow-700"
+                  >
+                    ✨ Salvar no Meu Closet
+                  </Button>
+                  <Button 
+                    onClick={() => {
+                      if (!isLoggedIn()) {
                         toast.error('Você precisa estar logado para adicionar à sacola!');
                         navigate('/login', { state: { from: 'cart' } });
                         return;

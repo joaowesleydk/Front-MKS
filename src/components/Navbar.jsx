@@ -190,13 +190,22 @@ return (
             )}
           </Link>
           <Link to={localStorage.getItem('token') ? '/perfil' : '/login'} className="hover:text-gray-300 transition">
-            <HiOutlineUser />
+            {localStorage.getItem('token') && localStorage.getItem('profilePhoto') ? (
+              <img
+                src={localStorage.getItem('profilePhoto')}
+                alt="Perfil"
+                className="w-8 h-8 rounded-full object-cover border-2 border-white/30"
+              />
+            ) : (
+              <HiOutlineUser />
+            )}
           </Link>
           {JSON.parse(localStorage.getItem('user') || '{}').role === 'admin' && (
             <Link to="/admin/produtos" className="hover:text-gray-300 transition text-sm bg-red-600 px-2 py-1 rounded">
               Admin
             </Link>
           )}
+
         </div>
 
         {/* Botão Mobile */}
@@ -300,7 +309,15 @@ return (
               className="hover:text-gray-300 transition"
               onClick={() => setIsMenuOpen(false)}
             >
-              <HiOutlineUser />
+              {localStorage.getItem('token') && localStorage.getItem('profilePhoto') ? (
+                <img
+                  src={localStorage.getItem('profilePhoto')}
+                  alt="Perfil"
+                  className="w-8 h-8 rounded-full object-cover border-2 border-white/30"
+                />
+              ) : (
+                <HiOutlineUser />
+              )}
             </Link>
             {JSON.parse(localStorage.getItem('user') || '{}').role === 'admin' && (
               <Link
@@ -311,6 +328,7 @@ return (
                 Admin
               </Link>
             )}
+
           </li>
         </ul>
       )}

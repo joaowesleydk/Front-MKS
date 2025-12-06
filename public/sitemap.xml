@@ -1,40 +1,103 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-
-  <!-- Home -->
   <url>
-    <loc>https://modakarinastore.com.br/</loc>
+    <loc>https://karinamodastore.com.br/</loc>
+    <lastmod>2024-12-04</lastmod>
+    <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
-
-  <!-- Login -->
+  
+  <!-- Categorias Femininas -->
   <url>
-    <loc>https://modakarinastore.com.br/login</loc>
+    <loc>https://karinamodastore.com.br/feminina/vestidos</loc>
+    <lastmod>2024-12-04</lastmod>
+    <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
-
-  <!-- Registro -->
   <url>
-    <loc>https://modakarinastore.com.br/registro</loc>
+    <loc>https://karinamodastore.com.br/feminina/blusas</loc>
+    <lastmod>2024-12-04</lastmod>
+    <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
-
-  <!-- Sacola / Carrinho -->
   <url>
-    <loc>https://modakarinastore.com.br/sacola</loc>
-    <priority>0.7</priority>
+    <loc>https://karinamodastore.com.br/feminina/calcas</loc>
+    <lastmod>2024-12-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
   </url>
-
-  <!-- Perfil -->
   <url>
-    <loc>https://modakarinastore.com.br/perfil</loc>
-    <priority>0.7</priority>
+    <loc>https://karinamodastore.com.br/feminina/jeans</loc>
+    <lastmod>2024-12-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
   </url>
-
-  <!-- Pagamento -->
+  
+  <!-- Categorias Masculinas -->
   <url>
-    <loc>https://modakarinastore.com.br/pagamento</loc>
-    <priority>0.7</priority>
+    <loc>https://karinamodastore.com.br/masculina/camisetas</loc>
+    <lastmod>2024-12-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
   </url>
-
+  <url>
+    <loc>https://karinamodastore.com.br/masculina/camisas</loc>
+    <lastmod>2024-12-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://karinamodastore.com.br/masculina/bermudas</loc>
+    <lastmod>2024-12-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <!-- Cosméticos -->
+  <url>
+    <loc>https://karinamodastore.com.br/cosmeticos/perfumes</loc>
+    <lastmod>2024-12-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://karinamodastore.com.br/cosmeticos/maquiagem</loc>
+    <lastmod>2024-12-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <!-- Bijuterias -->
+  <url>
+    <loc>https://karinamodastore.com.br/bijuterias/aneis</loc>
+    <lastmod>2024-12-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://karinamodastore.com.br/bijuterias/colares</loc>
+    <lastmod>2024-12-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <!-- Páginas Legais -->
+  <url>
+    <loc>https://karinamodastore.com.br/termos-uso</loc>
+    <lastmod>2024-12-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://karinamodastore.com.br/politica-privacidade</loc>
+    <lastmod>2024-12-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://karinamodastore.com.br/politica-troca</loc>
+    <lastmod>2024-12-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.3</priority>
+  </url>
 </urlset>

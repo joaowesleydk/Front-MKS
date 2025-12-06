@@ -7,6 +7,21 @@ import toast from 'react-hot-toast';
 export const Sacola = () => {
   const navigate = useNavigate();
   const { items, removeItem, updateQuantity, clearCart, getTotal } = useCart();
+  
+  // Obter tema do usuário ou usar padrão
+  const getTheme = () => {
+    const savedTheme = localStorage.getItem('profileTheme');
+    const themes = {
+      purple: { from: 'from-purple-600', to: 'to-pink-600', accent: 'purple' },
+      blue: { from: 'from-blue-600', to: 'to-cyan-600', accent: 'blue' },
+      green: { from: 'from-green-600', to: 'to-emerald-600', accent: 'green' },
+      orange: { from: 'from-orange-600', to: 'to-red-600', accent: 'orange' },
+      pink: { from: 'from-pink-600', to: 'to-rose-600', accent: 'pink' }
+    };
+    return savedTheme ? themes[savedTheme] : themes.purple;
+  };
+  
+  const currentTheme = getTheme();
 
   const handleRemove = (id, nome) => {
     removeItem(id);
@@ -22,14 +37,14 @@ export const Sacola = () => {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center p-6">
         <div className="text-center">
-          <div className="bg-purple-100 w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-6">
-            <HiOutlineShoppingBag className="text-4xl text-purple-600" />
+          <div className={`bg-${currentTheme.accent}-100 w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-6`}>
+            <HiOutlineShoppingBag className={`text-4xl text-${currentTheme.accent}-600`} />
           </div>
           <h2 className="text-2xl font-bold text-gray-800 mb-4">Seu carrinho está vazio</h2>
           <p className="text-gray-600 mb-8">Que tal adicionar alguns produtos incríveis?</p>
           <Button
             onClick={() => window.location.href = '/'}
-            className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700"
+            className={`bg-gradient-to-r ${currentTheme.from} ${currentTheme.to}`}
           >
             Explorar Produtos
           </Button>
@@ -74,14 +89,14 @@ export const Sacola = () => {
                       <div className="flex items-center gap-2">
                         <button
                           onClick={() => updateQuantity(item.id, item.quantidade - 1)}
-                          className="w-7 h-7 lg:w-8 lg:h-8 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center"
+                          className={`w-7 h-7 lg:w-8 lg:h-8 rounded-full bg-${currentTheme.accent}-100 hover:bg-${currentTheme.accent}-200 flex items-center justify-center`}
                         >
                           <HiOutlineMinus className="text-xs lg:text-sm" />
                         </button>
                         <span className="w-6 lg:w-8 text-center font-semibold text-sm lg:text-base">{item.quantidade}</span>
                         <button
                           onClick={() => updateQuantity(item.id, item.quantidade + 1)}
-                          className="w-7 h-7 lg:w-8 lg:h-8 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center"
+                          className={`w-7 h-7 lg:w-8 lg:h-8 rounded-full bg-${currentTheme.accent}-100 hover:bg-${currentTheme.accent}-200 flex items-center justify-center`}
                         >
                           <HiOutlinePlus className="text-xs lg:text-sm" />
                         </button>
@@ -118,7 +133,7 @@ export const Sacola = () => {
                 <div className="border-t pt-3">
                   <div className="flex justify-between text-lg">
                     <span className="font-bold">Total:</span>
-                    <span className="font-bold text-purple-600">R$ {getTotal().toFixed(2)}</span>
+                    <span className={`font-bold text-${currentTheme.accent}-600`}>R$ {getTotal().toFixed(2)}</span>
                   </div>
                 </div>
               </div>
@@ -130,7 +145,7 @@ export const Sacola = () => {
                 Finalizar Compra
               </Button>
               
-              <Link to="/" className="block text-center text-purple-600 hover:text-purple-700 font-medium">
+              <Link to="/" className={`block text-center text-${currentTheme.accent}-600 hover:text-${currentTheme.accent}-700 font-medium`}>
                 Continuar Comprando
               </Link>
             </div>
