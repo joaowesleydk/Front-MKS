@@ -43,6 +43,25 @@ export const productService = {
     return await response.json();
   },
   
+  // Criar produto com upload de arquivo
+  createWithFile: async (formData) => {
+    const token = localStorage.getItem('token');
+    
+    const response = await fetch(`${import.meta.env.VITE_API_URL}/api/products/frontend-create-with-file`, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${token}`
+      },
+      body: formData
+    });
+    
+    if (!response.ok) {
+      throw new Error('Erro ao cadastrar produto com imagem');
+    }
+    
+    return await response.json();
+  },
+  
   // Atualizar produto
   update: (id, produto) => api.put(`/api/products/${id}`, produto),
   

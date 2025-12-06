@@ -14,6 +14,9 @@ export const CadastroProduto = () => {
     promocao: false
   });
   const [loading, setLoading] = useState(false);
+  const [imagemFile, setImagemFile] = useState(null);
+  const [previewImagem, setPreviewImagem] = useState('');
+  const [tipoImagem, setTipoImagem] = useState('url'); // 'url' ou 'file'
 
   const categorias = [
     // Cosméticos e Beleza
@@ -31,7 +34,22 @@ export const CadastroProduto = () => {
     setLoading(true);
 
     try {
-      await productService.create(produto);
+      let produtoFinal = { ...produto };
+      
+      // Se for upload de arquivo, enviar o arquivo
+      if (tipoImagem === 'file' && imagemFile) {
+        const formData = new FormData();
+        Object.keys(produto).forEach(key => {
+          formData.append(key, produto[key]);
+        });
+        formData.append('imagemFile', imagemFile);
+        
+        await productService.createWithFile(formData);
+      } else {
+        // Se for URL, enviar normalmente
+        await productService.create(produtoFinal);
+      }
+      
       toast.success('Produto cadastrado com sucesso! Recarregando página...');
       setProduto({
         nome: '',
@@ -41,8 +59,9 @@ export const CadastroProduto = () => {
         descricao: '',
         promocao: false
       });
+      setImagemFile(null);
+      setPreviewImagem('');
       
-      // Recarregar a página após 2 segundos
       setTimeout(() => {
         window.location.reload();
       }, 2000);
@@ -59,6 +78,24 @@ export const CadastroProduto = () => {
       ...produto,
       [e.target.name]: e.target.value
     });
+  };
+  
+  const handleImagemFile = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      if (file.size > 5 * 1024 * 1024) {
+        toast.error('Imagem muito grande. Máximo 5MB.');
+        return;
+      }
+      
+      setImagemFile(file);
+      
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        setPreviewImagem(e.target.result);
+      };
+      reader.readAsDataURL(file);
+    }
   };
 
   return (
@@ -101,14 +138,63 @@ export const CadastroProduto = () => {
             ))}
           </select>
 
-          <Input
-            type="url"
-            name="imagem"
-            placeholder="URL da imagem"
-            value={produto.imagem}
-            onChange={handleChange}
-            required
-          />
+          {/* Seleção do tipo de imagem */}
+          <div className="space-y-4">
+            <div className="flex gap-4">
+              <label className="flex items-center gap-2">
+                <input
+                  type="radio"
+                  name="tipoImagem"
+                  value="url"
+                  checked={tipoImagem === 'url'}
+                  onChange={(e) => setTipoImagem(e.target.value)}
+                  className="text-blue-600"
+                />
+                <span>URL da Imagem</span>
+              </label>
+              <label className="flex items-center gap-2">
+                <input
+                  type="radio"
+                  name="tipoImagem"
+                  value="file"
+                  checked={tipoImagem === 'file'}
+                  onChange={(e) => setTipoImagem(e.target.value)}
+                  className="text-blue-600"
+                />
+                <span>Upload da Máquina</span>
+              </label>
+            </div>
+            
+            {tipoImagem === 'url' ? (
+              <Input
+                type="url"
+                name="imagem"
+                placeholder="URL da imagem"
+                value={produto.imagem}
+                onChange={handleChange}
+                required
+              />
+            ) : (
+              <div>
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={handleImagemFile}
+                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                  required
+                />
+                {previewImagem && (
+                  <div className="mt-3">
+                    <img
+                      src={previewImagem}
+                      alt="Preview"
+                      className="w-32 h-32 object-cover rounded-lg border"
+                    />
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
 
           <textarea
             name="descricao"

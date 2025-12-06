@@ -49,39 +49,84 @@ export const Cadastro = () => {
 
   return (
     <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
-      <div className="min-h-screen flex items-center justify-center bg-[url('/fundocadastro.png')] bg-cover bg-center bg-no-repeat">
-        <div className="bg-black/60 backdrop-blur-md p-8 rounded-3xl shadow-lg w-full max-w-md text-white">
-          <h2 className="text-2xl font-bold text-center mb-6">Cadastro</h2>
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50">
+        <div className="bg-white/90 backdrop-blur-xl p-8 rounded-3xl shadow-2xl w-full max-w-md border border-white/20">
+          <div className="text-center mb-8">
+            <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center mx-auto mb-4">
+              <span className="text-2xl text-white font-bold">MKS</span>
+            </div>
+            <h2 className="text-3xl font-bold text-gray-800 mb-2">Criar Conta</h2>
+            <p className="text-gray-600">Junte-se à nossa comunidade</p>
+          </div>
 
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <div>
-              <label className="block text-sm mb-1">Nome</label>
-              <input type="text" value={nome} onChange={(e) => setNome(e.target.value)} required className="w-full bg-transparent border border-white/80 p-2 rounded-md" placeholder="Digite seu nome" />
+          <form onSubmit={handleSubmit} className="space-y-6">
+            <div className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Nome Completo</label>
+                <input 
+                  type="text" 
+                  value={nome} 
+                  onChange={(e) => setNome(e.target.value)} 
+                  required 
+                  className="w-full bg-white/70 border border-gray-200 p-4 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 text-gray-800 placeholder-gray-400" 
+                  placeholder="Seu nome completo" 
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">E-mail</label>
+                <input 
+                  type="email" 
+                  value={email} 
+                  onChange={(e) => setEmail(e.target.value)} 
+                  required 
+                  className="w-full bg-white/70 border border-gray-200 p-4 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 text-gray-800 placeholder-gray-400" 
+                  placeholder="seu@email.com" 
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Senha</label>
+                <input 
+                  type="password" 
+                  value={senha} 
+                  onChange={(e) => setSenha(e.target.value)} 
+                  required 
+                  className="w-full bg-white/70 border border-gray-200 p-4 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 text-gray-800 placeholder-gray-400" 
+                  placeholder="Crie uma senha segura" 
+                />
+              </div>
             </div>
 
-            <div>
-              <label className="block text-sm mb-1">E-mail</label>
-              <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required className="w-full bg-transparent border border-white/80 p-2 rounded-md" placeholder="Digite seu e-mail" />
-            </div>
-
-            <div>
-              <label className="block text-sm mb-1">Senha</label>
-              <input type="password" value={senha} onChange={(e) => setSenha(e.target.value)} required className="w-full bg-transparent border border-white/80 p-2 rounded-md" placeholder="Digite sua senha" />
-            </div>
-
-            <button type="submit" className="mt-4 w-full bg-white text-black font-semibold py-2 rounded-md">Criar conta</button>
+            <button type="submit" className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold py-4 rounded-xl transition-all duration-300 transform hover:scale-[1.02] shadow-lg">
+              Criar Minha Conta
+            </button>
           </form>
 
-          <div className="mt-6 text-center">
-            <p className="text-sm mb-2">Ou cadastre-se com:</p>
-            <div className="flex justify-center">
-              <GoogleLogin onSuccess={handleGoogleSuccess} onError={() => alert("Erro ao cadastrar com o Google")} />
+          <div className="relative my-6">
+            <div className="absolute inset-0 flex items-center">
+              <div className="w-full border-t border-gray-200"></div>
+            </div>
+            <div className="relative flex justify-center text-sm">
+              <span className="px-4 bg-white text-gray-500">ou cadastre-se com</span>
             </div>
           </div>
 
-          <p className="mt-6 text-center text-sm">
-            Já tem conta? <a href="/login" className="text-orange-400 hover:underline">Faça login</a>
-          </p>
+          <div className="flex justify-center">
+            <GoogleLogin 
+              onSuccess={handleGoogleSuccess} 
+              onError={() => alert("Erro ao cadastrar com o Google")} 
+              theme="outline"
+              size="large"
+            />
+          </div>
+
+          <div className="text-center mt-8">
+            <span className="text-gray-600 mr-1">Já tem uma conta?</span>
+            <button onClick={() => navigate("/login")} className="text-blue-600 hover:text-blue-700 font-semibold transition-colors">
+              Faça login aqui
+            </button>
+          </div>
         </div>
       </div>
     </GoogleOAuthProvider>
