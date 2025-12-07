@@ -49,56 +49,56 @@ export const Cadastro = () => {
 
   return (
     <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50">
-        <div className="bg-white/90 backdrop-blur-xl p-8 rounded-3xl shadow-2xl w-full max-w-md border border-white/20">
-          <div className="text-center mb-8">
-            <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center mx-auto mb-4">
-              <span className="text-2xl text-white font-bold">MKS</span>
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 p-4">
+        <div className="bg-white/90 backdrop-blur-xl p-6 md:p-8 rounded-2xl md:rounded-3xl shadow-2xl w-full max-w-md border border-white/20">
+          <div className="text-center mb-6 md:mb-8">
+            <div className="w-12 h-12 md:w-16 md:h-16 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center mx-auto mb-3 md:mb-4">
+              <span className="text-lg md:text-2xl text-white font-bold">MKS</span>
             </div>
-            <h2 className="text-3xl font-bold text-gray-800 mb-2">Criar Conta</h2>
-            <p className="text-gray-600">Junte-se à nossa comunidade</p>
+            <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mb-2">Criar Conta</h2>
+            <p className="text-sm md:text-base text-gray-600">Junte-se à nossa comunidade</p>
           </div>
 
-          <form onSubmit={handleSubmit} className="space-y-6">
-            <div className="space-y-4">
+          <form onSubmit={handleSubmit} className="space-y-4 md:space-y-6">
+            <div className="space-y-3 md:space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Nome Completo</label>
+                <label className="block text-sm font-medium text-gray-700 mb-1 md:mb-2">Nome Completo</label>
                 <input 
                   type="text" 
                   value={nome} 
                   onChange={(e) => setNome(e.target.value)} 
                   required 
-                  className="w-full bg-white/70 border border-gray-200 p-4 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 text-gray-800 placeholder-gray-400" 
+                  className="w-full bg-white/70 border border-gray-200 p-3 md:p-4 rounded-lg md:rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 text-gray-800 placeholder-gray-400 text-sm md:text-base" 
                   placeholder="Seu nome completo" 
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">E-mail</label>
+                <label className="block text-sm font-medium text-gray-700 mb-1 md:mb-2">E-mail</label>
                 <input 
                   type="email" 
                   value={email} 
                   onChange={(e) => setEmail(e.target.value)} 
                   required 
-                  className="w-full bg-white/70 border border-gray-200 p-4 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 text-gray-800 placeholder-gray-400" 
+                  className="w-full bg-white/70 border border-gray-200 p-3 md:p-4 rounded-lg md:rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 text-gray-800 placeholder-gray-400 text-sm md:text-base" 
                   placeholder="seu@email.com" 
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Senha</label>
+                <label className="block text-sm font-medium text-gray-700 mb-1 md:mb-2">Senha</label>
                 <input 
                   type="password" 
                   value={senha} 
                   onChange={(e) => setSenha(e.target.value)} 
                   required 
-                  className="w-full bg-white/70 border border-gray-200 p-4 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 text-gray-800 placeholder-gray-400" 
+                  className="w-full bg-white/70 border border-gray-200 p-3 md:p-4 rounded-lg md:rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 text-gray-800 placeholder-gray-400 text-sm md:text-base" 
                   placeholder="Crie uma senha segura" 
                 />
               </div>
             </div>
 
-            <button type="submit" className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold py-4 rounded-xl transition-all duration-300 transform hover:scale-[1.02] shadow-lg">
+            <button type="submit" className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold py-3 md:py-4 rounded-lg md:rounded-xl transition-all duration-300 transform hover:scale-[1.02] shadow-lg text-sm md:text-base">
               Criar Minha Conta
             </button>
           </form>
@@ -121,9 +121,9 @@ export const Cadastro = () => {
             />
           </div>
 
-          <div className="text-center mt-8">
-            <span className="text-gray-600 mr-1">Já tem uma conta?</span>
-            <button onClick={() => navigate("/login")} className="text-blue-600 hover:text-blue-700 font-semibold transition-colors">
+          <div className="text-center mt-6 md:mt-8">
+            <span className="text-gray-600 mr-1 text-sm md:text-base">Já tem uma conta?</span>
+            <button onClick={() => navigate("/login")} className="text-blue-600 hover:text-blue-700 font-semibold transition-colors text-sm md:text-base">
               Faça login aqui
             </button>
           </div>

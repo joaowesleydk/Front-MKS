@@ -253,84 +253,125 @@ return (
         ))}
       </ul>
 
-      {/* Menu Mobile */}
+      {/* Menu Mobile - Sidebar */}
       {isMenuOpen && (
-        <ul className="md:hidden mt-4 flex flex-col items-center gap-3 text-lg font-medium bg-black pb-4 rounded-lg relative z-10">
-          {navLinks.map((link) => (
-            <li key={`mobile-${link.id}`} className="w-full text-center">
-              <details className="group border-b border-gray-700 py-2">
-                <summary className="cursor-pointer hover:text-gray-300 flex items-center justify-center gap-2">
-                  {link.icon}
-                  <span>{link.label}</span>
-                  <span className="text-sm text-gray-400 group-open:rotate-180 transition-transform">▼</span>
-                </summary>
-
-                {link.sub && (
-                  <ul
-                    className="mt-2 space-y-1 overflow-hidden transition-all duration-500 ease-in-out 
-                    max-h-0 group-open:max-h-40"
-                  >
-                    {link.sub.map((subLink) => (
-                      <li key={subLink.to}>
-                        <Link
-                          to={subLink.to}
-                          className="block text-sm text-gray-400 hover:text-white"
-                          onClick={() => setIsMenuOpen(false)}
-                        >
-                          {subLink.label}
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                )}
-              </details>
-            </li>
-          ))}
-
-          {/* ÍCONES — só no MOBILE */}
-          <li className="flex justify-center gap-6 mt-4 text-3xl border-t border-gray-700 pt-4">
-            <Link
-              to="/sacola"
-              className="hover:text-gray-300 transition relative"
-              onClick={(e) => {
-                handleCartClick(e);
-                setIsMenuOpen(false);
-              }}
-            >
-              <HiOutlineShoppingBag />
-              {getItemCount() > 0 && (
-                <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
-                  {getItemCount()}
-                </span>
-              )}
-            </Link>
-            <Link
-              to={localStorage.getItem('token') ? '/perfil' : '/login'}
-              className="hover:text-gray-300 transition"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              {localStorage.getItem('token') && localStorage.getItem('profilePhoto') ? (
-                <img
-                  src={localStorage.getItem('profilePhoto')}
-                  alt="Perfil"
-                  className="w-8 h-8 rounded-full object-cover border-2 border-white/30"
-                />
-              ) : (
-                <HiOutlineUser />
-              )}
-            </Link>
-            {JSON.parse(localStorage.getItem('user') || '{}').role === 'admin' && (
+        <>
+          {/* Overlay */}
+          <div 
+            className="md:hidden fixed inset-0 bg-black/50 z-40" 
+            onClick={() => setIsMenuOpen(false)}
+          ></div>
+          
+          {/* Sidebar */}
+          <div className="md:hidden fixed top-0 left-0 h-full w-80 bg-black text-white z-50 transform transition-transform duration-300 ease-in-out overflow-y-auto">
+            {/* Header do Sidebar */}
+            <div className="flex items-center justify-between p-6 border-b border-gray-700">
+              <div className="flex items-center gap-3">
+                <img src={Image} alt="Logo MKS" className="h-8 w-auto" />
+                <span className="text-xl font-bold">MKS Store</span>
+              </div>
+              <button 
+                onClick={() => setIsMenuOpen(false)}
+                className="text-2xl hover:text-gray-300 transition-colors"
+              >
+                <HiX />
+              </button>
+            </div>
+            
+            {/* Perfil do usuário */}
+            <div className="p-6 border-b border-gray-700">
               <Link
-                to="/admin/produtos"
-                className="hover:text-gray-300 transition text-sm bg-red-600 px-2 py-1 rounded"
+                to={localStorage.getItem('token') ? '/perfil' : '/login'}
+                className="flex items-center gap-3 hover:bg-gray-800 p-3 rounded-lg transition-colors"
                 onClick={() => setIsMenuOpen(false)}
               >
-                Admin
+                {localStorage.getItem('token') && localStorage.getItem('profilePhoto') ? (
+                  <img
+                    src={localStorage.getItem('profilePhoto')}
+                    alt="Perfil"
+                    className="w-10 h-10 rounded-full object-cover"
+                  />
+                ) : (
+                  <div className="w-10 h-10 bg-gray-600 rounded-full flex items-center justify-center">
+                    <HiOutlineUser className="text-xl" />
+                  </div>
+                )}
+                <div>
+                  <p className="font-medium">
+                    {localStorage.getItem('token') 
+                      ? JSON.parse(localStorage.getItem('user') || '{}').name || 'Usuário'
+                      : 'Fazer Login'
+                    }
+                  </p>
+                  <p className="text-sm text-gray-400">
+                    {localStorage.getItem('token') ? 'Ver perfil' : 'Entre na sua conta'}
+                  </p>
+                </div>
               </Link>
-            )}
-
-          </li>
-        </ul>
+            </div>
+            
+            {/* Menu de navegação */}
+            <div className="p-4">
+              {navLinks.map((link) => (
+                <div key={`sidebar-${link.id}`} className="mb-2">
+                  <details className="group">
+                    <summary className="cursor-pointer hover:bg-gray-800 p-3 rounded-lg flex items-center gap-3 transition-colors">
+                      {link.icon}
+                      <span className="font-medium">{link.label}</span>
+                      <span className="ml-auto text-gray-400 group-open:rotate-180 transition-transform">▼</span>
+                    </summary>
+                    
+                    {link.sub && (
+                      <div className="ml-6 mt-2 space-y-1">
+                        {link.sub.map((subLink) => (
+                          <Link
+                            key={subLink.to}
+                            to={subLink.to}
+                            className="block text-gray-300 hover:text-white hover:bg-gray-800 p-2 rounded-lg transition-colors text-sm"
+                            onClick={() => setIsMenuOpen(false)}
+                          >
+                            {subLink.label}
+                          </Link>
+                        ))}
+                      </div>
+                    )}
+                  </details>
+                </div>
+              ))}
+            </div>
+            
+            {/* Ações do usuário */}
+            <div className="p-6 border-t border-gray-700 mt-auto">
+              <Link
+                to="/sacola"
+                className="flex items-center gap-3 hover:bg-gray-800 p-3 rounded-lg transition-colors mb-3"
+                onClick={(e) => {
+                  handleCartClick(e);
+                  setIsMenuOpen(false);
+                }}
+              >
+                <HiOutlineShoppingBag className="text-xl" />
+                <span>Minha Sacola</span>
+                {getItemCount() > 0 && (
+                  <span className="ml-auto bg-red-500 text-white text-xs rounded-full w-6 h-6 flex items-center justify-center">
+                    {getItemCount()}
+                  </span>
+                )}
+              </Link>
+              
+              {JSON.parse(localStorage.getItem('user') || '{}').role === 'admin' && (
+                <Link
+                  to="/admin/produtos"
+                  className="flex items-center gap-3 hover:bg-red-600 bg-red-500 p-3 rounded-lg transition-colors"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  <span className="text-xl">⚙️</span>
+                  <span>Painel Admin</span>
+                </Link>
+              )}
+            </div>
+          </div>
+        </>
       )}
     </nav>
   );
