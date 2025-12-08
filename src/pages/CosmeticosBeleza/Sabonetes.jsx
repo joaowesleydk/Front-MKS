@@ -1,10 +1,8 @@
 import { Card } from "../../components/Card";
-import { useNavigate } from "react-router-dom";
 import { useProducts } from "../../hooks/useProducts";
 import { LoadingSpinner } from "../../components/LoadingSpinner";
 
 export const Sabonetes = () => {
-    const navigate = useNavigate();
     const { produtos, loading, error } = useProducts('sabonetes');
 
     if (loading) return <LoadingSpinner />;
@@ -21,6 +19,3 @@ export const Sabonetes = () => {
         </div>
     );
 };
-
-
-

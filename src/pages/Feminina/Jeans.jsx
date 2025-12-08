@@ -1,10 +1,8 @@
 import { Card } from "../../components/Card";
-import { useNavigate } from "react-router-dom";
 import { useProducts } from "../../hooks/useProducts";
 import { LoadingSpinner } from "../../components/LoadingSpinner";
 
 export const Jeans = () => {
-    const navigate = useNavigate();
     const { produtos, loading, error } = useProducts('jeans');
 
     if (loading) return <LoadingSpinner />;
@@ -14,7 +12,7 @@ export const Jeans = () => {
         <div className="bg-gray-50 min-h-screen py-8 px-4 pt-40">
             <div className="max-w-7xl mx-auto">
                 <h1 className="text-4xl font-bold text-center mb-12 text-gray-800">
-                    Jeans
+                    Jeans Feminino
                 </h1>
                 <Card produtos={produtos} />
             </div>

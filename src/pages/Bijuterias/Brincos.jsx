@@ -1,10 +1,8 @@
 import { Card } from "../../components/Card";
-import { useNavigate } from "react-router-dom";
 import { useProducts } from "../../hooks/useProducts";
 import { LoadingSpinner } from "../../components/LoadingSpinner";
 
 export const Brincos = () => {
-    const navigate = useNavigate();
     const { produtos, loading, error } = useProducts('brincos');
 
     if (loading) return <LoadingSpinner />;

@@ -1,11 +1,9 @@
 import { Card } from "../../components/Card";
-import { useNavigate } from "react-router-dom";
 import { useProducts } from "../../hooks/useProducts";
 import { LoadingSpinner } from "../../components/LoadingSpinner";
 
 export const CalcasMasculinas = () => {
-    const navigate = useNavigate();
-    const { produtos, loading, error } = useProducts('calcas-masculinas');
+    const { produtos, loading, error } = useProducts('calcasmasculinas');
 
     if (loading) return <LoadingSpinner />;
     if (error) return <div className="text-center text-red-500 p-10">{error}</div>;

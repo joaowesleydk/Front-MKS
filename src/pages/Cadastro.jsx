@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import api from "../services/api";
 import { useNavigate } from "react-router-dom";
 import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google";
-import { jwtDecode } from "jwt-decode";
+import { mockAuthService } from "../services/mockAuth";
+import toast from 'react-hot-toast';
 
 export const Cadastro = () => {
   const [nome, setNome] = useState("");
@@ -15,35 +15,26 @@ export const Cadastro = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await api.post("/api/users/register", {
-        name: nome,
-        email,
-        password: senha,
-      });
-      alert(`Usuário ${response.data.name} cadastrado com sucesso!`);
-      navigate("/login");
+      const { access_token, user } = await mockAuthService.register({ nome, email, password: senha });
+      localStorage.setItem("token", access_token);
+      localStorage.setItem("user", JSON.stringify(user));
+      toast.success(`Bem-vindo, ${user.nome}!`);
+      navigate("/");
     } catch (error) {
-      console.error('Erro completo:', error);
-      console.error('URL tentada:', `${import.meta.env.VITE_API_URL}/api/users/register`);
-      console.error('Dados enviados:', { name: nome, email, password: senha });
-      const errorMsg = error.response?.data?.detail || error.response?.data?.message || error.message || 'Erro desconhecido';
-      alert(`Erro: ${errorMsg}`);
+      console.error('Erro no cadastro:', error.message);
+      toast.error(error.message || 'Erro ao cadastrar');
     }
   };
 
   const handleGoogleSuccess = async (credentialResponse) => {
     try {
-      const credential = credentialResponse.credential;
-      const response = await api.post("/api/users/google", { credential });
-      // retorna token e user — opcional: já logar automaticamente
-      const token = response.data.access_token;
-      const user = response.data.user;
-      localStorage.setItem("token", token);
+      const { access_token, user } = await mockAuthService.googleLogin(credentialResponse.credential);
+      localStorage.setItem("token", access_token);
       localStorage.setItem("user", JSON.stringify(user));
-      alert(`Bem-vindo(a), ${user.name}`);
+      toast.success(`Bem-vindo, ${user.nome}!`);
       navigate("/");
     } catch (error) {
-      alert("Erro ao cadastrar com Google");
+      toast.error("Erro ao cadastrar com Google");
     }
   };
 

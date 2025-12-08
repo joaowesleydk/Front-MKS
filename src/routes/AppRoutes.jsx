@@ -41,6 +41,20 @@ import { Camisas } from '../pages/Masculina/Camisas';
 import { Blazers } from '../pages/Masculina/Blazers';
 import { Jaquetas } from '../pages/Masculina/Jaquetas';
 
+// Acessórios
+import { Acessorios } from '../pages/Acessorios';
+import { Bolsas } from '../pages/Acessorios/Bolsas';
+import { Relogios } from '../pages/Acessorios/Relogios';
+import { Oculos } from '../pages/Acessorios/Oculos';
+import { Cintos } from '../pages/Acessorios/Cintos';
+
+// Infantil
+import { Body } from '../pages/Infantil/Body';
+import { Fantasias } from '../pages/Infantil/Fantasias';
+import { Conjuntos } from '../pages/Infantil/Conjuntos';
+import { Casacos } from '../pages/Infantil/Casacos';
+
+
 import { Pesquisa } from '../pages/Pesquisa';
 import { Pagamento } from '../pages/Pagamento';
 import { PagamentoSucesso } from '../pages/PagamentoSucesso';
@@ -125,6 +139,19 @@ export const AppRoutes = () => {
                 <Route path='/bijuterias/brincos' element={<PublicRoute><Brincos /></PublicRoute>} />
                 <Route path="/bijuterias/pulseiras" element={<PublicRoute><Pulseiras /></PublicRoute>} />
                 <Route path="/bijuterias/colares" element={<PublicRoute><Colares /></PublicRoute>} />
+                
+                {/* Acessórios */}
+                <Route path="/acessorios" element={<PublicRoute><Acessorios /></PublicRoute>} />
+                <Route path="/acessorios/bolsas" element={<PublicRoute><Bolsas /></PublicRoute>} />
+                <Route path="/acessorios/relogios" element={<PublicRoute><Relogios /></PublicRoute>} />
+                <Route path="/acessorios/oculos" element={<PublicRoute><Oculos /></PublicRoute>} />
+                <Route path="/acessorios/cintos" element={<PublicRoute><Cintos /></PublicRoute>} />
+                
+                {/* Infantil */}
+                <Route path="/infantil/body" element={<PublicRoute><Body /></PublicRoute>} />
+                <Route path="/infantil/fantasias" element={<PublicRoute><Fantasias /></PublicRoute>} />
+                <Route path="/infantil/conjuntos" element={<PublicRoute><Conjuntos /></PublicRoute>} />
+                <Route path="/infantil/casacos" element={<PublicRoute><Casacos /></PublicRoute>} />
                 
                 <Route path="/pesquisa" element={<PublicRoute><Pesquisa /></PublicRoute>} />
                 

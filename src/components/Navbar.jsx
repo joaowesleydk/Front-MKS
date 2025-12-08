@@ -82,8 +82,8 @@ export const Navbar = () => {
       icon: <HiOutlineGift className="inline-block mr-2 text-yellow-400 text-lg" />,
       sub: [
         { to: "/infantil/casacos", label: "Casacos" },
-        { to: "/infantil/bori", label: "Bori" },
-        { to: "/infantil/new born", label: "New Born" },
+        { to: "/infantil/body",label: "Body"},
+       ,
         { to: "/infantil/fantasias", label: "Fantasias" },
         { to: "/infantil/conjuntos", label: "Conjuntos" },
    

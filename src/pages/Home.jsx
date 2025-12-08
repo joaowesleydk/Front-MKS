@@ -1,5 +1,5 @@
 import React from "react";
-
+import { useNavigate } from "react-router-dom";
 import Promocao1 from "../assets/imagens/Promocao1.png"
 import Promocao2 from "../assets/imagens/Promocao2.png"
 import Promocao3 from "../assets/imagens/Promocao3.png"
@@ -15,7 +15,8 @@ import { LoadingSpinner } from "../components/LoadingSpinner";
 
 
 export const Home = () => {
-    const { produtos, loading, error } = useProducts(); // Buscar todos os produtos
+    const navigate = useNavigate();
+    const { produtos, loading, error } = useProducts();
     
     const slides = [
         { 
@@ -23,42 +24,48 @@ export const Home = () => {
             gradient: "linear-gradient(to bottom, #DC2626, #fff)",
             titulo: "Vestidos de Festa",
             preco: "R$ 89,90",
-            desconto: "50% OFF"
+            desconto: "50% OFF",
+            link: "/feminina/vestidos"
         },
         { 
             img: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=1200&h=600&fit=crop&q=80", 
             gradient: "linear-gradient(to bottom, #059669, #fff)",
             titulo: "Coleção Inverno",
             preco: "R$ 129,90",
-            desconto: "40% OFF"
+            desconto: "40% OFF",
+            link: "/infantil/casacos"
         },
         { 
             img: "https://images.unsplash.com/photo-1472851294608-062f824d29cc?w=1200&h=600&fit=crop&q=80", 
             gradient: "linear-gradient(to bottom, #B91C1C, #fff)",
             titulo: "Acessórios Exclusivos",
             preco: "R$ 49,90",
-            desconto: "60% OFF"
+            desconto: "60% OFF",
+            link: "/acessorios"
         },
         { 
             img: "https://images.unsplash.com/photo-1434389677669-e08b4cac3105?w=1200&h=600&fit=crop&q=80", 
             gradient: "linear-gradient(to bottom, #7C3AED, #fff)",
             titulo: "Blusas Femininas",
             preco: "R$ 69,90",
-            desconto: "45% OFF"
+            desconto: "45% OFF",
+            link: "/feminina/blusas"
         },
         { 
             img: "https://images.unsplash.com/photo-1483985988355-763728e1935b?w=1200&h=600&fit=crop&q=80", 
             gradient: "linear-gradient(to bottom, #EA580C, #fff)",
             titulo: "Jeans Premium",
             preco: "R$ 159,90",
-            desconto: "35% OFF"
+            desconto: "35% OFF",
+            link: "/feminina/jeans"
         },
         { 
             img: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=1200&h=600&fit=crop&q=80", 
             gradient: "linear-gradient(to bottom, #DB2777, #fff)",
             titulo: "Bolsas e Carteiras",
             preco: "R$ 79,90",
-            desconto: "45% OFF"
+            desconto: "45% OFF",
+            link: "/acessorios/bolsas"
         }
     ];
 
@@ -108,7 +115,10 @@ export const Home = () => {
                                         <div className="text-2xl md:text-4xl font-bold mb-4">
                                             <span className="text-yellow-400">{slide.preco}</span>
                                         </div>
-                                        <button className="bg-white text-black px-8 py-3 rounded-full font-bold text-lg hover:bg-gray-100 transition-colors">
+                                        <button 
+                                            onClick={() => navigate(slide.link)}
+                                            className="bg-white text-black px-8 py-3 rounded-full font-bold text-lg hover:bg-gray-100 transition-colors"
+                                        >
                                             COMPRAR AGORA
                                         </button>
                                     </div>

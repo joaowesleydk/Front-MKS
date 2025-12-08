@@ -1,10 +1,8 @@
 import { Card } from "../../components/Card";
-import { useNavigate } from "react-router-dom";
 import { useProducts } from "../../hooks/useProducts";
 import { LoadingSpinner } from "../../components/LoadingSpinner";
 
 export const Pulseiras = () => {
-    const navigate = useNavigate();
     const { produtos, loading, error } = useProducts('pulseiras');
 
     if (loading) return <LoadingSpinner />;

@@ -1,17 +1,90 @@
-import api from './api';
+import { todosProdutos, produtosFeminino, produtosMasculino, produtosCosmeticos, produtosBijuterias, produtosAcessorios, produtosInfantil } from './mockData';
+import { vestidos, blusas, calcas, jeans, saias, shorts, lingerie } from './mockSubcategorias';
+import { camisas, camisetas, calcasMasculinas, bermudas, jaquetas, blazers } from './mockSubcategoriasMasculino';
+import { maquiagem, perfumes, hidratantes, sabonetes } from './mockSubcategoriasCosmeticos';
+import { colares, brincos, pulseiras, aneis } from './mockSubcategoriasBijuterias';
+
+const delay = (ms = 300) => new Promise(resolve => setTimeout(resolve, ms));
+
+import { bolsas, relogios, oculos, cintos, body, fantasias, conjuntos, casacos } from './mockAcessoriosInfantil';
+
+const subcategoriasMap = {
+  'vestidos': vestidos,
+  'blusas': blusas,
+  'calcas': calcas,
+  'jeans': jeans,
+  'saias': saias,
+  'shorts': shorts,
+  'lingerie': lingerie,
+  'camisas': camisas,
+  'camisetas': camisetas,
+  'calcasmasculinas': calcasMasculinas,
+  'bermudas': bermudas,
+  'jaquetas': jaquetas,
+  'blazers': blazers,
+  'maquiagem': maquiagem,
+  'perfumes': perfumes,
+  'hidratantes': hidratantes,
+  'sabonetes': sabonetes,
+  'colares': colares,
+  'brincos': brincos,
+  'pulseiras': pulseiras,
+  'aneis': aneis,
+  'bolsas': bolsas,
+  'relogios': relogios,
+  'oculos': oculos,
+  'cintos': cintos,
+  'body': body,
+  'fantasias': fantasias,
+  'conjuntos': conjuntos,
+  'casacos': casacos
+};
 
 export const productService = {
   // Buscar todos os produtos
-  getAll: () => api.get('/api/products/frontend'),
+  getAll: async () => {
+    await delay();
+    return { data: todosProdutos };
+  },
   
   // Buscar produtos por categoria
-  getByCategory: (categoria) => api.get(`/api/products/categoria/${categoria}`),
+  getByCategory: async (categoria) => {
+    await delay();
+    const categoriaLower = categoria.toLowerCase();
+    
+    // Verifica se é subcategoria
+    if (subcategoriasMap[categoriaLower]) {
+      return { data: subcategoriasMap[categoriaLower] };
+    }
+    
+    // Categorias principais
+    const categoriaMap = {
+      'feminino': produtosFeminino,
+      'masculino': produtosMasculino,
+      'cosmeticos': produtosCosmeticos,
+      'bijuterias': produtosBijuterias,
+      'acessorios': produtosAcessorios,
+      'infantil': produtosInfantil
+    };
+    return { data: categoriaMap[categoriaLower] || [] };
+  },
   
   // Buscar produto por ID
-  getById: (id) => api.get(`/api/products/${id}`),
+  getById: async (id) => {
+    await delay();
+    const produto = todosProdutos.find(p => p.id === parseInt(id));
+    return { data: produto };
+  },
   
   // Pesquisar produtos
-  search: (query) => api.get(`/api/products/search?q=${encodeURIComponent(query)}`),
+  search: async (query) => {
+    await delay();
+    const results = todosProdutos.filter(p => 
+      p.nome.toLowerCase().includes(query.toLowerCase()) ||
+      p.descricao.toLowerCase().includes(query.toLowerCase())
+    );
+    return { data: results };
+  },
   
   // Criar novo produto
   create: async (produto) => {

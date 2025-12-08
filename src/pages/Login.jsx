@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
-import api from "../services/api"; // ou ajuste o caminho
 import { FcGoogle } from "react-icons/fc";
 import { useNavigate, useLocation } from "react-router-dom";
 import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google";
+import { mockAuthService } from "../services/mockAuth";
+import toast from 'react-hot-toast';
 
 export const Login = () => {
   const navigate = useNavigate();
@@ -23,39 +24,33 @@ export const Login = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const res = await api.post("/api/auth/login", { email, password });
-      const token = res.data.access_token;
-      const user = res.data.user;
-      localStorage.setItem("token", token);
+      const { access_token, user } = await mockAuthService.login(email, password);
+      localStorage.setItem("token", access_token);
       localStorage.setItem("user", JSON.stringify(user));
+      toast.success(`Bem-vindo, ${user.nome}!`);
       navigate("/");
     } catch (err) {
-      console.error('Erro no login:', err.response?.data || err.message);
-      const errorMsg = err.response?.data?.detail || err.response?.data?.message || 'Erro ao fazer login';
-      alert(`Erro: ${errorMsg}`);
+      console.error('Erro no login:', err.message);
+      toast.error(err.message || 'Erro ao fazer login');
     }
   };
 
   const handleGoogleSuccess = async (credentialResponse) => {
     try {
-      console.log('Google login success:', credentialResponse);
-      const credential = credentialResponse.credential;
-      const res = await api.post("/api/auth/google", { credential });
-      const token = res.data.access_token;
-      const user = res.data.user;
-      localStorage.setItem("token", token);
+      const { access_token, user } = await mockAuthService.googleLogin(credentialResponse.credential);
+      localStorage.setItem("token", access_token);
       localStorage.setItem("user", JSON.stringify(user));
+      toast.success(`Bem-vindo, ${user.nome}!`);
       navigate("/");
     } catch (err) {
       console.error('Erro no login com Google:', err);
-      const errorMsg = err.response?.data?.detail || 'Erro no login com Google';
-      alert(`Erro: ${errorMsg}`);
+      toast.error('Erro no login com Google');
     }
   };
 
   const handleGoogleError = (error) => {
     console.error('Google OAuth Error:', error);
-    alert('Erro ao conectar com Google. Tente novamente.');
+    toast.error('Erro ao conectar com Google');
   };
 
   return (
