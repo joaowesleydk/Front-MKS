@@ -49,10 +49,10 @@ import { Oculos } from '../pages/Acessorios/Oculos';
 import { Cintos } from '../pages/Acessorios/Cintos';
 
 // Infantil
-import { Body } from '../pages/Infantil/Body';
-import { Fantasias } from '../pages/Infantil/Fantasias';
-import { Conjuntos } from '../pages/Infantil/Conjuntos';
-import { Casacos } from '../pages/Infantil/Casacos';
+import { Body } from '../pages/Infantil/body';
+import { Fantasias } from '../pages/Infantil/fantasias';
+import { Conjuntos } from '../pages/Infantil/conjuntos';
+import { Casacos } from '../pages/Infantil/casacos';
 
 
 import { Pesquisa } from '../pages/Pesquisa';
