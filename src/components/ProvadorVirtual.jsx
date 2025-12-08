@@ -3,7 +3,7 @@ import { HiOutlineCamera, HiOutlineSparkles, HiOutlineXMark } from 'react-icons/
 import { Button } from './Button';
 import { useCart } from '../context/CartContext';
 import { useNavigate } from 'react-router-dom';
-import { virtualTryOnService } from '../services/virtualTryOnService';
+import { virtualTryOnBackend } from '../services/virtualTryOnBackend';
 import toast from 'react-hot-toast';
 
 export const ProvadorVirtual = ({ produto, isOpen, onClose }) => {
@@ -24,10 +24,10 @@ export const ProvadorVirtual = ({ produto, isOpen, onClose }) => {
     if (file) {
       try {
         // Validar imagem
-        virtualTryOnService.validateImage(file);
+        virtualTryOnBackend.validateImage(file);
         
         // Redimensionar para otimizar
-        const resizedImage = await virtualTryOnService.resizeImage(file);
+        const resizedImage = await virtualTryOnBackend.resizeImage(file);
         
         setUserPhoto(resizedImage);
         setUserPhotoFile(file);
@@ -54,7 +54,7 @@ export const ProvadorVirtual = ({ produto, isOpen, onClose }) => {
       setProcessingStep('Processando com IA...');
       
       // Processar com IA real
-      const result = await virtualTryOnService.processVirtualTryOn(
+      const result = await virtualTryOnBackend.processVirtualTryOn(
         userPhoto, 
         produto.imagem
       );
