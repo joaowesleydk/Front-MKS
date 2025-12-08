@@ -1,11 +1,12 @@
-import { useState } from "react";
+import { useState, lazy, Suspense } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { HiOutlineShoppingBag } from "react-icons/hi";
 import { HiOutlineSparkles, HiOutlineXMark } from "react-icons/hi2";
 import { useCart } from "../context/CartContext";
-import { ProvadorVirtual } from "./ProvadorVirtual";
 import { getProductImage } from "../utils/imageMapping";
 import toast from 'react-hot-toast';
+
+const ProvadorVirtual = lazy(() => import("./ProvadorVirtual").then(module => ({ default: module.ProvadorVirtual })));
 
 
 export const Card = ({ produtos = [] }) => {
@@ -162,14 +163,16 @@ export const Card = ({ produtos = [] }) => {
       
       {/* Provador Virtual Modal */}
       {produtoSelecionado && (
-        <ProvadorVirtual
-          produto={produtoSelecionado}
-          isOpen={provadorOpen}
-          onClose={() => {
-            setProvadorOpen(false);
-            setProdutoSelecionado(null);
-          }}
-        />
+        <Suspense fallback={<div>Carregando...</div>}>
+          <ProvadorVirtual
+            produto={produtoSelecionado}
+            isOpen={provadorOpen}
+            onClose={() => {
+              setProvadorOpen(false);
+              setProdutoSelecionado(null);
+            }}
+          />
+        </Suspense>
       )}
     </div>
   );
