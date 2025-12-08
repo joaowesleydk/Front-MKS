@@ -4,6 +4,7 @@ import { HiOutlineShoppingBag } from "react-icons/hi";
 import { HiOutlineSparkles, HiOutlineXMark } from "react-icons/hi2";
 import { useCart } from "../context/CartContext";
 import { ProvadorVirtual } from "./ProvadorVirtual";
+import { getProductImage } from "../utils/imageMapping";
 import toast from 'react-hot-toast';
 
 
@@ -56,11 +57,11 @@ export const Card = ({ produtos = [] }) => {
           >
             <div className="w-24 h-24 sm:w-40 sm:h-40 mb-2 sm:mb-4 overflow-hidden rounded-lg sm:rounded-xl">
               <img
-                src={item.imagem || 'https://via.placeholder.com/160x160?text=Sem+Imagem'}
+                src={getProductImage(item)}
                 alt={item.nome}
                 className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300"
                 onError={(e) => {
-                  e.target.src = 'https://via.placeholder.com/160x160?text=Sem+Imagem';
+                  e.target.src = getProductImage(item);
                 }}
               />
             </div>
@@ -101,7 +102,7 @@ export const Card = ({ produtos = [] }) => {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                   <img
-                    src={produtoSelecionado.imagem || 'https://via.placeholder.com/300x300?text=Sem+Imagem'}
+                    src={getProductImage(produtoSelecionado)}
                     alt={produtoSelecionado.nome}
                     className="w-full h-64 object-contain rounded-xl bg-gray-50"
                   />
