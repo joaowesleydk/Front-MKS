@@ -16,19 +16,23 @@ export const Cadastro = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log('Tentando cadastrar:', { name: nome, email, password: '***' });
     try {
       const response = await api.post('/api/auth/register', { 
         name: nome, 
         email, 
         password: senha 
       });
+      console.log('Resposta do cadastro:', response.data);
       const { access_token, user } = response.data;
       localStorage.setItem("token", access_token);
       localStorage.setItem("user", JSON.stringify(user));
       toast.success(`Bem-vindo, ${user.nome || user.name}!`);
       navigate("/");
     } catch (error) {
-      console.error('Erro no cadastro:', error);
+      console.error('Erro completo no cadastro:', error);
+      console.error('Resposta do erro:', error.response?.data);
+      console.error('Status do erro:', error.response?.status);
       toast.error(error.response?.data?.detail || 'Erro ao cadastrar');
     }
   };

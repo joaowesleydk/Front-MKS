@@ -25,8 +25,10 @@ export const Login = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
+    console.log('Tentando login com:', { email, password: '***' });
     try {
       const response = await api.post('/api/auth/login', { email, password });
+      console.log('Resposta do login:', response.data);
       const { access_token, user } = response.data;
       localStorage.setItem("token", access_token);
       localStorage.setItem("user", JSON.stringify(user));
@@ -44,7 +46,9 @@ export const Login = () => {
         navigate('/');
       }
     } catch (err) {
-      console.error('Erro no login:', err);
+      console.error('Erro completo no login:', err);
+      console.error('Resposta do erro:', err.response?.data);
+      console.error('Status do erro:', err.response?.status);
       toast.error(err.response?.data?.detail || 'Email ou senha incorretos');
     }
   };
