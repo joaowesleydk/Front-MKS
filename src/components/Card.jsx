@@ -31,6 +31,44 @@ export const Card = ({ produtos = [] }) => {
     }
   };
 
+  const isRoupa = (produto) => {
+    const categoriasRoupa = ['feminino', 'masculino', 'infantil'];
+    const subcategoriasRoupa = [
+      'vestidos', 'blusas', 'calcas', 'jeans', 'saias', 'shorts',
+      'camisas', 'camisetas', 'calcasmasculinas', 'bermudas', 'jaquetas', 'blazers',
+      'body', 'conjuntos', 'casacos'
+    ];
+    
+    const categoria = produto.categoria?.toLowerCase() || '';
+    const subcategoria = produto.subcategoria?.toLowerCase() || '';
+    const nome = produto.nome?.toLowerCase() || '';
+    
+    // Verifica se é categoria de roupa
+    if (categoriasRoupa.includes(categoria)) return true;
+    
+    // Verifica se é subcategoria de roupa
+    if (subcategoriasRoupa.includes(subcategoria)) return true;
+    
+    // Verifica palavras-chave no nome
+    const palavrasRoupa = [
+      'vestido', 'blusa', 'camisa', 'camiseta', 'calça', 'jeans',
+      'saia', 'short', 'jaqueta', 'blazer', 'casaco', 'moletom',
+      'conjunto', 'body', 'macacão'
+    ];
+    
+    return palavrasRoupa.some(palavra => nome.includes(palavra));
+  };
+
+  const abrirProvador = (produto) => {
+    if (!isLoggedIn()) {
+      toast.error('Você precisa estar logado para usar o provador virtual!');
+      navigate('/login', { state: { from: 'provador' } });
+      return;
+    }
+    setDetalhesOpen(false);
+    setProvadorOpen(true);
+  };
+
   const comprarAgora = (produto) => {
     if (!isLoggedIn()) {
       toast.error('Você precisa estar logado para comprar!');
@@ -137,19 +175,16 @@ export const Card = ({ produtos = [] }) => {
                     </button>
                     
                     {/* Botão Provador Virtual - apenas para roupas */}
-                    {(produtoSelecionado.categoria?.includes('camisa') || produtoSelecionado.categoria?.includes('blusa') || 
-                      produtoSelecionado.categoria?.includes('vestido') || produtoSelecionado.categoria?.includes('camiseta') ||
-                      produtoSelecionado.categoria?.includes('jeans') || produtoSelecionado.categoria?.includes('calca')) && (
+                    {isRoupa(produtoSelecionado) && (
                       <button
                         onClick={(e) => {
                           e.stopPropagation();
-                          setDetalhesOpen(false);
-                          setProvadorOpen(true);
+                          abrirProvador(produtoSelecionado);
                         }}
                         className="w-full bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white rounded-full px-6 py-3 transition-all duration-300 font-medium flex items-center justify-center gap-2"
                       >
                         <HiOutlineSparkles size={20} />
-                        Provador Virtual
+                        Provador Virtual ✨
                       </button>
                     )}
                   </div>

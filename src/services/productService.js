@@ -1,89 +1,30 @@
-import { todosProdutos, produtosFeminino, produtosMasculino, produtosCosmeticos, produtosBijuterias, produtosAcessorios, produtosInfantil } from './mockData';
-import { vestidos, blusas, calcas, jeans, saias, shorts, lingerie } from './mockSubcategorias';
-import { camisas, camisetas, calcasMasculinas, bermudas, jaquetas, blazers } from './mockSubcategoriasMasculino';
-import { maquiagem, perfumes, hidratantes, sabonetes } from './mockSubcategoriasCosmeticos';
-import { colares, brincos, pulseiras, aneis } from './mockSubcategoriasBijuterias';
+import api from './api';
 
-const delay = (ms = 300) => new Promise(resolve => setTimeout(resolve, ms));
-
-import { bolsas, relogios, oculos, cintos, body, fantasias, conjuntos, casacos } from './mockAcessoriosInfantil';
-
-const subcategoriasMap = {
-  'vestidos': vestidos,
-  'blusas': blusas,
-  'calcas': calcas,
-  'jeans': jeans,
-  'saias': saias,
-  'shorts': shorts,
-  'lingerie': lingerie,
-  'camisas': camisas,
-  'camisetas': camisetas,
-  'calcasmasculinas': calcasMasculinas,
-  'bermudas': bermudas,
-  'jaquetas': jaquetas,
-  'blazers': blazers,
-  'maquiagem': maquiagem,
-  'perfumes': perfumes,
-  'hidratantes': hidratantes,
-  'sabonetes': sabonetes,
-  'colares': colares,
-  'brincos': brincos,
-  'pulseiras': pulseiras,
-  'aneis': aneis,
-  'bolsas': bolsas,
-  'relogios': relogios,
-  'oculos': oculos,
-  'cintos': cintos,
-  'body': body,
-  'fantasias': fantasias,
-  'conjuntos': conjuntos,
-  'casacos': casacos
-};
+const API_URL = import.meta.env.VITE_API_URL;
 
 export const productService = {
   // Buscar todos os produtos
   getAll: async () => {
-    await delay();
-    return { data: todosProdutos };
+    const response = await api.get('/api/products');
+    return { data: response.data };
   },
   
   // Buscar produtos por categoria
   getByCategory: async (categoria) => {
-    await delay();
-    const categoriaLower = categoria.toLowerCase();
-    
-    // Verifica se é subcategoria
-    if (subcategoriasMap[categoriaLower]) {
-      return { data: subcategoriasMap[categoriaLower] };
-    }
-    
-    // Categorias principais
-    const categoriaMap = {
-      'feminino': produtosFeminino,
-      'masculino': produtosMasculino,
-      'cosmeticos': produtosCosmeticos,
-      'bijuterias': produtosBijuterias,
-      'acessorios': produtosAcessorios,
-      'infantil': produtosInfantil
-    };
-    return { data: categoriaMap[categoriaLower] || [] };
+    const response = await api.get(`/api/products/category/${categoria}`);
+    return { data: response.data };
   },
   
   // Buscar produto por ID
   getById: async (id) => {
-    await delay();
-    const produto = todosProdutos.find(p => p.id === parseInt(id));
-    return { data: produto };
+    const response = await api.get(`/api/products/${id}`);
+    return { data: response.data };
   },
   
   // Pesquisar produtos
   search: async (query) => {
-    await delay();
-    const results = todosProdutos.filter(p => 
-      p.nome.toLowerCase().includes(query.toLowerCase()) ||
-      p.descricao.toLowerCase().includes(query.toLowerCase())
-    );
-    return { data: results };
+    const response = await api.get(`/api/products/search?q=${encodeURIComponent(query)}`);
+    return { data: response.data };
   },
   
   // Criar novo produto
@@ -136,8 +77,14 @@ export const productService = {
   },
   
   // Atualizar produto
-  update: (id, produto) => api.put(`/api/products/${id}`, produto),
+  update: async (id, produto) => {
+    const response = await api.put(`/api/products/${id}`, produto);
+    return response.data;
+  },
   
   // Deletar produto
-  delete: (id) => api.delete(`/api/products/${id}`)
+  delete: async (id) => {
+    const response = await api.delete(`/api/products/${id}`);
+    return response.data;
+  }
 };

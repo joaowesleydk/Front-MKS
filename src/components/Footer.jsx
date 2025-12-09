@@ -101,7 +101,7 @@ export const Footer = () => {
                 <Link to="/termos-uso" className="block text-gray-400 hover:text-white transition-colors text-xs">Termos de Uso</Link>
                 <Link to="/politica-privacidade" className="block text-gray-400 hover:text-white transition-colors text-xs">Política de Privacidade</Link>
                 <Link to="/politica-troca" className="block text-gray-400 hover:text-white transition-colors text-xs">Política de Troca</Link>
-                <Link to="/contato" className="block text-gray-400 hover:text-white transition-colors text-xs">Contato</Link>
+                <Link to="/testeemail" className="block text-gray-400 hover:text-white transition-colors text-xs">Contato</Link>
               </div>
             </div>
           </div>

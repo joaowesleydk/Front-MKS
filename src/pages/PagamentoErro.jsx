@@ -1,3 +1,4 @@
+import React from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { Button } from '../components/Button';
 import { HiOutlineXCircle } from 'react-icons/hi2';

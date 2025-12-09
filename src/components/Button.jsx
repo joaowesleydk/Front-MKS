@@ -1,3 +1,4 @@
+import React from 'react';
 // Componente de botão reutilizável
 export const Button = ({ 
     children, // Conteúdo interno do botão (texto ou ícones)

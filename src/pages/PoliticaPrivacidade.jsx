@@ -1,3 +1,4 @@
+import React from 'react';
 export const PoliticaPrivacidade = () => {
   return (
     <div className="min-h-screen bg-gray-50 py-20 px-4">

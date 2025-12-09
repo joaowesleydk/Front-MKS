@@ -1,13 +1,15 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { FiEye, FiEyeOff } from "react-icons/fi";
 import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google";
-import { mockAuthService } from "../services/mockAuth";
+import api from "../services/api";
 import toast from 'react-hot-toast';
 
 export const Cadastro = () => {
   const [nome, setNome] = useState("");
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
    const GOOGLE_CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID || "SEU_CLIENT_ID_GOOGLE_AQUI";
 
@@ -15,26 +17,38 @@ export const Cadastro = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const { access_token, user } = await mockAuthService.register({ nome, email, password: senha });
+      const response = await api.post('/api/auth/register', { 
+        name: nome, 
+        email, 
+        password: senha 
+      });
+      const { access_token, user } = response.data;
       localStorage.setItem("token", access_token);
       localStorage.setItem("user", JSON.stringify(user));
-      toast.success(`Bem-vindo, ${user.nome}!`);
+      toast.success(`Bem-vindo, ${user.nome || user.name}!`);
       navigate("/");
     } catch (error) {
-      console.error('Erro no cadastro:', error.message);
-      toast.error(error.message || 'Erro ao cadastrar');
+      console.error('Erro no cadastro:', error);
+      toast.error(error.response?.data?.detail || 'Erro ao cadastrar');
     }
   };
 
   const handleGoogleSuccess = async (credentialResponse) => {
     try {
-      const { access_token, user } = await mockAuthService.googleLogin(credentialResponse.credential);
+      console.log('Google credential recebido:', credentialResponse);
+      const response = await api.post('/api/auth/google', { 
+        credential: credentialResponse.credential 
+      });
+      console.log('Resposta do backend:', response.data);
+      const { access_token, user } = response.data;
       localStorage.setItem("token", access_token);
       localStorage.setItem("user", JSON.stringify(user));
-      toast.success(`Bem-vindo, ${user.nome}!`);
+      toast.success(`Bem-vindo, ${user.nome || user.name}!`);
       navigate("/");
     } catch (error) {
-      toast.error("Erro ao cadastrar com Google");
+      console.error('Erro no cadastro com Google:', error);
+      const errorMsg = error.response?.data?.detail || 'Erro ao cadastrar com Google. Tente novamente.';
+      toast.error(errorMsg);
     }
   };
 
@@ -78,14 +92,23 @@ export const Cadastro = () => {
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1 md:mb-2">Senha</label>
-                <input 
-                  type="password" 
-                  value={senha} 
-                  onChange={(e) => setSenha(e.target.value)} 
-                  required 
-                  className="w-full bg-white/70 border border-gray-200 p-3 md:p-4 rounded-lg md:rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 text-gray-800 placeholder-gray-400 text-sm md:text-base" 
-                  placeholder="Crie uma senha segura" 
-                />
+                <div className="relative">
+                  <input 
+                    type={showPassword ? "text" : "password"}
+                    value={senha} 
+                    onChange={(e) => setSenha(e.target.value)} 
+                    required 
+                    className="w-full bg-white/70 border border-gray-200 p-3 md:p-4 rounded-lg md:rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 text-gray-800 placeholder-gray-400 text-sm md:text-base pr-12" 
+                    placeholder="Crie uma senha segura" 
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700"
+                  >
+                    {showPassword ? <FiEyeOff size={20} /> : <FiEye size={20} />}
+                  </button>
+                </div>
               </div>
             </div>
 

@@ -1,8 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import Promocao1 from "../assets/imagens/Promocao1.png"
-import Promocao2 from "../assets/imagens/Promocao2.png"
-import Promocao3 from "../assets/imagens/Promocao3.png"
+
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Navigation, Pagination } from "swiper/modules";

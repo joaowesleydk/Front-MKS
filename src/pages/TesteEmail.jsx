@@ -1,3 +1,4 @@
+import React from 'react';
 import { EmailTest } from '../components/EmailTest';
 
 export const TesteEmail = () => {

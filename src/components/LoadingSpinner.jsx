@@ -1,3 +1,5 @@
+import React from 'react';
+
 export const LoadingSpinner = ({size = 'md'}) => {
     const sizes = {
         sm: 'w-4 h-4',

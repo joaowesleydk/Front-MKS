@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { FcGoogle } from "react-icons/fc";
+import { FiEye, FiEyeOff } from "react-icons/fi";
 import { useNavigate, useLocation } from "react-router-dom";
 import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google";
-import { mockAuthService } from "../services/mockAuth";
+import api from "../services/api";
 import toast from 'react-hot-toast';
 
 export const Login = () => {
@@ -10,6 +11,7 @@ export const Login = () => {
   const location = useLocation();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [showMessage, setShowMessage] = useState(false);
   const GOOGLE_CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID || "SEU_CLIENT_ID_GOOGLE_AQUI";
 
@@ -24,27 +26,56 @@ export const Login = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const { access_token, user } = await mockAuthService.login(email, password);
+      const response = await api.post('/api/auth/login', { email, password });
+      const { access_token, user } = response.data;
       localStorage.setItem("token", access_token);
       localStorage.setItem("user", JSON.stringify(user));
-      toast.success(`Bem-vindo, ${user.nome}!`);
-      navigate("/");
+      toast.success(`Bem-vindo, ${user.nome || user.name}!`);
+      
+      // Redirecionar para onde o usuário estava tentando ir
+      const from = location.state?.from;
+      if (from === 'cart') {
+        navigate('/sacola');
+      } else if (from === 'buy') {
+        navigate('/pagamento');
+      } else if (from === 'provador') {
+        navigate('/');
+      } else {
+        navigate('/');
+      }
     } catch (err) {
-      console.error('Erro no login:', err.message);
-      toast.error(err.message || 'Erro ao fazer login');
+      console.error('Erro no login:', err);
+      toast.error(err.response?.data?.detail || 'Email ou senha incorretos');
     }
   };
 
   const handleGoogleSuccess = async (credentialResponse) => {
     try {
-      const { access_token, user } = await mockAuthService.googleLogin(credentialResponse.credential);
+      console.log('Google credential recebido:', credentialResponse);
+      const response = await api.post('/api/auth/google', { 
+        credential: credentialResponse.credential 
+      });
+      console.log('Resposta do backend:', response.data);
+      const { access_token, user } = response.data;
       localStorage.setItem("token", access_token);
       localStorage.setItem("user", JSON.stringify(user));
-      toast.success(`Bem-vindo, ${user.nome}!`);
-      navigate("/");
+      toast.success(`Bem-vindo, ${user.nome || user.name}!`);
+      
+      // Redirecionar para onde o usuário estava tentando ir
+      const from = location.state?.from;
+      if (from === 'cart') {
+        navigate('/sacola');
+      } else if (from === 'buy') {
+        navigate('/pagamento');
+      } else if (from === 'provador') {
+        navigate('/');
+      } else {
+        navigate('/');
+      }
     } catch (err) {
       console.error('Erro no login com Google:', err);
-      toast.error('Erro no login com Google');
+      const errorMsg = err.response?.data?.detail || 'Erro ao fazer login com Google. Tente novamente.';
+      toast.error(errorMsg);
     }
   };
 
@@ -79,14 +110,23 @@ export const Login = () => {
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1 md:mb-2">Senha</label>
-                <input
-                  type="password"
-                  placeholder="••••••••"
-                  className="w-full bg-white/70 border border-gray-200 p-3 md:p-4 rounded-lg md:rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-300 text-gray-800 placeholder-gray-400 text-sm md:text-base"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  required
-                />
+                <div className="relative">
+                  <input
+                    type={showPassword ? "text" : "password"}
+                    placeholder="••••••••"
+                    className="w-full bg-white/70 border border-gray-200 p-3 md:p-4 rounded-lg md:rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-300 text-gray-800 placeholder-gray-400 text-sm md:text-base pr-12"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700"
+                  >
+                    {showPassword ? <FiEyeOff size={20} /> : <FiEye size={20} />}
+                  </button>
+                </div>
               </div>
             </div>
             <button type="submit" className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-semibold py-3 md:py-4 rounded-lg md:rounded-xl transition-all duration-300 transform hover:scale-[1.02] shadow-lg text-sm md:text-base">
