@@ -174,19 +174,17 @@ export const Card = ({ produtos = [] }) => {
                       Adicionar à Sacola
                     </button>
                     
-                    {/* Botão Provador Virtual - apenas para roupas */}
-                    {isRoupa(produtoSelecionado) && (
-                      <button
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          abrirProvador(produtoSelecionado);
-                        }}
-                        className="w-full bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white rounded-full px-6 py-3 transition-all duration-300 font-medium flex items-center justify-center gap-2"
-                      >
-                        <HiOutlineSparkles size={20} />
-                        Provador Virtual ✨
-                      </button>
-                    )}
+                    {/* Botão Provador Virtual - todos os produtos */}
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        abrirProvador(produtoSelecionado);
+                      }}
+                      className="w-full bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white rounded-full px-6 py-3 transition-all duration-300 font-medium flex items-center justify-center gap-2"
+                    >
+                      <HiOutlineSparkles size={20} />
+                      Provador Virtual ✨
+                    </button>
                   </div>
                 </div>
               </div>
