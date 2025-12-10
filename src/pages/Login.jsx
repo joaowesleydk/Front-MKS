@@ -61,7 +61,24 @@ export const Login = () => {
       console.error('Erro completo no login:', err);
       console.error('Resposta do erro:', err.response?.data);
       console.error('Status do erro:', err.response?.status);
-      toast.error(err.response?.data?.detail || 'Email ou senha incorretos');
+      
+      let errorMessage = 'Erro ao fazer login';
+      
+      if (err.response?.status === 401) {
+        errorMessage = 'Email ou senha incorretos';
+      } else if (err.response?.status === 404) {
+        errorMessage = 'Serviço indisponível. Tente novamente.';
+      } else if (err.code === 'ECONNABORTED' || err.message.includes('timeout')) {
+        errorMessage = 'Timeout: Servidor demorou para responder';
+      } else if (err.response?.data?.detail) {
+        errorMessage = err.response.data.detail;
+      } else if (err.response?.data?.message) {
+        errorMessage = err.response.data.message;
+      } else if (err.message) {
+        errorMessage = err.message;
+      }
+      
+      toast.error(errorMessage);
     }
   };
 

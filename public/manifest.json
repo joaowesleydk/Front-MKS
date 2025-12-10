@@ -1,0 +1,21 @@
+{
+  "name": "Moda Karina Store",
+  "short_name": "MKS Store",
+  "description": "Loja online de moda feminina, masculina, cosméticos e acessórios",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#7C3AED",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    },
+    {
+      "src": "/favicon.ico",
+      "sizes": "32x32",
+      "type": "image/x-icon"
+    }
+  ]
+}
