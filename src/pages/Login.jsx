@@ -28,11 +28,23 @@ export const Login = () => {
     console.log('Tentando login com:', { email, password: '***' });
     try {
       const response = await api.post('/api/auth/login', { email, password });
-      console.log('Resposta do login:', response.data);
-      const { access_token, user } = response.data;
-      localStorage.setItem("token", access_token);
-      localStorage.setItem("user", JSON.stringify(user));
-      toast.success(`Bem-vindo, ${user.nome || user.name}!`);
+      console.log('Login realizado com sucesso');
+      
+      const { access_token, user, token, data } = response.data;
+      const finalToken = access_token || token;
+      const finalUser = user || data?.user;
+      
+      // Limpar dados sensíveis do usuário
+      const cleanUser = {
+        id: finalUser.id,
+        name: finalUser.name || finalUser.nome,
+        email: finalUser.email,
+        role: finalUser.role || 'user'
+      };
+      
+      localStorage.setItem("token", finalToken);
+      localStorage.setItem("user", JSON.stringify(cleanUser));
+      toast.success(`Bem-vindo, ${cleanUser.name}!`);
       
       // Redirecionar para onde o usuário estava tentando ir
       const from = location.state?.from;
@@ -59,11 +71,23 @@ export const Login = () => {
       const response = await api.post('/api/auth/google', { 
         credential: credentialResponse.credential 
       });
-      console.log('Resposta do backend:', response.data);
-      const { access_token, user } = response.data;
-      localStorage.setItem("token", access_token);
-      localStorage.setItem("user", JSON.stringify(user));
-      toast.success(`Bem-vindo, ${user.nome || user.name}!`);
+      console.log('Login Google realizado com sucesso');
+      
+      const { access_token, user, token, data } = response.data;
+      const finalToken = access_token || token;
+      const finalUser = user || data?.user;
+      
+      // Limpar dados sensíveis do usuário
+      const cleanUser = {
+        id: finalUser.id,
+        name: finalUser.name || finalUser.nome,
+        email: finalUser.email,
+        role: finalUser.role || 'user'
+      };
+      
+      localStorage.setItem("token", finalToken);
+      localStorage.setItem("user", JSON.stringify(cleanUser));
+      toast.success(`Bem-vindo, ${cleanUser.name}!`);
       
       // Redirecionar para onde o usuário estava tentando ir
       const from = location.state?.from;

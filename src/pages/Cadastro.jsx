@@ -23,11 +23,23 @@ export const Cadastro = () => {
         email, 
         password: senha 
       });
-      console.log('Resposta do cadastro:', response.data);
-      const { access_token, user } = response.data;
-      localStorage.setItem("token", access_token);
-      localStorage.setItem("user", JSON.stringify(user));
-      toast.success(`Bem-vindo, ${user.nome || user.name}!`);
+      console.log('Cadastro realizado com sucesso');
+      
+      const { access_token, user, token, data } = response.data;
+      const finalToken = access_token || token;
+      const finalUser = user || data?.user;
+      
+      // Limpar dados sensíveis do usuário
+      const cleanUser = {
+        id: finalUser.id,
+        name: finalUser.name || finalUser.nome,
+        email: finalUser.email,
+        role: finalUser.role || 'user'
+      };
+      
+      localStorage.setItem("token", finalToken);
+      localStorage.setItem("user", JSON.stringify(cleanUser));
+      toast.success(`Bem-vindo, ${cleanUser.name}!`);
       navigate("/");
     } catch (error) {
       console.error('Erro completo no cadastro:', error);
@@ -43,11 +55,23 @@ export const Cadastro = () => {
       const response = await api.post('/api/auth/google', { 
         credential: credentialResponse.credential 
       });
-      console.log('Resposta do backend:', response.data);
-      const { access_token, user } = response.data;
-      localStorage.setItem("token", access_token);
-      localStorage.setItem("user", JSON.stringify(user));
-      toast.success(`Bem-vindo, ${user.nome || user.name}!`);
+      console.log('Cadastro Google realizado com sucesso');
+      
+      const { access_token, user, token, data } = response.data;
+      const finalToken = access_token || token;
+      const finalUser = user || data?.user;
+      
+      // Limpar dados sensíveis do usuário
+      const cleanUser = {
+        id: finalUser.id,
+        name: finalUser.name || finalUser.nome,
+        email: finalUser.email,
+        role: finalUser.role || 'user'
+      };
+      
+      localStorage.setItem("token", finalToken);
+      localStorage.setItem("user", JSON.stringify(cleanUser));
+      toast.success(`Bem-vindo, ${cleanUser.name}!`);
       navigate("/");
     } catch (error) {
       console.error('Erro no cadastro com Google:', error);
