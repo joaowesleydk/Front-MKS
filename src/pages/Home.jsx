@@ -1,7 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Navigation, Pagination } from "swiper/modules";
 import "swiper/css";
@@ -10,7 +9,6 @@ import "swiper/css/pagination";
 import { Card } from "../components/Card";
 import { useProducts } from "../hooks/useProducts";
 import { LoadingSpinner } from "../components/LoadingSpinner";
-
 
 export const Home = () => {
     const navigate = useNavigate();
@@ -81,16 +79,16 @@ export const Home = () => {
 
 
     return (
-        <div className="flex flex-col pt-42 ">
+        <div className="flex flex-col">
             {/* Swiper Banner */}
-            <div className="relative">
+            <div className="relative mt-[120px] md:mt-[140px]">
                 <Swiper
                     modules={[Autoplay, Navigation, Pagination]}
                     autoplay={{ delay: 3000 }}
                     loop={true}
-                    navigation={true}
+                    navigation={window.innerWidth >= 768}
                     pagination={{ clickable: true }}
-                    className="w-full h-[280px] md:h-[400px] lg:h-[480px]"
+                    className="w-full h-[300px] md:h-[400px] lg:h-[480px] -mx-4 md:mx-0"
                 >
                     {slides.map((slide, index) => (
                         <SwiperSlide key={index}>

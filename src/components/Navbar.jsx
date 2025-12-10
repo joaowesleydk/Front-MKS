@@ -200,7 +200,14 @@ return (
               <HiOutlineUser />
             )}
           </Link>
-          {JSON.parse(localStorage.getItem('user') || '{}').role === 'admin' && (
+          {(() => {
+            try {
+              return JSON.parse(localStorage.getItem('user') || '{}').role === 'admin';
+            } catch (error) {
+              console.error('Error parsing user data:', error);
+              return false;
+            }
+          })() && (
             <Link to="/admin/produtos" className="hover:text-gray-300 transition text-sm bg-red-600 px-2 py-1 rounded">
               Admin
             </Link>
@@ -299,7 +306,14 @@ return (
                 <div>
                   <p className="font-medium">
                     {localStorage.getItem('token') 
-                      ? JSON.parse(localStorage.getItem('user') || '{}').name || 'Usuário'
+                      ? (() => {
+                          try {
+                            return JSON.parse(localStorage.getItem('user') || '{}').name || 'Usuário';
+                          } catch (error) {
+                            console.error('Error parsing user data:', error);
+                            return 'Usuário';
+                          }
+                        })()
                       : 'Fazer Login'
                     }
                   </p>
@@ -359,7 +373,14 @@ return (
                 )}
               </Link>
               
-              {JSON.parse(localStorage.getItem('user') || '{}').role === 'admin' && (
+              {(() => {
+                try {
+                  return JSON.parse(localStorage.getItem('user') || '{}').role === 'admin';
+                } catch (error) {
+                  console.error('Error parsing user data:', error);
+                  return false;
+                }
+              })() && (
                 <Link
                   to="/admin/produtos"
                   className="flex items-center gap-3 hover:bg-red-600 bg-red-500 p-3 rounded-lg transition-colors"

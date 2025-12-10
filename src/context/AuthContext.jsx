@@ -18,8 +18,13 @@ export const useAuth = () => {
                 const userData = localStorage.getItem('user');
 
                 if(token && userData) {
-                    setUser(JSON.parse(userData)); 
-
+                    try {
+                        setUser(JSON.parse(userData));
+                    } catch (error) {
+                        console.error('Error parsing user data:', error);
+                        localStorage.removeItem('token');
+                        localStorage.removeItem('user');
+                    }
                 }
                 setLoading(false);
        },[]);
