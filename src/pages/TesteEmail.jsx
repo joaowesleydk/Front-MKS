@@ -1,5 +1,5 @@
-import React from 'react';
-import { EmailTest } from '../components/EmailTest';
+import React, { Suspense } from 'react';
+import { EmailTest } from '../components/LazyComponents';
 
 export const TesteEmail = () => {
   return (
@@ -14,7 +14,9 @@ export const TesteEmail = () => {
           </p>
         </div>
         
-        <EmailTest />
+        <Suspense fallback={<div className="text-center">Carregando...</div>}>
+          <EmailTest />
+        </Suspense>
         
         <div className="max-w-2xl mx-auto mt-8 bg-white rounded-lg shadow-lg p-6">
           <h2 className="text-xl font-semibold text-gray-800 mb-4">
