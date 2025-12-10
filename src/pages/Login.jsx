@@ -3,7 +3,7 @@ import { FcGoogle } from "react-icons/fc";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import { useNavigate, useLocation } from "react-router-dom";
 import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google";
-import api from "../services/api";
+import { mockAuthService } from "../services/mockAuthService";
 import toast from 'react-hot-toast';
 
 export const Login = () => {
@@ -25,26 +25,11 @@ export const Login = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    console.log('Tentando login com:', { email, password: '***' });
     try {
-      const response = await api.post('/api/auth/login', { email, password });
-      console.log('Login realizado com sucesso');
-      
-      const { access_token, user, token, data } = response.data;
-      const finalToken = access_token || token;
-      const finalUser = user || data?.user;
-      
-      // Limpar dados sensíveis do usuário
-      const cleanUser = {
-        id: finalUser.id,
-        name: finalUser.name || finalUser.nome,
-        email: finalUser.email,
-        role: finalUser.role || 'user'
-      };
-      
-      localStorage.setItem("token", finalToken);
-      localStorage.setItem("user", JSON.stringify(cleanUser));
-      toast.success(`Bem-vindo, ${cleanUser.name}!`);
+      const { access_token, user } = await mockAuthService.login(email, password);
+      localStorage.setItem("token", access_token);
+      localStorage.setItem("user", JSON.stringify(user));
+      toast.success(`Bem-vindo, ${user.nome}!`);
       
       // Redirecionar para onde o usuário estava tentando ir
       const from = location.state?.from;
@@ -58,53 +43,16 @@ export const Login = () => {
         navigate('/');
       }
     } catch (err) {
-      console.error('Erro completo no login:', err);
-      console.error('Resposta do erro:', err.response?.data);
-      console.error('Status do erro:', err.response?.status);
-      
-      let errorMessage = 'Erro ao fazer login';
-      
-      if (err.response?.status === 401) {
-        errorMessage = 'Email ou senha incorretos';
-      } else if (err.response?.status === 404) {
-        errorMessage = 'Serviço indisponível. Tente novamente.';
-      } else if (err.code === 'ECONNABORTED' || err.message.includes('timeout')) {
-        errorMessage = 'Timeout: Servidor demorou para responder';
-      } else if (err.response?.data?.detail) {
-        errorMessage = err.response.data.detail;
-      } else if (err.response?.data?.message) {
-        errorMessage = err.response.data.message;
-      } else if (err.message) {
-        errorMessage = err.message;
-      }
-      
-      toast.error(errorMessage);
+      toast.error(err.response?.data?.detail || 'Email ou senha incorretos');
     }
   };
 
   const handleGoogleSuccess = async (credentialResponse) => {
     try {
-      console.log('Google credential recebido:', credentialResponse);
-      const response = await api.post('/api/auth/google', { 
-        credential: credentialResponse.credential 
-      });
-      console.log('Login Google realizado com sucesso');
-      
-      const { access_token, user, token, data } = response.data;
-      const finalToken = access_token || token;
-      const finalUser = user || data?.user;
-      
-      // Limpar dados sensíveis do usuário
-      const cleanUser = {
-        id: finalUser.id,
-        name: finalUser.name || finalUser.nome,
-        email: finalUser.email,
-        role: finalUser.role || 'user'
-      };
-      
-      localStorage.setItem("token", finalToken);
-      localStorage.setItem("user", JSON.stringify(cleanUser));
-      toast.success(`Bem-vindo, ${cleanUser.name}!`);
+      const { access_token, user } = await mockAuthService.googleLogin(credentialResponse.credential);
+      localStorage.setItem("token", access_token);
+      localStorage.setItem("user", JSON.stringify(user));
+      toast.success(`Bem-vindo, ${user.nome}!`);
       
       // Redirecionar para onde o usuário estava tentando ir
       const from = location.state?.from;
@@ -118,9 +66,7 @@ export const Login = () => {
         navigate('/');
       }
     } catch (err) {
-      console.error('Erro no login com Google:', err);
-      const errorMsg = err.response?.data?.detail || 'Erro ao fazer login com Google. Tente novamente.';
-      toast.error(errorMsg);
+      toast.error('Erro ao fazer login com Google');
     }
   };
 
@@ -207,6 +153,8 @@ export const Login = () => {
               Cadastre-se aqui
             </button>
           </div>
+          
+
         </div>
       </div>
     </GoogleOAuthProvider>

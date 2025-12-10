@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google";
-import api from "../services/api";
+import { mockAuthService } from "../services/mockAuthService";
 import toast from 'react-hot-toast';
 
 export const Cadastro = () => {
@@ -10,73 +10,39 @@ export const Cadastro = () => {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [acceptTerms, setAcceptTerms] = useState(false);
   const navigate = useNavigate();
    const GOOGLE_CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID || "SEU_CLIENT_ID_GOOGLE_AQUI";
 
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Tentando cadastrar:', { name: nome, email, password: '***' });
+    
+    if (!acceptTerms) {
+      toast.error('Você deve aceitar os termos de uso para continuar');
+      return;
+    }
+    
     try {
-      const response = await api.post('/api/auth/register', { 
-        name: nome, 
-        email, 
-        password: senha 
-      });
-      console.log('Cadastro realizado com sucesso');
-      
-      const { access_token, user, token, data } = response.data;
-      const finalToken = access_token || token;
-      const finalUser = user || data?.user;
-      
-      // Limpar dados sensíveis do usuário
-      const cleanUser = {
-        id: finalUser.id,
-        name: finalUser.name || finalUser.nome,
-        email: finalUser.email,
-        role: finalUser.role || 'user'
-      };
-      
-      localStorage.setItem("token", finalToken);
-      localStorage.setItem("user", JSON.stringify(cleanUser));
-      toast.success(`Bem-vindo, ${cleanUser.name}!`);
+      const { access_token, user } = await mockAuthService.register(nome, email, senha);
+      localStorage.setItem("token", access_token);
+      localStorage.setItem("user", JSON.stringify(user));
+      toast.success(`Bem-vindo, ${user.nome}!`);
       navigate("/");
     } catch (error) {
-      console.error('Erro completo no cadastro:', error);
-      console.error('Resposta do erro:', error.response?.data);
-      console.error('Status do erro:', error.response?.status);
       toast.error(error.response?.data?.detail || 'Erro ao cadastrar');
     }
   };
 
   const handleGoogleSuccess = async (credentialResponse) => {
     try {
-      console.log('Google credential recebido:', credentialResponse);
-      const response = await api.post('/api/auth/google', { 
-        credential: credentialResponse.credential 
-      });
-      console.log('Cadastro Google realizado com sucesso');
-      
-      const { access_token, user, token, data } = response.data;
-      const finalToken = access_token || token;
-      const finalUser = user || data?.user;
-      
-      // Limpar dados sensíveis do usuário
-      const cleanUser = {
-        id: finalUser.id,
-        name: finalUser.name || finalUser.nome,
-        email: finalUser.email,
-        role: finalUser.role || 'user'
-      };
-      
-      localStorage.setItem("token", finalToken);
-      localStorage.setItem("user", JSON.stringify(cleanUser));
-      toast.success(`Bem-vindo, ${cleanUser.name}!`);
+      const { access_token, user } = await mockAuthService.googleLogin(credentialResponse.credential);
+      localStorage.setItem("token", access_token);
+      localStorage.setItem("user", JSON.stringify(user));
+      toast.success(`Bem-vindo, ${user.nome}!`);
       navigate("/");
     } catch (error) {
-      console.error('Erro no cadastro com Google:', error);
-      const errorMsg = error.response?.data?.detail || 'Erro ao cadastrar com Google. Tente novamente.';
-      toast.error(errorMsg);
+      toast.error('Erro ao cadastrar com Google');
     }
   };
 
@@ -140,7 +106,41 @@ export const Cadastro = () => {
               </div>
             </div>
 
-            <button type="submit" className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold py-3 md:py-4 rounded-lg md:rounded-xl transition-all duration-300 transform hover:scale-[1.02] shadow-lg text-sm md:text-base">
+            {/* Aceitar Termos */}
+            <div className="flex items-start gap-3">
+              <input
+                type="checkbox"
+                id="acceptTerms"
+                checked={acceptTerms}
+                onChange={(e) => setAcceptTerms(e.target.checked)}
+                className="mt-1 w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+                required
+              />
+              <label htmlFor="acceptTerms" className="text-sm text-gray-700 leading-relaxed">
+                Eu aceito os{' '}
+                <button
+                  type="button"
+                  onClick={() => navigate('/termos-uso')}
+                  className="text-blue-600 hover:text-blue-700 underline"
+                >
+                  Termos de Uso
+                </button>
+                {' '}e a{' '}
+                <button
+                  type="button"
+                  onClick={() => navigate('/politica-privacidade')}
+                  className="text-blue-600 hover:text-blue-700 underline"
+                >
+                  Política de Privacidade
+                </button>
+              </label>
+            </div>
+
+            <button 
+              type="submit" 
+              disabled={!acceptTerms}
+              className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 disabled:from-gray-400 disabled:to-gray-500 disabled:cursor-not-allowed text-white font-semibold py-3 md:py-4 rounded-lg md:rounded-xl transition-all duration-300 transform hover:scale-[1.02] shadow-lg text-sm md:text-base"
+            >
               Criar Minha Conta
             </button>
           </form>

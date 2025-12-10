@@ -130,6 +130,16 @@ export const Home = () => {
                 <div className="max-w-7xl mx-auto">
                     {loading && <LoadingSpinner />}
                     {error && <div className="text-center text-red-500 p-10">{error}</div>}
+                    
+                    {/* Aviso de dados mockados */}
+                    {!loading && produtosExibir.length > 0 && (
+                        <div className="mb-6 p-4 bg-blue-50 border border-blue-200 rounded-lg text-center">
+                            <p className="text-blue-800 text-sm">
+                                📦 <strong>Modo Demonstração:</strong> Produtos de teste sendo exibidos
+                            </p>
+                        </div>
+                    )}
+                    
                     {!loading && !error && (
                         <Card produtos={produtosExibir} />
                     )}
