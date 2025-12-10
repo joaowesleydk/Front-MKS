@@ -14,3 +14,5 @@ export const LazyProductCarousel = lazy(() =>
 export const LazyEmailTest = lazy(() => 
   import('./EmailTest')
 );
+
+export const EmailTest = LazyEmailTest;

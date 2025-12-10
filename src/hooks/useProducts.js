@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { productService } from '../services/productService';
+import { mockProductService } from '../services/mockProductService';
 
 // Produtos mockados completos para todas as categorias
 const produtosMockados = [
@@ -554,8 +554,8 @@ export const useProducts = (categoria = null) => {
       try {
         setLoading(true);
         const response = categoria 
-          ? await productService.getByCategory(categoria)
-          : await productService.getAll();
+          ? await mockProductService.getByCategory(categoria)
+          : await mockProductService.getAll();
         
         const data = response.data || response || [];
         setProdutos(Array.isArray(data) ? formatarProdutos(data) : []);
