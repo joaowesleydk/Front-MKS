@@ -5,7 +5,7 @@ import { HiOutlineCreditCard, HiOutlineQrCode, HiOutlineBanknotes } from 'react-
 import { Button } from '../components/Button';
 import { paymentService } from '../services/paymentService';
 import { freteService } from '../services/freteService';
-import { MockDataBanner } from '../components/MockDataBanner';
+
 import toast from 'react-hot-toast';
 
 export const Pagamento = () => {
@@ -181,7 +181,7 @@ export const Pagamento = () => {
           Finalizar Compra
         </h1>
         
-        <MockDataBanner showOnPayment={true} />
+
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           

@@ -8,7 +8,7 @@ export const Footer = () => {
           
           {/* Logo e Copyright */}
           <div className="text-center md:text-left">
-            <span className="font-bold text-white">MKS Store</span>
+            <span className="font-bold text-white">Moda Karina Store</span>
             <span className="text-gray-400 text-xs ml-2">© 2025</span>
           </div>
 

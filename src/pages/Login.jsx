@@ -3,7 +3,7 @@ import { FcGoogle } from "react-icons/fc";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import { useNavigate, useLocation } from "react-router-dom";
 import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google";
-import { mockAuthService } from "../services/mockAuthService";
+import { authService } from "../services/authService";
 import toast from 'react-hot-toast';
 
 export const Login = () => {
@@ -26,7 +26,7 @@ export const Login = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const { access_token, user } = await mockAuthService.login(email, password);
+      const { access_token, user } = await authService.login({ email, password });
       localStorage.setItem("token", access_token);
       localStorage.setItem("user", JSON.stringify(user));
       toast.success(`Bem-vindo, ${user.nome}!`);
@@ -49,7 +49,7 @@ export const Login = () => {
 
   const handleGoogleSuccess = async (credentialResponse) => {
     try {
-      const { access_token, user } = await mockAuthService.googleLogin(credentialResponse.credential);
+      const { access_token, user } = await authService.googleLogin(credentialResponse.credential);
       localStorage.setItem("token", access_token);
       localStorage.setItem("user", JSON.stringify(user));
       toast.success(`Bem-vindo, ${user.nome}!`);

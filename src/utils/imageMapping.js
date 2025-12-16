@@ -1,5 +1,7 @@
 // Função para obter imagem do produto
 export const getProductImage = (produto) => {
-  // Usar sempre a imagem do corretivo local
-  return '/corretivo.png';
+  if (!produto) return null;
+  
+  // Retorna a imagem do produto ou uma imagem padrão
+  return produto.imagem || produto.image || null;
 };

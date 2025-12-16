@@ -1,4 +1,4 @@
-# 🛍️ Karina Moda Store - E-commerce Frontend
+# 🛍️ Moda Karina Store - E-commerce Frontend
 
 > **E-commerce moderno e completo para moda feminina, masculina, cosméticos e acessórios**
 
@@ -9,7 +9,7 @@
 
 ## 🌟 Visão Geral
 
-**Karina Moda Store** é um e-commerce completo desenvolvido com as mais modernas tecnologias web. O projeto oferece uma experiência de compra excepcional com design responsivo, funcionalidades avançadas e integração com APIs de pagamento.
+**Moda Karina Store** é um e-commerce completo desenvolvido com as mais modernas tecnologias web. O projeto oferece uma experiência de compra excepcional com design responsivo, funcionalidades avançadas e integração com APIs de pagamento.
 
 ### 🔗 Links Importantes
 - **🌐 Site:** [karinamodastore.com.br](https://karinamodastore.com.br)
@@ -398,6 +398,6 @@ Este projeto está sob a licença **MIT**. Veja o arquivo [LICENSE](LICENSE) par
 
 **⭐ Se este projeto te ajudou, deixe uma estrela!**
 
-**Feito com ❤️ por [Karina Moda Store](https://karinamodastore.com.br)**
+**Feito com ❤️ por [Moda Karina Store](https://karinamodastore.com.br)**
 
 </div>

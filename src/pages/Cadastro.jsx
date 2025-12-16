@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google";
-import { mockAuthService } from "../services/mockAuthService";
+import { authService } from "../services/authService";
 import toast from 'react-hot-toast';
 
 export const Cadastro = () => {
@@ -24,7 +24,7 @@ export const Cadastro = () => {
     }
     
     try {
-      const { access_token, user } = await mockAuthService.register(nome, email, senha);
+      const { access_token, user } = await authService.register({ name: nome, email, password: senha });
       localStorage.setItem("token", access_token);
       localStorage.setItem("user", JSON.stringify(user));
       toast.success(`Bem-vindo, ${user.nome}!`);
@@ -36,7 +36,7 @@ export const Cadastro = () => {
 
   const handleGoogleSuccess = async (credentialResponse) => {
     try {
-      const { access_token, user } = await mockAuthService.googleLogin(credentialResponse.credential);
+      const { access_token, user } = await authService.googleLogin(credentialResponse.credential);
       localStorage.setItem("token", access_token);
       localStorage.setItem("user", JSON.stringify(user));
       toast.success(`Bem-vindo, ${user.nome}!`);

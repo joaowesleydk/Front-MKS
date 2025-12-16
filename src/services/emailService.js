@@ -16,11 +16,11 @@ export const emailService = {
     try {
       const response = await axios.post(`${API_URL}/api/email/test`, {
         to: STORE_EMAIL,
-        subject: 'Teste de Configuração - MKS Store',
+        subject: 'Teste de Configuração - Moda Karina Store',
         template: 'test',
         data: {
           timestamp: new Date().toISOString(),
-          system: 'MKS Store E-commerce'
+          system: 'Moda Karina Store E-commerce'
         }
       });
 
@@ -80,7 +80,7 @@ export const emailService = {
     try {
       const response = await axios.post(`${API_URL}/api/email/order-confirmation`, {
         to: orderData.customerEmail,
-        subject: `Pedido Confirmado #${orderData.orderId} - MKS Store`,
+        subject: `Pedido Confirmado #${orderData.orderId} - Moda Karina Store`,
         template: 'order-confirmation',
         data: {
           orderId: orderData.orderId,
@@ -115,7 +115,7 @@ export const emailService = {
     try {
       const response = await axios.post(`${API_URL}/api/email/new-order`, {
         to: STORE_EMAIL,
-        subject: `Novo Pedido #${orderData.orderId} - MKS Store`,
+        subject: `Novo Pedido #${orderData.orderId} - Moda Karina Store`,
         template: 'new-order',
         data: {
           orderId: orderData.orderId,
@@ -152,7 +152,7 @@ export const emailService = {
     try {
       const response = await axios.post(`${API_URL}/api/email/password-reset`, {
         to: email,
-        subject: 'Recuperação de Senha - MKS Store',
+        subject: 'Recuperação de Senha - Moda Karina Store',
         template: 'password-reset',
         data: {
           resetToken,

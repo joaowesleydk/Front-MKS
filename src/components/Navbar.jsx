@@ -275,7 +275,7 @@ return (
             <div className="flex items-center justify-between p-6 border-b border-gray-700">
               <div className="flex items-center gap-3">
                 <img src={Image} alt="Logo MKS" className="h-8 w-auto" />
-                <span className="text-xl font-bold">MKS Store</span>
+                <span className="text-xl font-bold">Moda Karina Store</span>
               </div>
               <button 
                 onClick={() => setIsMenuOpen(false)}

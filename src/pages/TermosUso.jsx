@@ -21,7 +21,7 @@ export const TermosUso = () => {
             <section>
               <h2 className="text-xl font-semibold text-gray-800 mb-3">1. Aceitação dos Termos</h2>
               <p className="text-gray-600 leading-relaxed">
-                Ao acessar e usar o site da MKS Store, você concorda em cumprir estes termos de uso. 
+                Ao acessar e usar o site da Moda Karina Store, você concorda em cumprir estes termos de uso. 
                 Se você não concordar com qualquer parte destes termos, não deve usar nosso serviço.
               </p>
             </section>
@@ -66,7 +66,7 @@ export const TermosUso = () => {
             <section>
               <h2 className="text-xl font-semibold text-gray-800 mb-3">6. Limitação de Responsabilidade</h2>
               <p className="text-gray-600 leading-relaxed">
-                A MKS Store não se responsabiliza por danos indiretos, incidentais ou consequenciais 
+                A Moda Karina Store não se responsabiliza por danos indiretos, incidentais ou consequenciais 
                 decorrentes do uso do site ou produtos adquiridos.
               </p>
             </section>
