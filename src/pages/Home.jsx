@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -8,13 +8,15 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { Card } from "../components/Card";
 import { useProducts } from "../hooks/useProducts";
-import { LoadingSpinner } from "../components/LoadingSpinner";
+import { carouselService } from "../services/carouselService";
+import LoadingSpinner from "../components/LoadingSpinner";
 
 export const Home = () => {
     const navigate = useNavigate();
     const { produtos, loading, error } = useProducts();
+    const [slides, setSlides] = useState([]);
     
-    const slides = [
+    const slidesDefault = [
         { 
             img: "https://images.unsplash.com/photo-1445205170230-053b83016050?w=1200&h=600&fit=crop&q=80", 
             gradient: "linear-gradient(to bottom, #DC2626, #fff)",
@@ -65,6 +67,12 @@ export const Home = () => {
         }
     ];
 
+    useEffect(() => {
+        carouselService.getAll()
+            .then(res => setSlides(res.data.length > 0 ? res.data : slidesDefault))
+            .catch(() => setSlides(slidesDefault));
+    }, []);
+
     // Garantir que produtos seja sempre um array válido
     const produtosArray = (produtos && Array.isArray(produtos)) ? produtos : [];
     
@@ -102,7 +110,7 @@ export const Home = () => {
                                 {/* Overlay com informações do produto */}
                                 <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
                                     <div className="text-center text-white p-6">
-                                        <div className="bg-red-600 text-white px-4 py-2 rounded-full text-sm font-bold mb-4 inline-block">
+                                        <div className="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-4 py-2 rounded-full text-sm font-bold mb-4 inline-block">
                                             🎄 {slide.desconto} - NATAL
                                         </div>
                                         <h2 className="text-3xl md:text-5xl font-bold mb-4 drop-shadow-lg">
@@ -113,7 +121,7 @@ export const Home = () => {
                                         </div>
                                         <button 
                                             onClick={() => navigate(slide.link)}
-                                            className="bg-white text-black px-8 py-3 rounded-full font-bold text-lg hover:bg-gray-100 transition-colors"
+                                            className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white px-8 py-3 rounded-full font-bold text-lg transition-all duration-300"
                                         >
                                             COMPRAR AGORA
                                         </button>
@@ -128,17 +136,13 @@ export const Home = () => {
             {/* Seção de Produtos */}
             <div className="py-16 px-4">
                 <div className="max-w-7xl mx-auto">
-                    {loading && <LoadingSpinner />}
-                    {error && <div className="text-center text-red-500 p-10">{error}</div>}
-                    
-                    {/* Aviso de dados mockados */}
-                    {!loading && produtosExibir.length > 0 && (
-                        <div className="mb-6 p-4 bg-blue-50 border border-blue-200 rounded-lg text-center">
-                            <p className="text-blue-800 text-sm">
-                                📦 <strong>Modo Demonstração:</strong> Produtos de teste sendo exibidos
-                            </p>
+                    {loading && (
+                        <div className="text-center py-10">
+                            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-pink-600 mx-auto"></div>
+                            <p className="mt-4 text-gray-600">Carregando produtos...</p>
                         </div>
                     )}
+                    {error && <div className="text-center text-red-500 p-10">{error}</div>}
                     
                     {!loading && !error && (
                         <Card produtos={produtosExibir} />

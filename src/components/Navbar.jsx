@@ -25,7 +25,32 @@ export const Navbar = () => {
   const { getItemCount } = useCart();
 
   const isLoggedIn = () => {
-    return localStorage.getItem('token') && localStorage.getItem('user');
+    try {
+      return localStorage.getItem('token') && localStorage.getItem('user');
+    } catch (error) {
+      console.error('Erro ao verificar login:', error);
+      return false;
+    }
+  };
+
+  const getUserRole = () => {
+    try {
+      const user = localStorage.getItem('user');
+      if (!user) return null;
+      return JSON.parse(user).role;
+    } catch (error) {
+      console.error('Erro ao obter role do usuário:', error);
+      return null;
+    }
+  };
+
+  const getProfilePhoto = () => {
+    try {
+      return localStorage.getItem('profilePhoto');
+    } catch (error) {
+      console.error('Erro ao obter foto do perfil:', error);
+      return null;
+    }
   };
 
   const handleCartClick = (e) => {
@@ -42,7 +67,6 @@ export const Navbar = () => {
       setNavbarHeight(navRef.current.offsetHeight);
     }
   }, [setNavbarHeight]);
-
 
   const navLinks = [
     {
@@ -72,22 +96,18 @@ export const Navbar = () => {
         { to: "/masculina/camisas", label: "Camisas" },
         { to: "/masculina/blazers", label: "Blazers" },
         { to: "/masculina/jaquetas", label: "Jaquetas" },
-      ]
-      ,
+      ],
     },
     {
-      id: "infantil",
+      id: "infantil",  
       to: "",
       label: "Infantil",
       icon: <HiOutlineGift className="inline-block mr-2 text-yellow-400 text-lg" />,
       sub: [
         { to: "/infantil/casacos", label: "Casacos" },
-        { to: "/infantil/body",label: "Body"},
-       ,
+        { to: "/infantil/body", label: "Body" },
         { to: "/infantil/fantasias", label: "Fantasias" },
         { to: "/infantil/conjuntos", label: "Conjuntos" },
-   
-
       ],
     },
     {
@@ -102,14 +122,11 @@ export const Navbar = () => {
         { to: "/acessorios/cintos", label: "Cintos" },
         { to: "/acessorios/bolsas", label: "Bolsas" },
         { to: "/acessorios/chapéus", label: "Chapéus" },
-        
       ],
     },
     {
-
       id: "cosmeticos e beleza",
       to: "",
-
       label: "Cosméticos e Beleza",
       icon: <HiOutlineBeaker className="inline-block mr-2 text-purple-400 text-lg" />,
       sub: [
@@ -117,7 +134,6 @@ export const Navbar = () => {
         { to: "/cosmeticos/perfumes", label: "Perfumes e Body Splash" },
         { to: "/cosmeticos/maquiagem", label: "Maquiagem" },
         { to: "/cosmeticos/banho", label: "Sabonetes e Banho" },
-
       ],
     },
     {
@@ -133,7 +149,6 @@ export const Navbar = () => {
         { to: "/bijuterias/tornozeleiras", label: "Tornozeleiras" },
         { to: "/bijuterias/piercings", label: "Piercings" },
         { to: "/bijuterias/conjuntos", label: "Conjuntos" },
-
       ],
     },
   ];
@@ -147,7 +162,6 @@ export const Navbar = () => {
       setSearchQuery('');
     }
   };
-
 
 return (
   <nav
@@ -183,36 +197,43 @@ return (
         <div className="hidden md:flex items-center gap-5 text-2xl">
           <Link to="/sacola" onClick={handleCartClick} className="hover:text-gray-300 transition relative">
             <HiOutlineShoppingBag />
-            {getItemCount() > 0 && (
-              <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
-                {getItemCount()}
-              </span>
-            )}
+            {(() => {
+              try {
+                const count = getItemCount();
+                return count > 0 ? (
+                  <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+                    {count}
+                  </span>
+                ) : null;
+              } catch (error) {
+                console.error('Erro ao obter contagem do carrinho:', error);
+                return null;
+              }
+            })()}
           </Link>
-          <Link to={localStorage.getItem('token') ? '/perfil' : '/login'} className="hover:text-gray-300 transition">
-            {localStorage.getItem('token') && localStorage.getItem('profilePhoto') ? (
-              <img
-                src={localStorage.getItem('profilePhoto')}
-                alt="Perfil"
-                className="w-8 h-8 rounded-full object-cover border-2 border-white/30"
-              />
-            ) : (
-              <HiOutlineUser />
-            )}
+          <Link to={isLoggedIn() ? '/perfil' : '/login'} className="hover:text-gray-300 transition">
+            {(() => {
+              const profilePhoto = getProfilePhoto();
+              return isLoggedIn() && profilePhoto ? (
+                <img
+                  src={profilePhoto}
+                  alt="Perfil"
+                  className="w-8 h-8 rounded-full object-cover border-2 border-white/30"
+                  onError={(e) => {
+                    e.target.style.display = 'none';
+                    e.target.nextSibling.style.display = 'block';
+                  }}
+                />
+              ) : (
+                <HiOutlineUser />
+              );
+            })()}
           </Link>
-          {(() => {
-            try {
-              return JSON.parse(localStorage.getItem('user') || '{}').role === 'admin';
-            } catch (error) {
-              console.error('Error parsing user data:', error);
-              return false;
-            }
-          })() && (
+          {getUserRole() === 'admin' && (
             <Link to="/admin/produtos" className="hover:text-gray-300 transition text-sm bg-red-600 px-2 py-1 rounded">
               Admin
             </Link>
           )}
-
         </div>
 
         {/* Botão Mobile */}
@@ -248,7 +269,7 @@ return (
                   <li key={subLink.to}>
                     <Link
                       to={subLink.to}
-                      className="block px-4 py-2 hover:bg-gray-100"
+                      className="block px-4 py-2 hover:bg-gray-100 transition-colors"
                     >
                       {subLink.label}
                     </Link>
@@ -288,24 +309,27 @@ return (
             {/* Perfil do usuário */}
             <div className="p-6 border-b border-gray-700">
               <Link
-                to={localStorage.getItem('token') ? '/perfil' : '/login'}
+                to={isLoggedIn() ? '/perfil' : '/login'}
                 className="flex items-center gap-3 hover:bg-gray-800 p-3 rounded-lg transition-colors"
                 onClick={() => setIsMenuOpen(false)}
               >
-                {localStorage.getItem('token') && localStorage.getItem('profilePhoto') ? (
-                  <img
-                    src={localStorage.getItem('profilePhoto')}
-                    alt="Perfil"
-                    className="w-10 h-10 rounded-full object-cover"
-                  />
-                ) : (
-                  <div className="w-10 h-10 bg-gray-600 rounded-full flex items-center justify-center">
-                    <HiOutlineUser className="text-xl" />
-                  </div>
-                )}
+                {(() => {
+                  const profilePhoto = getProfilePhoto();
+                  return isLoggedIn() && profilePhoto ? (
+                    <img
+                      src={profilePhoto}
+                      alt="Perfil"
+                      className="w-10 h-10 rounded-full object-cover"
+                    />
+                  ) : (
+                    <div className="w-10 h-10 bg-gray-600 rounded-full flex items-center justify-center">
+                      <HiOutlineUser className="text-xl" />
+                    </div>
+                  );
+                })()}
                 <div>
                   <p className="font-medium">
-                    {localStorage.getItem('token') 
+                    {isLoggedIn() 
                       ? (() => {
                           try {
                             return JSON.parse(localStorage.getItem('user') || '{}').name || 'Usuário';
@@ -318,7 +342,7 @@ return (
                     }
                   </p>
                   <p className="text-sm text-gray-400">
-                    {localStorage.getItem('token') ? 'Ver perfil' : 'Entre na sua conta'}
+                    {isLoggedIn() ? 'Ver perfil' : 'Entre na sua conta'}
                   </p>
                 </div>
               </Link>
@@ -366,21 +390,22 @@ return (
               >
                 <HiOutlineShoppingBag className="text-xl" />
                 <span>Minha Sacola</span>
-                {getItemCount() > 0 && (
-                  <span className="ml-auto bg-red-500 text-white text-xs rounded-full w-6 h-6 flex items-center justify-center">
-                    {getItemCount()}
-                  </span>
-                )}
+                {(() => {
+                  try {
+                    const count = getItemCount();
+                    return count > 0 ? (
+                      <span className="ml-auto bg-red-500 text-white text-xs rounded-full w-6 h-6 flex items-center justify-center">
+                        {count}
+                      </span>
+                    ) : null;
+                  } catch (error) {
+                    console.error('Erro ao obter contagem do carrinho:', error);
+                    return null;
+                  }
+                })()}
               </Link>
               
-              {(() => {
-                try {
-                  return JSON.parse(localStorage.getItem('user') || '{}').role === 'admin';
-                } catch (error) {
-                  console.error('Error parsing user data:', error);
-                  return false;
-                }
-              })() && (
+              {getUserRole() === 'admin' && (
                 <Link
                   to="/admin/produtos"
                   className="flex items-center gap-3 hover:bg-red-600 bg-red-500 p-3 rounded-lg transition-colors"
@@ -396,4 +421,4 @@ return (
       )}
     </nav>
   );
-}  
+};

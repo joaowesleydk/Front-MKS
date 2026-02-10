@@ -14,25 +14,40 @@ export const CartProvider = ({ children }) => {
   const [items, setItems] = useState([]);
   
   const isLoggedIn = () => {
-    return localStorage.getItem('token') && localStorage.getItem('user');
+    try {
+      return localStorage.getItem('token') && localStorage.getItem('user');
+    } catch (error) {
+      console.error('Erro ao verificar login:', error);
+      return false;
+    }
   };
 
   // Carregar sacola do localStorage
   useEffect(() => {
-    if (isLoggedIn()) {
-      const savedCart = localStorage.getItem('cart');
-      if (savedCart) {
-        setItems(JSON.parse(savedCart));
+    try {
+      if (isLoggedIn()) {
+        const savedCart = localStorage.getItem('cart');
+        if (savedCart) {
+          const parsedCart = JSON.parse(savedCart);
+          setItems(Array.isArray(parsedCart) ? parsedCart : []);
+        }
+      } else {
+        setItems([]);
       }
-    } else {
+    } catch (error) {
+      console.error('Erro ao carregar carrinho:', error);
       setItems([]);
     }
   }, []);
 
   // Salvar sacola no localStorage
   useEffect(() => {
-    if (isLoggedIn()) {
-      localStorage.setItem('cart', JSON.stringify(items));
+    try {
+      if (isLoggedIn() && Array.isArray(items)) {
+        localStorage.setItem('cart', JSON.stringify(items));
+      }
+    } catch (error) {
+      console.error('Erro ao salvar carrinho:', error);
     }
   }, [items]);
 
@@ -75,17 +90,27 @@ export const CartProvider = ({ children }) => {
   };
 
   const getTotal = () => {
-    return items.reduce((total, item) => {
-      const preco = parseFloat(item.preco.replace('R$', '').replace(',', '.'));
-      return total + (preco * item.quantidade);
-    }, 0);
+    try {
+      return items.reduce((total, item) => {
+        const preco = parseFloat(item.preco.replace('R$', '').replace(',', '.'));
+        return total + (preco * item.quantidade);
+      }, 0);
+    } catch (error) {
+      console.error('Erro ao calcular total:', error);
+      return 0;
+    }
   };
 
   const getItemCount = () => {
-    if (!isLoggedIn()) {
+    try {
+      if (!isLoggedIn()) {
+        return 0;
+      }
+      return Array.isArray(items) ? items.reduce((count, item) => count + item.quantidade, 0) : 0;
+    } catch (error) {
+      console.error('Erro ao contar itens:', error);
       return 0;
     }
-    return items.reduce((count, item) => count + item.quantidade, 0);
   };
 
   return (

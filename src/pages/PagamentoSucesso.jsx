@@ -14,11 +14,30 @@ export const PagamentoSucesso = () => {
   const externalReference = searchParams.get('external_reference');
 
   useEffect(() => {
-    // Limpar carrinho quando pagamento for aprovado
+    // Limpar carrinho e salvar no histórico quando pagamento for aprovado
     if (status === 'approved') {
+      // Salvar pedido no histórico
+      const orderHistory = JSON.parse(localStorage.getItem('orderHistory') || '[]');
+      const lastOrder = JSON.parse(localStorage.getItem('lastOrder') || '{}');
+      
+      if (lastOrder.items) {
+        const newOrder = {
+          id: externalReference || `pedido_${Date.now()}`,
+          data: new Date().toISOString(),
+          items: lastOrder.items,
+          total: lastOrder.total,
+          status: 'processando',
+          paymentId: paymentId
+        };
+        
+        orderHistory.unshift(newOrder);
+        localStorage.setItem('orderHistory', JSON.stringify(orderHistory));
+        localStorage.removeItem('lastOrder');
+      }
+      
       clearCart();
     }
-  }, [status, clearCart]);
+  }, [status, clearCart, paymentId, externalReference]);
 
   return (
     <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4 pt-40">

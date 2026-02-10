@@ -6,15 +6,6 @@ export const useProducts = (categoria = null) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // Função para formatar preço
-  const formatarProdutos = (produtosList) => {
-    return produtosList.map(produto => ({
-      ...produto,
-      preco: typeof produto.price === 'number' ? `R$ ${produto.price.toFixed(2).replace('.', ',')}` : produto.preco || produto.price,
-      imagem: produto.image || produto.imagem
-    }));
-  };
-
   useEffect(() => {
     const fetchProdutos = async () => {
       try {
@@ -25,11 +16,27 @@ export const useProducts = (categoria = null) => {
           ? await productService.getByCategory(categoria)
           : await productService.getAll();
         
-        const data = response.data || response || [];
-        setProdutos(Array.isArray(data) ? formatarProdutos(data) : []);
+        const data = response.data || [];
+        
+        // Verificar se data é um array
+        if (!Array.isArray(data)) {
+          console.error('Resposta não é um array:', data);
+          setProdutos([]);
+          setError('Formato de resposta inválido');
+          return;
+        }
+        
+        const produtosFormatados = data.map(produto => ({
+          ...produto,
+          nome: produto.nome || produto.name,
+          preco: typeof produto.preco === 'string' ? produto.preco : `R$ ${produto.preco.toFixed(2).replace('.', ',')}`,
+          imagem: produto.imagem || produto.image
+        }));
+        
+        setProdutos(produtosFormatados);
       } catch (err) {
         console.error('Erro ao carregar produtos:', err);
-        setError(err.message || 'Erro ao carregar produtos');
+        setError('Erro ao carregar produtos');
         setProdutos([]);
       } finally {
         setLoading(false);
@@ -39,5 +46,5 @@ export const useProducts = (categoria = null) => {
     fetchProdutos();
   }, [categoria]);
 
-  return { produtos, loading, error, setProdutos };
+  return { produtos, loading, error };
 };

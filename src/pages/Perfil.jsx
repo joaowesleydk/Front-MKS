@@ -19,7 +19,7 @@ export default function Perfil() {
     return savedTheme ? themes[savedTheme] : themes.purple;
   };
   const [profileBio, setProfileBio] = useState(localStorage.getItem('profileBio') || '');
-  const [profileName, setProfileName] = useState(localStorage.getItem('profileName') || user.name || '');
+  const [profileName, setProfileName] = useState(localStorage.getItem('profileName') || user.nome || user.name || '');
   
   const themes = {
     default: { from: 'from-gray-600', to: 'to-gray-800', accent: 'gray', name: 'Padrão' },
@@ -104,7 +104,7 @@ export default function Perfil() {
             </div>
             
             <div className="flex-1">
-              <h1 className="text-3xl font-bold mb-2">{profileName || user.name || 'Usuário'}</h1>
+              <h1 className="text-3xl font-bold mb-2">{profileName || user.nome || user.name || 'Usuário'}</h1>
               <p className="text-white/80 mb-2">{user.email}</p>
               {profileBio && (
                 <p className="text-white/90 text-sm mb-2 italic">"{profileBio}"</p>
@@ -206,7 +206,7 @@ export default function Perfil() {
                       <label className="block text-sm font-medium text-gray-600 mb-2">
                         Nome Completo
                       </label>
-                      <p className="text-lg font-semibold text-gray-900">{user.name || 'Não informado'}</p>
+                      <p className="text-lg font-semibold text-gray-900">{user.nome || user.name || 'Não informado'}</p>
                     </div>
                     <div className="bg-gray-50 p-4 rounded-xl">
                       <label className="block text-sm font-medium text-gray-600 mb-2">
@@ -233,19 +233,71 @@ export default function Perfil() {
               {activeTab === 'pedidos' && (
                 <div>
                   <h2 className="text-2xl font-bold mb-6 text-gray-800">Meus Pedidos</h2>
-                  <div className="text-center py-12">
-                    <div className={`bg-${themes[profileTheme].accent}-100 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4`}>
-                      <HiOutlineShoppingBag className={`text-3xl text-${themes[profileTheme].accent}-600`} />
-                    </div>
-                    <h3 className="text-xl font-semibold text-gray-800 mb-2">Nenhum pedido ainda</h3>
-                    <p className="text-gray-500 mb-6">Que tal começar suas compras?</p>
-                    <Button
-                      onClick={() => navigate('/')}
-                      className={`bg-gradient-to-r ${themes[profileTheme].from} ${themes[profileTheme].to}`}
-                    >
-                      Explorar Produtos
-                    </Button>
-                  </div>
+                  {(() => {
+                    const pedidos = JSON.parse(localStorage.getItem('orderHistory') || '[]');
+                    
+                    if (pedidos.length === 0) {
+                      return (
+                        <div className="text-center py-12">
+                          <div className={`bg-${themes[profileTheme].accent}-100 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4`}>
+                            <HiOutlineShoppingBag className={`text-3xl text-${themes[profileTheme].accent}-600`} />
+                          </div>
+                          <h3 className="text-xl font-semibold text-gray-800 mb-2">Nenhum pedido ainda</h3>
+                          <p className="text-gray-500 mb-6">Que tal começar suas compras?</p>
+                          <Button
+                            onClick={() => navigate('/')}
+                            className={`bg-gradient-to-r ${themes[profileTheme].from} ${themes[profileTheme].to}`}
+                          >
+                            Explorar Produtos
+                          </Button>
+                        </div>
+                      );
+                    }
+                    
+                    return (
+                      <div className="space-y-4">
+                        {pedidos.map((pedido, index) => (
+                          <div key={index} className="bg-gray-50 rounded-xl p-6">
+                            <div className="flex justify-between items-start mb-4">
+                              <div>
+                                <h3 className="font-semibold text-gray-800">Pedido #{pedido.id}</h3>
+                                <p className="text-sm text-gray-500">{new Date(pedido.data).toLocaleDateString('pt-BR')}</p>
+                              </div>
+                              <span className={`px-3 py-1 rounded-full text-sm font-medium ${
+                                pedido.status === 'entregue' ? 'bg-green-100 text-green-700' :
+                                pedido.status === 'enviado' ? 'bg-blue-100 text-blue-700' :
+                                pedido.status === 'processando' ? 'bg-yellow-100 text-yellow-700' :
+                                'bg-gray-100 text-gray-700'
+                              }`}>
+                                {pedido.status === 'entregue' ? '✓ Entregue' :
+                                 pedido.status === 'enviado' ? '📦 Enviado' :
+                                 pedido.status === 'processando' ? '⏳ Processando' :
+                                 'Pendente'}
+                              </span>
+                            </div>
+                            
+                            <div className="space-y-2 mb-4">
+                              {pedido.items.map((item, i) => (
+                                <div key={i} className="flex items-center gap-3 text-sm">
+                                  <img src={item.imagem} alt={item.nome} className="w-12 h-12 object-contain rounded" />
+                                  <div className="flex-1">
+                                    <p className="font-medium text-gray-700">{item.nome}</p>
+                                    <p className="text-gray-500">Qtd: {item.quantidade}</p>
+                                  </div>
+                                  <p className="font-semibold">{item.preco}</p>
+                                </div>
+                              ))}
+                            </div>
+                            
+                            <div className="flex justify-between items-center pt-4 border-t">
+                              <span className="text-gray-600">Total:</span>
+                              <span className="text-lg font-bold text-gray-800">R$ {pedido.total.toFixed(2)}</span>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    );
+                  })()}
                 </div>
               )}
 

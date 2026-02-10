@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, useNavigate } from "react-router-dom";
 import { useCart } from "../context/CartContext";
 import { HiOutlineTrash, HiOutlineMinus, HiOutlinePlus, HiOutlineShoppingBag } from "react-icons/hi2";
@@ -8,8 +8,8 @@ import toast from 'react-hot-toast';
 export const Sacola = () => {
   const navigate = useNavigate();
   const { items, removeItem, updateQuantity, clearCart, getTotal } = useCart();
+  const [selectedItems, setSelectedItems] = useState(items.map(item => item.id));
   
-  // Obter tema do usuário ou usar padrão
   const getTheme = () => {
     const savedTheme = localStorage.getItem('profileTheme');
     const themes = {
@@ -26,12 +26,47 @@ export const Sacola = () => {
 
   const handleRemove = (id, nome) => {
     removeItem(id);
+    setSelectedItems(prev => prev.filter(itemId => itemId !== id));
     toast.success(`${nome} removido do carrinho`);
   };
 
   const handleClearCart = () => {
     clearCart();
+    setSelectedItems([]);
     toast.success('Carrinho limpo!');
+  };
+
+  const toggleSelectItem = (id) => {
+    setSelectedItems(prev => 
+      prev.includes(id) ? prev.filter(itemId => itemId !== id) : [...prev, id]
+    );
+  };
+
+  const toggleSelectAll = () => {
+    if (selectedItems.length === items.length) {
+      setSelectedItems([]);
+    } else {
+      setSelectedItems(items.map(item => item.id));
+    }
+  };
+
+  const getSelectedTotal = () => {
+    return items
+      .filter(item => selectedItems.includes(item.id))
+      .reduce((total, item) => {
+        const preco = parseFloat(item.preco.replace('R$', '').replace(',', '.'));
+        return total + (preco * item.quantidade);
+      }, 0);
+  };
+
+  const handleFinalizarCompra = () => {
+    if (selectedItems.length === 0) {
+      toast.error('Selecione pelo menos um produto para continuar');
+      return;
+    }
+    const selectedProducts = items.filter(item => selectedItems.includes(item.id));
+    localStorage.setItem('selectedCartItems', JSON.stringify(selectedProducts));
+    navigate('/pagamento');
   };
 
   if (items.length === 0) {
@@ -58,7 +93,18 @@ export const Sacola = () => {
     <div className="min-h-screen bg-gray-50 py-50 px-4">
       <div className="max-w-6xl mx-auto">
         <div className="flex justify-between items-center mb-8">
-          <h1 className="text-3xl font-bold text-gray-800">Meu Carrinho</h1>
+          <div className="flex items-center gap-4">
+            <h1 className="text-3xl font-bold text-gray-800">Meu Carrinho</h1>
+            <label className="flex items-center gap-2 cursor-pointer">
+              <input
+                type="checkbox"
+                checked={selectedItems.length === items.length}
+                onChange={toggleSelectAll}
+                className="w-5 h-5 rounded border-gray-300"
+              />
+              <span className="text-sm text-gray-600">Selecionar todos</span>
+            </label>
+          </div>
           <Button
             onClick={handleClearCart}
             className="bg-red-500 hover:bg-red-600 text-sm"
@@ -76,6 +122,12 @@ export const Sacola = () => {
               return (
                 <div key={item.id} className="bg-white rounded-xl lg:rounded-2xl shadow-lg p-4 lg:p-6">
                   <div className="flex items-center gap-3 lg:gap-4">
+                    <input
+                      type="checkbox"
+                      checked={selectedItems.includes(item.id)}
+                      onChange={() => toggleSelectItem(item.id)}
+                      className="w-5 h-5 rounded border-gray-300"
+                    />
                     <img
                       src={item.imagem || 'https://via.placeholder.com/80x80'}
                       alt={item.nome}
@@ -124,8 +176,12 @@ export const Sacola = () => {
               
               <div className="space-y-3 mb-6">
                 <div className="flex justify-between">
+                  <span className="text-gray-600">Itens selecionados:</span>
+                  <span className="font-semibold">{selectedItems.length} de {items.length}</span>
+                </div>
+                <div className="flex justify-between">
                   <span className="text-gray-600">Subtotal:</span>
-                  <span className="font-semibold">R$ {getTotal().toFixed(2)}</span>
+                  <span className="font-semibold">R$ {getSelectedTotal().toFixed(2)}</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-gray-600">Frete:</span>
@@ -134,16 +190,17 @@ export const Sacola = () => {
                 <div className="border-t pt-3">
                   <div className="flex justify-between text-lg">
                     <span className="font-bold">Total:</span>
-                    <span className={`font-bold text-${currentTheme.accent}-600`}>R$ {getTotal().toFixed(2)}</span>
+                    <span className={`font-bold text-${currentTheme.accent}-600`}>R$ {getSelectedTotal().toFixed(2)}</span>
                   </div>
                 </div>
               </div>
               
               <Button 
-                onClick={() => navigate('/pagamento')}
-                className="w-full bg-green-600 hover:bg-green-700 mb-4"
+                onClick={handleFinalizarCompra}
+                disabled={selectedItems.length === 0}
+                className="w-full bg-green-600 hover:bg-green-700 disabled:bg-gray-400 disabled:cursor-not-allowed mb-4"
               >
-                Finalizar Compra
+                Finalizar Compra ({selectedItems.length})
               </Button>
               
               <Link to="/" className={`block text-center text-${currentTheme.accent}-600 hover:text-${currentTheme.accent}-700 font-medium`}>

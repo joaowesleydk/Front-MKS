@@ -126,5 +126,20 @@ export const freteService = {
     }
 
     return opcoes;
+  },
+
+  // Verificar se tem frete grátis
+  freteGratis(valorCompra) {
+    return valorCompra >= 150;
+  },
+
+  // Verificar se é cidade local
+  isCidadeLocal(cidade, uf) {
+    return cidade?.toLowerCase().includes('pouso alegre') && uf === 'MG';
+  },
+
+  // Consultar CEP (alias para buscarEnderecoPorCep)
+  async consultarCEP(cep) {
+    return this.buscarEnderecoPorCep(cep);
   }
 };

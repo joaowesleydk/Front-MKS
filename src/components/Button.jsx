@@ -13,8 +13,8 @@ export const Button = ({
     
     // Estilos de acordo com o tipo de botão
     const variants = {
-      primary: 'bg-light text-white hover:bg-accent focus:ring-light', // Botão principal
-      secondary: 'bg-transparent border border-light text-light hover:bg-accent hover:border-accent focus:ring-light' // Botão secundário
+      primary: 'bg-gradient-to-r from-purple-600 to-pink-600 text-white hover:from-purple-700 hover:to-pink-700 focus:ring-purple-500', // Botão principal
+      secondary: 'bg-transparent border-2 border-purple-600 text-purple-600 hover:bg-purple-50 focus:ring-purple-500' // Botão secundário
     };
     
     // Tamanhos disponíveis para o botão

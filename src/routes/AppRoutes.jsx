@@ -72,6 +72,7 @@ import { TesteEmail } from '../pages/TesteEmail';
 // Páginas protegidas
 import Perfil from '../pages/Perfil';
 import { CadastroProduto } from '../pages/CadastroProduto';
+import { GerenciarProdutos } from '../pages/GerenciarProdutos';
 import { AdminRoute } from '../components/AdminRoute';
 import { ProtectedRoute } from '../components/ProtectedRoute';
 
@@ -183,6 +184,13 @@ export const AppRoutes = () => {
                     </ProtectedRoute>
                 } />
                 <Route path="/admin/produtos" element={
+                    <AdminRoute>
+                        <PublicRoute>
+                            <GerenciarProdutos />
+                        </PublicRoute>
+                    </AdminRoute>
+                } />
+                <Route path="/admin/produtos/cadastrar" element={
                     <AdminRoute>
                         <PublicRoute>
                             <CadastroProduto />

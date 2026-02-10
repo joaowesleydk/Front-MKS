@@ -77,7 +77,7 @@ export const Login = () => {
 
   return (
     <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
-      <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-purple-50 via-pink-50 to-blue-50 p-4">
+      <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-purple-50 via-pink-50 to-blue-50 p-4 pt-46">
         <div className="bg-white/90 backdrop-blur-xl p-6 md:p-8 rounded-2xl md:rounded-3xl shadow-2xl w-full max-w-md border border-white/20">
           <div className="text-center mb-6 md:mb-8">
             <div className="w-12 h-12 md:w-16 md:h-16 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center mx-auto mb-3 md:mb-4">
@@ -134,7 +134,8 @@ export const Login = () => {
             </div>
           </div>
 
-          <div className="flex justify-center">
+          {/* Temporariamente desabilitado - erro 403 */}
+          {/* <div className="flex justify-center">
             <GoogleLogin
               onSuccess={handleGoogleSuccess}
               onError={handleGoogleError}
@@ -143,7 +144,7 @@ export const Login = () => {
               useOneTap={false}
               auto_select={false}
             />
-          </div>
+          </div> */}
 
 
 

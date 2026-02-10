@@ -1,39 +1,31 @@
-import api from './api';
+import axios from 'axios';
+
+const API_URL = import.meta.env.VITE_API_URL;
+
+const api = axios.create({
+  baseURL: `${API_URL}/api`,
+  headers: {
+    'Content-Type': 'application/json',
+  },
+});
 
 export const authService = {
-  // Login tradicional
   login: async (credentials) => {
-    const response = await api.post('/api/auth/login', credentials);
+    const response = await api.post('/auth/login', credentials);
     return response.data;
   },
   
-  // Login com Google
-  googleLogin: async (credential) => {
-    const response = await api.post('/api/auth/google', { credential });
-    return response.data;
-  },
-  
-  // Registro
   register: async (userData) => {
-    const response = await api.post('/api/auth/register', userData);
+    const response = await api.post('/auth/register', userData);
     return response.data;
   },
   
-  // Logout
+  googleLogin: async (credential) => {
+    const response = await api.post('/auth/google', { credential });
+    return response.data;
+  },
+  
   logout: async () => {
-    const response = await api.post('/api/auth/logout');
-    return response.data;
-  },
-  
-  // Verificar token
-  verifyToken: async () => {
-    const response = await api.get('/api/auth/verify');
-    return response.data;
-  },
-  
-  // Refresh token
-  refreshToken: async () => {
-    const response = await api.post('/api/auth/refresh');
-    return response.data;
+    return { success: true };
   }
 };

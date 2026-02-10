@@ -13,12 +13,18 @@ export const Pagamento = () => {
   const { items, getTotal, clearCart } = useCart();
   const [tempProduct, setTempProduct] = useState(null);
   
-  // Verificar se há produto temporário (compra direta)
-  useState(() => {
+  // Verificar se há produto temporário (compra direta) ou itens selecionados da sacola
+  useEffect(() => {
     const temp = localStorage.getItem('tempProduct');
+    const selected = localStorage.getItem('selectedCartItems');
+    
     if (temp) {
       setTempProduct(JSON.parse(temp));
       localStorage.removeItem('tempProduct');
+    } else if (selected) {
+      const selectedItems = JSON.parse(selected);
+      setTempProduct({ isMultiple: true, items: selectedItems });
+      localStorage.removeItem('selectedCartItems');
     }
   }, []);
 
@@ -135,6 +141,12 @@ export const Pagamento = () => {
         external_reference: `pedido_${Date.now()}`
       };
 
+      // Salvar dados do pedido antes de redirecionar
+      localStorage.setItem('lastOrder', JSON.stringify({
+        items: paymentItems,
+        total: paymentTotal
+      }));
+      
       // Criar preferência no Mercado Pago
       const preference = await paymentService.createPreference(orderData);
       
@@ -153,10 +165,17 @@ export const Pagamento = () => {
     }
   };
 
-  // Determinar itens para pagamento (sacola ou produto temporário)
-  const paymentItems = tempProduct ? [{ ...tempProduct, quantidade: 1 }] : items;
-  const subtotal = tempProduct ? 
-    parseFloat(tempProduct.preco.replace('R$', '').replace(',', '.')) : 
+  // Determinar itens para pagamento (sacola selecionada, produto temporário ou sacola completa)
+  const paymentItems = tempProduct?.isMultiple ? tempProduct.items : 
+                       tempProduct ? [{ ...tempProduct, quantidade: 1, id: tempProduct.id || Date.now() }] : 
+                       items;
+  
+  const subtotal = tempProduct?.isMultiple ? 
+    tempProduct.items.reduce((total, item) => {
+      const preco = parseFloat(item.preco.replace('R$', '').replace(',', '.'));
+      return total + (preco * item.quantidade);
+    }, 0) :
+    tempProduct ? parseFloat(tempProduct.preco.replace('R$', '').replace(',', '.')) : 
     getTotal();
   const paymentTotal = subtotal + frete;
 
