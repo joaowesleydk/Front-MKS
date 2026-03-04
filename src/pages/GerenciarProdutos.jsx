@@ -44,7 +44,8 @@ export const GerenciarProdutos = () => {
       const response = await carouselService.getAll();
       setSlides(response.data);
     } catch (error) {
-      console.error('Erro ao carregar slides');
+      // Backend ainda não tem endpoint, usar slides padrão
+      setSlides([]);
     }
   };
 
@@ -55,7 +56,7 @@ export const GerenciarProdutos = () => {
       toast.success('Slide excluído!');
       carregarSlides();
     } catch (error) {
-      toast.error('Erro ao excluir slide');
+      toast.error('Backend não configurado ainda');
     }
   };
 
@@ -74,7 +75,7 @@ export const GerenciarProdutos = () => {
       setFormData({ img: '', titulo: '', preco: '', desconto: '', link: '', gradient: 'linear-gradient(to bottom, #7C3AED, #fff)' });
       carregarSlides();
     } catch (error) {
-      toast.error('Erro ao salvar slide');
+      toast.error('Backend não configurado ainda');
     }
   };
 
