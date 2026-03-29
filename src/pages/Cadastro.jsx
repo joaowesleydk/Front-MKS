@@ -8,7 +8,7 @@ import toast from 'react-hot-toast';
 export const Cadastro = () => {
   const [nome, setNome] = useState("");
   const [email, setEmail] = useState("");
-  const [senha, setSenha] = useState("");
+  const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [acceptTerms, setAcceptTerms] = useState(false);
   const navigate = useNavigate();
@@ -24,7 +24,7 @@ export const Cadastro = () => {
     }
     
     try {
-      const { access_token, user } = await authService.register({ nome, email, password: senha });
+      const { access_token, user } = await authService.register({ nome, email, password });
       localStorage.setItem("token", access_token);
       localStorage.setItem("user", JSON.stringify(user));
       toast.success(`Bem-vindo, ${user.nome}!`);
@@ -89,8 +89,8 @@ export const Cadastro = () => {
                 <div className="relative">
                   <input 
                     type={showPassword ? "text" : "password"}
-                    value={senha} 
-                    onChange={(e) => setSenha(e.target.value)} 
+                    value={password} 
+                    onChange={(e) => setPassword(e.target.value)} 
                     required 
                     className="w-full bg-white/70 border border-gray-200 p-3 md:p-4 rounded-lg md:rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 text-gray-800 placeholder-gray-400 text-sm md:text-base pr-12" 
                     placeholder="Crie uma senha segura" 
