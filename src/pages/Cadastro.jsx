@@ -24,7 +24,7 @@ export const Cadastro = () => {
     }
     
     try {
-      const { access_token, user } = await authService.register({ nome: nome, email, password: password });
+      const { access_token, user } = await authService.register({ nome, email, password: senha });
       localStorage.setItem("token", access_token);
       localStorage.setItem("user", JSON.stringify(user));
       toast.success(`Bem-vindo, ${user.nome}!`);
@@ -154,15 +154,14 @@ export const Cadastro = () => {
             </div>
           </div>
 
-          {/* Temporariamente desabilitado - erro 403 */}
-          {/* <div className="flex justify-center">
+          <div className="flex justify-center">
             <GoogleLogin 
               onSuccess={handleGoogleSuccess} 
-              onError={() => alert("Erro ao cadastrar com o Google")} 
+              onError={() => toast.error('Erro ao cadastrar com Google')} 
               theme="outline"
               size="large"
             />
-          </div> */}
+          </div>
 
           <div className="text-center mt-6 md:mt-8">
             <span className="text-gray-600 mr-1 text-sm md:text-base">Já tem uma conta?</span>

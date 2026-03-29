@@ -134,8 +134,7 @@ export const Login = () => {
             </div>
           </div>
 
-          {/* Temporariamente desabilitado - erro 403 */}
-          {/* <div className="flex justify-center">
+          <div className="flex justify-center">
             <GoogleLogin
               onSuccess={handleGoogleSuccess}
               onError={handleGoogleError}
@@ -144,7 +143,7 @@ export const Login = () => {
               useOneTap={false}
               auto_select={false}
             />
-          </div> */}
+          </div>
 
 
 
