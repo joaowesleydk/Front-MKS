@@ -24,7 +24,7 @@ export const Cadastro = () => {
     }
     
     try {
-      const { access_token, user } = await authService.register({ nome: nome, email, password: senha });
+      const { access_token, user } = await authService.register({ nome: nome, email, password: password });
       localStorage.setItem("token", access_token);
       localStorage.setItem("user", JSON.stringify(user));
       toast.success(`Bem-vindo, ${user.nome}!`);
